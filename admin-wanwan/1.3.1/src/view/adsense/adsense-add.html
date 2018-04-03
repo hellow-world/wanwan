@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <%= require('html-loader!../layout/lib-froala.html') %>
+        <title>添加广告位</title>
+        <script src="https://dn-bts.qbox.me/sdk/bugtags-1.0.3.js"></script>
+        <script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> 运营管理
+        <span class="c-gray en">&gt;</span> 广告位添加
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <a class="btn btn-primary radius" href="javascript:;" onclick="javascript:history.back(1);"><i class="Hui-iconfont">&#xe67d;</i> </a>
+        <div tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div>
+                <div id="modalbody" class="modal-body">
+                    <form class="form form-horizontal" id="form-adsense-add" style="margin-right: 30px;margin-left: 3%">
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>广告名称：
+                                <input type="text" name="adName" id="adsense_name" placeholder="广告名称" style="width:50%" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>广告位置：<span class="select-box" style="width: 50%;margin-left: 3px;">
+                                <select class="select" size="1" id="adsense_location" name="adLocation">
+                                    <option value="0" selected>请选择广告位置</option>
+                                    <option value="1">banner位</option>
+                                    <option value="2">二级广告位</option>
+                                    <option value="3">热门活动</option>
+                                    <option value="4">推荐商品-大图</option>
+                                    <option value="5">推荐商品-小图</option>
+                                </select>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>权限分组：<span class="select-box" style="width: 50%;margin-left: 3px;">
+                                <select class="select" size="1" id="powerUser" name="power">
+                                    <option value="1">全部</option>
+                                    <option value="2">玩玩会员</option>
+                                    <option value="2">歌林业主</option>
+                                    <option value="3">歌林员工</option>
+                                </select>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>广告排序：
+                                <input type="text" name="adsortNum" id="adsense_sort" placeholder="排序1~5" style="width:50%;" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>主标题：
+                                <input type="text" name="adTitle" id="adsense_title" placeholder="10个字以内" maxlength="10" style="width:50%;margin-left: 13px;" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>副标题：
+                                <input type="text" id="adsense_subtitle" placeholder="6个字以内" maxlength="6" style="width:50%;margin-left: 13px;" class="input-text" name="adSubTitle">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>开始时间：</label>
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="adsense_start_time" name="startTime" class="input-text Wdate" style="width:160px;">
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>到期时间：</label>
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="enrol_start_time" name="endTime" class="input-text Wdate" style="width:160px;">
+                        </div>
+                        <div class="row cl">
+                            <label class="">上线/下线：</label>
+                            <input type="radio" name="isOnline" id="adOn" value="1" /> 上线
+                            <input type="radio" name="isOnline" id="adOff" value="0" /> 下线
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>广告图片：</label>
+                            <div style="margin-left: 77px" id="inputPic">
+                                <div class="img-container" id="titlePicContainer"></div>
+                                <input class="img-btn" type="file" id="titlePic" name="advertImg">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label><span class="c-red">*</span>广告内容:</label>
+                            广告内容类型：<span class="dis-none adContentType adContent"></span> 广告内容ID：
+                            <span class="dis-none adContentId adContent"></span>
+                            <input class="btn radius btn-primary" id="btnSel" value="选择文件" type="button">
+                        </div>
+                        <div class="row cl">
+                            <label class="fl">广告备注：</label>
+                            <textarea name="adRemark" id='adsense_content' cols="30" rows="10" placeholder="请在这里填写广告备注" style="width:300px;border: 1px solid #000;padding: 5px 5px;font-size: 14px;"></textarea>
+                        </div>
+                        <div class="row cl" id="addSubmitBtn">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left:24%">
+                                <input class="btn btn-primary radius" readonly="readonly" id='addSubmit' value="提交添加" onclick="adsenseSubmit()">
+                            </div>
+                        </div>
+                        <div class="row cl" id="editSubmitBtn">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left:24%">
+                                <input class="btn btn-primary radius" readonly="readonly" id="editSubmit" value="提交编辑" onclick="editAdsenseSubmit()">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">选择商品</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
+                </div>
+                <div class="modal-body">
+                    <label class="">
+                        <span class="select-box" style="width: 20%;margin-left: 0px;">
+                            <select class="select" size="1" id="adsense_type" name="adContentType">
+                                <option value="0" selected>类型筛选</option>
+                                <option value="1">活动</option>
+                                <option value="2">卡券</option>
+                                <option value="3">竞猜</option>
+                                <option value="4">评选</option>
+                            </select>
+                        </span>
+                    </label>
+                    <label class="">
+                        <input type="text" placeholder="商品名称搜索" class="input-text" style="width: 40%;margin-left: 20px;" id="sel_input">
+                    </label>
+                    <button name="" class="btn btn-success" id="btnselSubmit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+                    <table class="table table-border table-bordered table-bg table-hover table-sort" style="margin-top: 20px;">
+                        <thead>
+                            <tr class="text-c">
+                                <th>ID</th>
+                                <th>名称</th>
+                                <th>发布时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="selCardbody">
+                            <tr class="text-c">
+                                <td class="card_id">15686</td>
+                                <td class="card_name">怪兽大国林</td>
+                                <td>2014-6-11 11:11:42</td>
+                                <td>
+                                    <a title="选择" href="javascript:;" class="ml-5 btn_select" style="text-decoration:none"><i class="Hui-iconfont">&#xe6a7;</i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="pageNav" class="pageNav"></div>
+                    <div id="page" align="center" class="page_div"></div>
+                </div>
+                <div class="modal-footer">
+                    
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-select-confirm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">广告位</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <p>是否选择当前选项为广告位</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="direction">
+    <div class="banner gray">
+        <span>Banner</span>
+    </div>
+    <div class="second">
+        <div class="block gray" style="float: left;"><span>二级广告位</span></div>
+        <div class="block gray"><span>二级广告位</span></div>
+    </div>
+    <div class="third gray">
+        <span>热门活动</span>
+    </div>
+    <div class="third gray">
+        <span>热门活动</span>
+    </div>
+    <div class="forth gray">
+        <span>推荐商品大图</span>
+    </div>
+    <div class="fifth">
+        <div class="block gray"><span>推荐商品小图</span></div>
+        <div class="block gray"><span>推荐商品小图</span></div>
+    </div>
+</div>
+    <%= require('html-loader!../layout/js-huiandfroala.html') %>
+        <script type="text/javascript" src="../../lib/picreview.js"></script>
+</body>
+
+</html>

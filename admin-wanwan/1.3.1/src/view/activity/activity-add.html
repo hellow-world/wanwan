@@ -1,0 +1,129 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+    <%= require('html-loader!../layout/lib-froala.html') %>
+        <%= require('html-loader!../layout/lib-head.html') %>
+            <title>活动添加</title>
+</head>
+<script src="https://dn-bts.qbox.me/sdk/bugtags-1.0.3.js"></script>
+<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.js"></script>
+
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> 活动管理
+        <span class="c-gray en">&gt;</span> 活动添加
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <a class="btn btn-primary radius" href="javascript:;" onclick="javascript:history.back(1);"><i class="Hui-iconfont">&#xe67d;</i> </a>
+        <div tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div>
+                <div id="modalbody" class="modal-body">
+                    <div class="form form-horizontal" id="form-member-add" style="margin-right: 30px;margin-left: 3%">
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>活动名称：
+                                <input type="text" name="" id="activity_title" placeholder="活动名称" style="width:50%" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class="">活动简介：
+                                <input type="text" name="" id="activity_introduce" placeholder="活动简介限制39个字" maxlength='39' style="width:50%;margin-left: 6px;" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>活动地点：
+                                <input type="text" name="" id="activity_place" style="width:50%" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>权限分组：<span class="select-box" style="width: 50%;margin-left: 3px;">
+                                <select class="select" size="1" id="powerUser" name="power">
+                                    <option value="1">全部</option>
+                                    <option value="2">玩玩会员</option>
+                                    <option value="2">歌林业主</option>
+                                    <option value="3">歌林员工</option>
+                                </select>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>是否推送：
+                                <input type="checkbox" checked="checked" onclick="onClickHander(this)" id="is_pushed">&nbsp;
+                                <input type="text" name="" id="notify_content" placeholder="输入推送内容" style="width:48.7%;" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl" id="push_time_div">
+                            <label class=""><span class="c-red"></span><span style="margin-left: 6.2%"></span></label>
+                            <input type="text" placeholder="选择推送时间" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="push_time" class="input-text Wdate" style="width:160px;">
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>支付方式：<span class="select-box" style="width: 50%;margin-left: 0">
+								<select class="select" size="1" id="enrol_currency" name="city">
+									<option value="" selected>请选择支付方式</option>
+									<option value="2">绿豆</option>
+									<option value="1">钱包</option>
+								</select>
+								</span>
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>货币数量：
+                                <input type="text" name="" id="money_number" style="width:50%" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>人数上限：
+                                <input type="text" name="" id="activity_number_people" style="width:50%" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>开始时间：</label>
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activity_start_time" class="input-text Wdate" style="width:160px;"> &nbsp;&nbsp;-&nbsp;&nbsp;
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activity_end_time" class="input-text Wdate" style="width:160px;">
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>报名时间：</label>
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="enrol_start_time" class="input-text Wdate" style="width:160px;"> &nbsp;&nbsp;-&nbsp;&nbsp;
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="enrol_end_time" class="input-text Wdate" style="width:160px;">
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>列表图片(670x824)：</label>
+                            <form enctype="multipart/form-data" method="post" id="titlePicForm">
+                                <div style="margin-left: 77px">
+                                    <div class="img-container-voteTitle" id="titlePicContainer"></div>
+                                    <input class="img-btn-voteTitle" type="file" id="titlePic">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>封面图片(750x900)：</label>
+                            <div style="margin-left: 77px">
+                                <div class="img-container-activity" id="coverPicContainer"></div>
+                                <input class="img-btn-activity" type="file" id="coverPic">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="">活动介绍：</label>
+                            <div id='activity_content' style="margin-top: 10px;margin-left: 77px; width:709px;"></div>
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left: 22%">
+                                <span id="Tip" style="color: red"></span>
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left: 20%">
+                                <input class="btn btn-primary radius" readonly="readonly" value="提交" id="addSubmit">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%= require('html-loader!../layout/js-huiandfroala.html') %>
+        <script type="text/javascript" src="../../lib/picreview.js"></script>
+</body>
+
+</html>

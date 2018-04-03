@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        年底活动签到
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="css/signup.css">
+    <link rel="stylesheet" type="text/css" href="css/media.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css"> -->
+    
+    <link rel="stylesheet" type="text/css" th:attr="href=${#request.contextPath + '/lottery-sceen/css/signup.css'}" />
+    <link rel="stylesheet" type="text/css" th:attr="href=${#request.contextPath + '/lottery-sceen/css/media.css'}" />
+    <link rel="stylesheet" type="text/css" th:attr="href=${#request.contextPath + '/lottery-sceen/css/swiper-3.4.2.min.css'}" />
+    <link rel="stylesheet" type="text/css" th:attr="href=${#request.contextPath + '/lottery-sceen/css/reset.css'}" />
+    <link rel="stylesheet" type="text/css" th:attr="href=${#request.contextPath + '/lottery-sceen/css/addstyle.css'}" />
+    
+    <link rel="stylesheet" type="text/css" th:attr="href=${#request.contextPath + '/h-ui/css/H-ui.min.css'}" />
+	<link rel="stylesheet" type="text/css" th:attr="href=${#request.contextPath + '/h-ui.admin/css/H-ui.admin.css'}" />
+	<link rel="stylesheet" type="text/css" th:attr="href=${#request.contextPath + '/lib/Hui-iconfont/1.0.8/iconfont.css'}"/>
+	<link rel="stylesheet" type="text/css" th:attr="href=${#request.contextPath + '/h-ui.admin/skin/default/skin.css'}" id="skin" />
+	<link rel="stylesheet" type="text/css" th:attr="href=${#request.contextPath + '/h-ui.admin/css/style.css'}" />
+</head>
+<script type="text/javascript">
+ var basePath = '[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]';
+</script>
+<body>
+    <!--中奖展示页面-->
+    <div id="layer_winner">
+        <!--容器-->
+        <div class="bg_box" style="position:relative;z-index:10;">
+        <!--彩-->
+        <div class="colorful"></div>
+            <!--标题-->
+            <div class="titleimg"></div>
+            <!--头像-->
+            <div id="winner" style="position:relative;z-index:11;">
+                <ul>
+                   <!--  <li>
+                        <div class="winnerphoto"><img th:attr="src=${#request.contextPath + '/lottery-sceen/pic/luckdraw/winning/userphoto_lucky01.png'}" ></div>
+                        <div class="winnername">Meumeu</div>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <div id="Bigbox">
+        <div class="layer-li">
+            <div id="sign_box" class="layer_box">
+                <!--签到展示页面-->
+                <div class="signup">
+                    <div class="signtitle">
+                        <span>签到墙(已签到<a href="javascript:void;" id="signed_num" style="color: white">0</a>人)</span>
+                    </div>
+                    <!--签到头像-->
+                    <div id="pic_box">
+                        <ul id="signUl">
+                            <li>
+                               <!-- <div class="photo"><img th:attr="src=${#request.contextPath + '/lottery-sceen/pic/signup/userphoto01.png'}" ></div>
+                                <div class="name">Meumeu</div>-->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--二维码扫描-->
+        <div class="layer-li">
+            <div id="scan_box" class="layer_box">
+                <div class="scan">
+                    <div><span class="scantitle">玩玩扫一扫</span></div>
+                    <div class="qr_box qr_box_bk"></div>
+                    <div id="gift_box">
+                        <div class="bd">
+                            <ul>
+                                <li>
+                                    <div class="gift"><img th:attr="src=${#request.contextPath + '/lottery-sceen/pic/scan/gift_01.png'}" alt=""></div>
+                                </li>
+                                <li>
+                                    <div class="gift"><img th:attr="src=${#request.contextPath + '/lottery-sceen/pic/scan/gift_02.png'}"  alt=""></div>
+                                </li>
+                                <li>
+                                    <div class="gift"><img th:attr="src=${#request.contextPath + '/lottery-sceen/pic/scan/gift_03.png'}" alt=""></div>
+                                </li>
+                                <li>
+                                    <div class="gift"><img th:attr="src=${#request.contextPath + '/lottery-sceen/pic/scan/gift_04.png'}" alt=""></div>
+                                </li>
+                                <li>
+                                    <div class="gift"><img th:attr="src=${#request.contextPath + '/lottery-sceen/pic/scan/gift_05.png'}" alt=""></div>
+                                </li>
+                                <li>
+                                    <div class="gift"><img th:attr="src=${#request.contextPath + '/lottery-sceen/pic/scan/gift_06.png'}" alt=""></div>
+                                </li>
+                                <li>
+                                    <div class="gift"><img th:attr="src=${#request.contextPath + '/lottery-sceen/pic/scan/gift_07.png'}" alt=""></div>
+                                </li>
+                                 <li>
+                                    <div class="gift"><img th:attr="src=${#request.contextPath + '/lottery-sceen/pic/scan/gift_08.png'}" alt=""></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--抽奖-->
+        <div class="layer-li">
+            <div id="luck_box" class="layer_box">
+                <div class="luckdraw">
+                    <!--展示-->
+                    <div><span class="lucktitle">现场抽奖</span></div>
+                    <div class="bg_nomal"><span>大奖快到碗里来~</span></div>
+                    <div class="winner">
+                        <ul id="lotteryDrawUl">
+                         	<li class='draw_li' data_index='' data_user=''><img src='https://wanwan.citygreen-china.com:8444/resource/img/common/6773bc24932248a795f4510843e257c0.jpg' ><span>??????</span></li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="choose">
+                    <!--筛选-->
+                    <div id="grade">
+                        <!--等级-->
+                        <span class="select">请选择奖品等级</span>
+                        <ul id="awardUl" style="height: 350px; overflow: scroll">
+                            <li class="option" data-nothing="1" data-group="1" onclick="liclick(this)">一等奖：Macbook Pro 15</li>
+                            <li class="option">二等奖：IPhone X</li>
+                            <li class="option">三等奖：3000 RMB</li>
+                            <li class="option">四等奖：富士mini90</li>
+                        </ul>
+                    </div>
+                    <div id="number">
+                        <!--数量-->
+                        <div class="reduce"></div>
+                        <span class="giftnum" id="gift_num">1</span>
+                        <div class="plus"></div>
+                    </div>
+                    <div id="image">
+                        <!--奖品图片-->
+                          <img id="awardImg" th:attr="src=${#request.contextPath + '/lottery-sceen/pic/luckdraw/pic_gift.png'}" alt="">
+<!--                         <img src="pic/luckdraw/pic_gift.png" alt="">
+ -->                    </div>
+                    <!--开始/暂停按钮-->
+                    <div id="btn_draw" onclick="drawLottery(this)">开始抽奖</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--页面切换按钮-->
+    <button id="btn_left"></button>
+    <button id="btn_right"></button>
+    <!--当前页面提示-->
+    <div id="dots">
+        <div class="dots_normal dots_on"></div>
+        <div class="dots_normal"></div>
+        <div class="dots_normal"></div>
+    </div>
+    
+   <!-- 提示对话框 -->
+<div id="Tips" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="z-index: 1050">
+		<div class="modal-content radius" style="width: 400px;margin:  30% auto;" >
+			<div class="modal-header">
+				<h3 class="modal-title">提示</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<div class="modal-body">
+				<span id="tip"> </span>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">确定</button>
+			</div>
+		</div>
+	</div>
+</div> 
+    
+<!--     <script src="js/jquery1.42.min.js"></script> -->
+    <script type="text/javascript" th:attr="src=${#request.contextPath + '/lib/jquery/1.9.1/jquery.js'}"></script> 
+    <script type="text/javascript" th:attr="src=${#request.contextPath + '/h-ui/js/H-ui.js'}"></script> 
+
+    <script type="text/javascript" th:attr="src=${#request.contextPath + '/lottery-sceen/js/swiper-3.4.2.jquery.min.js'}"></script> 
+    <script type="text/javascript" th:attr="src=${#request.contextPath + '/lottery-sceen/js/jquery.SuperSlide.2.1.1.js'}"></script> 
+    <script type="text/javascript" th:attr="src=${#request.contextPath + '/lottery-sceen/js/main.js'}"></script> 
+    <script type="text/javascript" th:attr="src=${#request.contextPath + '/lottery-sceen/js/common_ajax.js'}"></script> 
+    
+    <script type="text/javascript" th:attr="src=${#request.contextPath + '/js-manager/jackpots/jackpots-signsceen.js'}"></script> 
+    <script type="text/javascript" th:attr="src=${#request.contextPath + '/js-web/errorcode.js'}"></script>
+	<script type="text/javascript" th:attr="src=${#request.contextPath + '/js-web/utils.js'}"></script>
+</body>
+
+</html>
