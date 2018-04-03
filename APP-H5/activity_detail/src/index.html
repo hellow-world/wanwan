@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="Cache-Control" content="private">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+    ! function(e) {
+        function t(a) { if (i[a]) return i[a].exports; var n = i[a] = { exports: {}, id: a, loaded: !1 }; return e[a].call(n.exports, n, n.exports, t), n.loaded = !0, n.exports }
+        var i = {};
+        return t.m = e, t.c = i, t.p = "", t(0)
+    }([function(e, t) {
+        "use strict";
+        Object.defineProperty(t, "__esModule", { value: !0 });
+        var i = window;
+        t["default"] = i.flex = function(normal, e, t) {
+            var a = e || 100,
+                n = t || 1,
+                r = i.document,
+                o = navigator.userAgent,
+                d = o.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i),
+                l = o.match(/U3\/((\d+|\.){5,})/i),
+                c = l && parseInt(l[1].split(".").join(""), 10) >= 80,
+                p = navigator.appVersion.match(/(iphone|ipad|ipod)/gi),
+                s = i.devicePixelRatio || 1;
+            p || d && d[1] > 534 || c || (s = 1);
+            var u = normal ? 1 : 1 / s,
+                m = r.querySelector('meta[name="viewport"]');
+            m || (m = r.createElement("meta"), m.setAttribute("name", "viewport"), r.head.appendChild(m)), m.setAttribute("content", "width=device-width,user-scalable=no,initial-scale=" + u + ",maximum-scale=" + u + ",minimum-scale=" + u), r.documentElement.style.fontSize = normal ? "50px" : a / 2 * s * n + "px"
+        }, e.exports = t["default"]
+    }]);
+    flex(false, 100, 1);
+    </script>
+    <!--  <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script> -->
+    <title>活动详情</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <script type="text/javascript" src="./lib/jquery-2.1.1.min.js"></script>
+</head>
+
+<body>
+    <div id="head">
+        <div class="titleImg">
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            <img src="image/Group 4.png">
+        </div>
+        <span class="signupNum">
+            <a href="javascript:void(0);" id="postedNum">86510</a>人已参加</span>
+        <span class="title">苏州拳王争霸赛</span>
+        <span class="subTitle">艾尔亚昆塔 VS 保罗菲尔德 轻量级对，快来报名参与吧！</span>
+    </div>
+    <div id="tipInfo">
+        <ul>
+            <li class="time">活动时间：<a href="javascript:void(0);" id="startTime">8月8日</a>-<a href="javascript:void(0)" id="endTime">9月1日</a></li>
+            <li class="address">活动地点：<a href="javascript:void(0);" id="place">江苏省苏州市吴郡路与禹贡路交叉</a></li>
+        </ul>
+    </div>
+    <!-- 上半部分结束 -->
+    <div id="Content">
+        <div class="input_content" style="padding-bottom: 0.2rem;">
+            <span>夏光明媚,夏光融融,天空一碧如洗,偶尔几朵白云飘在蓝蓝的天空上,像棉花糖,让人刹是嘴馋.山水,花鸟间一片祥和,温暖的亮堂。
+            </span>
+            <br/>
+            <img src="image/ac_details_about.png">
+            <br/>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/common.js"></script>
+</body>
+
+</html>

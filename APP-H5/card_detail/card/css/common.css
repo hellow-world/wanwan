@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #fff;
+  font-family: normal;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+#head {
+  background-color: #fff;
+  width: 100%;
+  height: 9rem;
+  overflow: hidden;
+  position: relative;
+}
+#head .titleImg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+}
+#head .titleImg img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#head .signupNum {
+  display: inline-block;
+  position: absolute;
+  font-size: 0.3rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 0.28rem;
+  top: 0.64rem;
+  left: 0.4rem;
+  z-index: 2;
+  font-family: PingFangSC;
+}
+#head .signupNum a {
+  color: inherit;
+}
+#head .title {
+  position: absolute;
+  color: #fff;
+  z-index: 2;
+  font-size: 0.56rem;
+  font-weight: bold;
+  left: 0.4rem;
+  top: 1.06rem;
+  display: inline-block;
+}
+#head .subTitle {
+  display: block;
+  position: absolute;
+  color: #fff;
+  z-index: 1;
+  font-size: 0.32rem;
+  max-width: 4.8rem;
+  bottom: 0.4rem;
+  text-align: left;
+  line-height: 0.42rem;
+  left: 0.4rem;
+}
+/*通用三行的样式*/
+#tipInfo {
+  width: 94.67%;
+  background-color: #fff;
+  min-height: 1.61rem;
+  max-height: 999px;
+  margin: 0 auto;
+  background: #ffffff;
+  -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  font-size: 0.3rem;
+  color: #4A4A4A;
+  padding: 0.11rem 0.2rem 0.16rem 0.2rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#tipInfo ul li {
+  line-height: 0.4rem;
+  font-size: 0.3rem;
+}
+#tipInfo ul li a {
+  font-size: 0.3rem;
+}
+/*修改部分结束*/
+#Content {
+  position: relative;
+  top: 0rem;
+  background-color: #fff;
+  width: 100%;
+  height: auto;
+}
+#Content .input_content {
+  position: relative;
+  padding: 0.4rem 0.45rem 0 0.45rem;
+  text-align: justify;
+  font-size: 0.3rem;
+  color: #838387;
+  line-height: 0.42rem;
+}
+#Content .input_content img {
+  width: 100%;
+}

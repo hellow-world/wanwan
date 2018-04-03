@@ -1,0 +1,191 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #fff;
+    font-family: normal;
+}
+
+li {
+    list-style: none;
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+    
+}
+#head {
+    background-color: #fff;
+    width: 100%;
+    height: 9rem;
+    position: relative;
+
+    .titleImg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 0;
+        img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    }
+    .signupNum
+    {
+    	display: inline-block;
+    	position: absolute;
+    	font-size: 0.3rem;
+    	color: rgba(255,255,255,.7);
+    	line-height: 0.28rem;
+    	top: 0.64rem;
+    	left: 0.4rem;
+    	z-index: 2;
+    	font-family: PingFangSC;
+        a
+        {
+            color: inherit;
+        }
+    }
+    .title {
+        position: absolute;
+        color: #fff;
+        z-index: 2;
+        font-size: 0.56rem;
+        font-weight: bold;
+        left: 0.4rem;
+        top: 1.06rem;
+        display: inline-block;
+    }
+    .subTitle {
+        display: block;
+        position: absolute;
+        color: #fff;
+        z-index: 1;
+        font-size: 0.32rem;
+
+        max-width: 4.8rem;
+        bottom: 0.4rem;
+        text-align: left;
+        line-height: 0.42rem;
+        left: 0.4rem;
+    }
+}
+
+
+/*通用三行的样式*/
+
+#tipInfo {
+    width: 94.67%;
+    background-color: #fff;
+    max-height:999px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    margin-top: 0.8rem;
+    margin-bottom: 0.2rem;
+    font-size: 0.3rem;
+    color: #4A4A4A;
+    padding: 0.11rem 0.2rem 0.16rem 0.2rem;
+    box-sizing: border-box;
+    height: auto;
+    ul
+    {
+    	li
+    	{
+			line-height: 0.4rem;
+            font-size: 0.3rem;
+            a
+            {
+                font-size: 0.3rem;
+            }
+    	}
+    }
+}
+/*修改部分结束*/
+
+#Content {
+    position: relative;
+    top: 0rem;
+    background-color: #fff;
+    width: 100%;
+    height: auto;
+    .input_content
+    {
+    	position: relative;
+    	padding: 0.4rem 0.45rem 0.2rem 0.45rem;
+    	text-align: justify;
+    	font-size: 0.3rem;
+    	color: #838387;
+    	line-height: 0.42rem;
+    	img
+    	{
+    		width: 100%;
+    	}
+    }
+}
+.lds-ellipsis {
+  display: block;
+  position: relative;
+  width: 0.94rem;
+  height: 0.94rem;
+  margin: 0 auto;
+    top: 4.5rem;
+}
+.lds-ellipsis div {
+  position: absolute;
+
+  width: 0.2rem;
+  height: 0.2rem;
+  border-radius: 50%;
+  background: #498B07;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 0.08rem;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 0.08rem;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 0.36rem;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 0.6rem;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0.28rem, 0);
+  }
+}
