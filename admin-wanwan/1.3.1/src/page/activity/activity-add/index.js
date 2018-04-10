@@ -2,8 +2,9 @@
  * @Author: admin
  * @Date:   2018-02-05 10:02:49
  * @Last Modified by:   admin
- * @Last Modified time: 2018-03-29 17:38:16
+ * @Last Modified time: 2018-04-10 10:40:38
  */
+require('./index.css')
 var config = require('service/config.js')
 var _encode = require('service/errorcode.js')
 var _utils = require('util/utils.js')
@@ -24,6 +25,7 @@ $(function() {
     selRoleList();
 
 });
+
 
 function selRoleList()
 {
