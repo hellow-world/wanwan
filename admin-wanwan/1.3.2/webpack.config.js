@@ -1,8 +1,8 @@
 /*
  * @Author: admin
  * @Date:   2018-01-29 11:05:21
- * @Last Modified by:   John
- * @Last Modified time: 2018-04-08 10:04:08
+ * @Last Modified by:   admin
+ * @Last Modified time: 2018-04-12 11:32:34
  */
 var webpack = require('webpack')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
@@ -37,6 +37,7 @@ var config = {
         'members/member-select':['./src/page/members/member-select/index.js'],
         //活动管理
         'activity/activity-publish': ['./src/page/activity/activity-publish/index.js'],
+        'activity/activity-publisher': ['./src/page/activity/activity-publisher/index.js'],
         // 'activity/activity-edit'   : ['./src/page/activity/activity-edit/index.js'],
         'activity/activity-add': ['./src/page/activity/activity-add/index.js'],
         //奖池设置
@@ -138,6 +139,7 @@ var config = {
         new HtmlWebpackPlugin(getHtmlConfig('activity/activity-add', '活动添加')),
         // new HtmlWebpackPlugin(getHtmlConfig('activity/activity-edit','活动编辑')),
         new HtmlWebpackPlugin(getHtmlConfig('activity/activity-publish', '活动发布')),
+        new HtmlWebpackPlugin(getHtmlConfig('activity/activity-publisher', '活动发布者')),
         new HtmlWebpackPlugin(getHtmlConfig('jackpots/jackpot-sel', '奖池设置')),
         new HtmlWebpackPlugin(getHtmlConfig('jackpots/jackpot-add', '抽奖编辑')),
         new HtmlWebpackPlugin(getHtmlConfig('guess/guess-sel', '活动竞猜')),

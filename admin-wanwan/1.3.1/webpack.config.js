@@ -1,8 +1,8 @@
 /*
  * @Author: admin
  * @Date:   2018-01-29 11:05:21
- * @Last Modified by:   John
- * @Last Modified time: 2018-04-08 10:04:08
+ * @Last Modified by:   admin
+ * @Last Modified time: 2018-04-11 14:08:18
  */
 var webpack = require('webpack')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
@@ -162,6 +162,6 @@ var config = {
 };
 if ('dev' === WEBPACK_ENV) {
 
-    config.entry.common.push('webpack-dev-server/client?http://localhost:8890/');
+    config.entry.common.push('webpack-dev-server/client?http://localhost:8880/');
 }
 module.exports = config;
