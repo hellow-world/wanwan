@@ -1,8 +1,8 @@
 /*
 * @Author: admin
 * @Date:   2018-02-25 17:06:32
-* @Last Modified by:   admin
-* @Last Modified time: 2018-03-18 17:16:07
+* @Last Modified by:   John
+* @Last Modified time: 2018-04-13 16:10:52
 */
 var config = require('service/config.js')
 var _utils = require('util/utils')
@@ -33,6 +33,7 @@ function selGuess(){
 		  		},
 		  		dataType : "json",
 		  		success : function(result){
+		  			console.log(result)
 		  			if(result.code!=errorcode.REQUEST_SUCCESS)
 		  			{
 		  				alert(result.msg);

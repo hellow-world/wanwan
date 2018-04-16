@@ -1,8 +1,8 @@
 /*
 * @Author: admin
 * @Date:   2018-02-05 10:03:08
-* @Last Modified by:   admin
-* @Last Modified time: 2018-03-28 14:58:57
+* @Last Modified by:   John
+* @Last Modified time: 2018-04-13 16:48:43
 */
 'use strict'
 require('./index.css')
@@ -51,15 +51,16 @@ $(window).load(function(){
 	function selActivityList(){
 		isSearch = false;
 		$.ajax({
-			url : config.basePath + "activity/list",
-			type : "POST",
+			url : config.buildPath + "api-amuse/v1.1/activity",
+			type : "GET",
 			dataType : "json",
+			headers:{'token':config.token},
 			data : {
 				page : pagenum,
-				isFirstSel : isFirstSel,
-				numPerPage:num_perPage
+				pageSize:num_perPage
 			},
 			success : function(result){
+				console.log(result)
 				if(result.code!=_encode.REQUEST_SUCCESS)
 				{
 					alert("no Activity");
@@ -100,14 +101,15 @@ $(window).load(function(){
 	 */
 	function delteActivity(activityId,obj){
 		var formData = new FormData();
-		formData.append("id", activityId);
+		formData.append("activityId", activityId);
 		
 		$.ajax({
-			url : config.basePath + "activity/del",
+			url : config.buildPath + "api-amuse/v1.1/activity/delete",
 			type : "POST",
 			dataType : "json",
 			processData : false,
 			contentType : false,
+			headers:{'token':config.token},
 			data : formData,
 			success : function(result){
 				if(result.code==_encode.REQUEST_SUCCESS){
@@ -136,13 +138,16 @@ $(window).load(function(){
 	function addTdToTable(param,behind){
 		var res = '<tr class="text-c" >'+behind;
 		//for(var key in param )
-		res += "<td>"+param.id+"</td>";
+		res += "<td>"+param.activityId+"</td>";
 		res += "<td>"+config.sponsorName+"</td>";
-		res += "<td>"+param.activityCreateTime+"</td>";
+		res += "<td>"+param.createTime+"</td>";
 		res += "<td>"+param.activityTitle+"</td>";
 		res += "<td>"+"暂时空着"+"</td>";
 		res += "<td>"+"暂时空着"+"</td>";
-		res += "<td>"+"全部"+"</td>";
+		res += "<td>"+param.activityOnlineTime+"</td>";
+		res += "<td>"+onlineState(param.isOnline)+"</td>";
+		res += "<td>"+param.activityIssuerName+"</td>";
+		res += `<td onclick="Details(this)">详情</td>`;
 		if(param.isTop ==1){
 			res += getoperaHtmlnoTop();
 		}else{
@@ -150,12 +155,23 @@ $(window).load(function(){
 		}
 		return res+"</tr>";
 	}
+	var onlineState = (status)=>
+	{
+		if(status==1)
+		{
+			return '上线';
+		}
+		else
+		{
+			return '下线';
+		}
+	}
 	
 	/* 加载数据为每行 */
 	function addTdToTable1(param,behind,end){
 		var res = '<tr class="text-c">'+behind;
 		for(var key in param )
-			res += "<td>"+param[key]+"</td>";
+			res += `<td>${param[key]}</td>`;
 		return res+end+"</tr>";
 	}
 	
