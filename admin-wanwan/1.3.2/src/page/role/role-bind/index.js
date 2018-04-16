@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-03-30 10:45:50
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-02 18:14:10
+ * @Last Modified time: 2018-04-16 18:08:17
  */
 var _config = require('service/config.js')
 var _utils = require('util/utils.js')
@@ -11,6 +11,10 @@ var pageNum = 1; //页码
 var pageSize = 10; //单页查询数量
 
 var publicRoleId; //公用的定义ID
+var repeatKey;
+var telephoneMsg;
+var Excel = require('exceljs');
+var workbook = new Excel.Workbook();
 $(function() {
 
     publicRoleId = _utils.getParams('roleId');
@@ -33,7 +37,8 @@ function selUsers() {
             console.log(res);
             if (res.code !== _encode.REQUEST_SUCCESS) {
                 alert(res.msg)
-            } else {
+            }
+            else {
                 var message = res.result;
                 $('#roleTbody').empty();
                 $('#roleTbody').append(setUsersValue(message));
@@ -66,11 +71,77 @@ function addToTable(param) {
 // 操作栏
 function handleHtml() {
     let res = `<td>`;
-    res += `<a title="删除" href="javascript:void(0);" class="ml-5" onclick="userDel(this)"><i class="Hui-iconfont">&#xe6e2;</i></a>
-            `
+    res += `<a title="编辑" href="javascript:void(0);" class="ml-5" onclick="userEdit(this)"><i class="Hui-iconfont">&#xe6df;</i></a>
+            <a title="删除" href="javascript:void(0);" class="ml-5" onclick="userDel(this)"><i class="Hui-iconfont">&#xe6e2;</i></a>`
     return res + '</td>'
 }
-window.userDel = function(obj) {
+// 用户编辑
+window.userEdit = (obj)=>
+{
+    telephoneMsg = $(obj).parent('td').siblings().eq(3).text();
+    $('#edit-modal').modal('show');
+    $.ajax({
+        url:_config.buildPath + 'api-user/v1.0/role',
+        type:'GET',
+        dataType:'json',
+        headers:{'token':_config.token},
+        success:(res)=>
+        {
+            console.log(res);
+            if(res.code!==_encode.REQUEST_SUCCESS)
+            {
+                alert(res.msg);
+            }
+            else{
+
+                let message = res.result;
+                $('#role_type').empty();
+                $('#role_type').append(setRoleValue(message));
+            }
+        }
+    })
+
+}
+
+var setRoleValue = (param)=>
+{
+    let res = `<option value="0" selected>权限分组</option>`;
+    for (var i = 0; i < param.length; i++) {
+
+        res +=`<option data-id=${param[i].roleId}>${param[i].roleName}</option>`
+    }
+    return res;
+}
+//确认编辑用户
+window.editConfirm = ()=>
+{
+    let id = $('#role_type').find('option:selected').attr('data-id')
+    $.ajax({
+        url:_config.buildPath + 'api-user/v1.0/role/user/update',
+        type:'POST',
+        dataType:'json',
+        headers:{'token':_config.token},
+        data:
+        {
+            roleId:id,
+            telephone:telephoneMsg
+        },
+        success:(res)=>
+        {
+            if(res.code!==_encode.REQUEST_SUCCESS)
+            {
+                alert(res.msg);
+            }
+            else
+            {
+                _utils.modalTip('编辑成功',1000);
+                setTimeout("window.location.reload()", 1000)
+            }
+        }
+    })
+}
+// 用户删除
+window.userDel = (obj)=> {
     let telephone = $(obj).parent('td').siblings().eq(3).text();
     console.log(telephone)
     $.ajax({
@@ -96,6 +167,10 @@ window.userDel = function(obj) {
 }
 // 新增用户
 window.addUsers = function() {
+    cancelExcel();
+
+    $('#telephone').removeAttr("disabled");
+
     $('#addUsersModal').find('.modal-title').html('新增用户')
     $('#addUsersModal').find('.btnRole').val('提交添加')
     $('#telephone').val('');
@@ -108,13 +183,21 @@ window.addUsersSubmit = function() {
         _utils.modalTip('请输入用户手机号');
         return;
     } else if (!_utils.utils_isNull(convertJSON(dataMsg))) {
-        tel = new Array();
+        tel = '';
         for (var i = 0; i < convertJSON(dataMsg).length; i++) {
             let tel_num = convertJSON(dataMsg)[i].telephone;
-            tel.push(tel_num)
+            if(i == convertJSON(dataMsg).length-1)
+            {
+                tel += tel_num;
+            }
+            else
+            {
+                tel += tel_num+',';
+            }
+            
+
         }
         console.log(tel);
-        return;
     }
     $.ajax({
         url: _config.buildPath + 'api-user/v1.0/role/user',
@@ -126,8 +209,16 @@ window.addUsersSubmit = function() {
             telephone: tel
         },
         success: function(res) {
-            console.log(res);
             if (res.code !== _encode.REQUEST_SUCCESS) {
+                if(res.code == 10)
+                {
+                    let repeattion_message = res.msg;
+                    let key = res.result;
+                    handleRepeat();
+                    $('#selRolebody').empty();
+                    $('#selRolebody').append(selRepeatValue(repeattion_message))
+                    return;
+                }
                 alert(res.msg)
             } else {
                 _utils.modalTip('添加用户成功');
@@ -141,7 +232,56 @@ window.addUsersSubmit = function() {
     })
 
 }
-
+var handleRepeat = ()=>
+{
+    $('#repeat-modal').modal('show');
+}
+window.mergeConfirm = ()=>
+{
+    $.ajax({
+        url:_config.buildPath + 'api-user/v1.0/role/user/back',
+        type:'POST',
+        headers:{'token':_config.token},
+        dataType:'json',
+        data:
+        {
+            key:repeatKey
+        },
+        success:(res)=>
+        {
+            console.log(res)
+            if(res.code!==_encode.REQUEST_SUCCESS)
+            {
+                alert(res.msg)
+            }
+            else if(res.code == _encode.REQUEST_SUCCESS)
+            {
+                _utils.modalTip('成功修改用户权限分组')
+                window.location.reload();
+            }
+        },
+        error:(a,b,c)=>
+        {
+            alert(a.status)
+        }
+    })
+}
+function selRepeatValue(param)
+{
+    let jay = JSON.parse(param);
+    let tel = [];
+    for (key in jay)
+    {
+        repeatKey = key;
+        tel = jay[key]
+    }
+    let res = ``;
+    for (var i = 0; i < tel.length; i++) {
+        res+=`<tr class="text-c"><td>${repeatKey}</td>`
+        res+=`<td>${tel[i]}</td></tr>`;
+    }
+    return res;
+}
 function closeModal() {
     $('#telephone').val('');
     $('#addUsersModal').modal('hide');

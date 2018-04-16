@@ -70,7 +70,7 @@
                         </div>
                         <div class="row cl">
                             <label class="form-label col-xs-4 col-sm-3">Excel上传：</label>
-                                <input type="file" id="users_file" onchange="importf(this)">&nbsp;
+                                <input type="file" id="users_file" onchange="importf(this)" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">&nbsp;
                             <a class="btn btn-success radius" style="line-height:1.6em;height: 30px" title="撤销" onclick="cancelExcel()"><i class="Hui-iconfont">&#xe66b;</i></a>
                             <!-- <a style="color: red" onclick="allUsers()"><span id="allSpan">全体</span></a> -->
                         </div>
@@ -89,6 +89,65 @@
                 </div>
                 <div class="modal-footer">
                     <!-- <button class="btn btn-primary">确定</button> -->
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="repeat-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">选择商品</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
+                </div>
+                <div class="modal-body">
+                    <p>以下是存在冲突的权限分组及手机号:</p>
+                    <table class="table table-border table-bordered table-bg table-hover table-sort" style="margin-top: 20px;">
+                        <thead>
+                            <tr class="text-c">
+                                <th>已存在分组</th>
+                                <th>手机号</th>
+                            </tr>
+                        </thead>
+                        <tbody id="selRolebody">
+                            <tr class="text-c">
+                                <td class="card_id">黑金会员</td>
+                                <td class="card_name">18896527107</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="c-red">备注：按下确定的那一刻，默认为将已冲突用户强制编入当前分组！</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="mergeConfirm();">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">编辑用户</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
+                </div>
+                <div class="modal-body">
+                    <label class="">
+                        <span class="select-box" style="width: 20%;margin-left: 0px;">
+                            <select class="select" size="1" id="role_type" name="roleType">
+                                <option value="0" selected>权限分组</option>
+                                <option value="1">活动</option>
+                                <option value="2">卡券</option>
+                                <option value="3">竞猜</option>
+                                <option value="4">评选</option>
+                            </select>
+                        </span>
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="editConfirm();">确定</button>
                     <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
                 </div>
             </div>

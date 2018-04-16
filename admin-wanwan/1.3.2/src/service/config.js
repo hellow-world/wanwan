@@ -2,11 +2,11 @@
 * @Author: admin
 * @Date:   2018-01-31 14:34:05
 * @Last Modified by:   admin
-* @Last Modified time: 2018-04-09 15:35:42
+* @Last Modified time: 2018-04-16 12:02:55
 */
 var config = {
 
-	basePath : 'https://wanwan.citygreen-china.com:8445/',
+	basePath : 'https://wanwan.citygreen-china.com:8445/',//内网
 	//basePath : 'https://wanwan.citygreen-china.cn:8445/',
 
 	buildPath: 'https://api.wanwantech.cn:18443/',
