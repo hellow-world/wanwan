@@ -1,8 +1,8 @@
 /*
 * @Author: admin
 * @Date:   2018-02-05 10:03:08
-* @Last Modified by:   John
-* @Last Modified time: 2018-04-13 16:48:43
+* @Last Modified by:   admin
+* @Last Modified time: 2018-04-18 16:16:40
 */
 'use strict'
 require('./index.css')
@@ -113,7 +113,7 @@ $(window).load(function(){
 			data : formData,
 			success : function(result){
 				if(result.code==_encode.REQUEST_SUCCESS){
-					modalalert("已成功删除活动");
+					_utils.modalTip("已成功删除活动",500);
 					$(obj).parent().parent().remove();
 				}else{
 					alert(result.msg);
@@ -223,8 +223,17 @@ $(window).load(function(){
 	
 	/* 活动删除 */
 	$('#actTbody').on('click','.setDel',function(){
-		console.log('活动删除')
-		activity_del(this);
+		let _this = this;
+		layer.open({
+			title:'提醒',
+			content:'是否删除该活动',
+			yes:function(index)
+			{
+				activity_del(_this);
+				layer.close(index);
+			}
+		})
+		
 	})
 	function activity_del(obj){
 		var $td= $(obj).parents('tr').children('td');  
@@ -538,5 +547,12 @@ $(window).load(function(){
 				alert(a.status);
 			}
 		});
+	}
+	// 查看权限设置
+	window.scanPower = ()=>
+	{
+		$('#scanPower-modal').modal('show');
+		$('#scanPower-modal').find('input[type=text]').attr('readonly','readonly')
+		$('#scanPower-modal').find('input[type=radio]').attr('disabled','disabled')
 	}
 

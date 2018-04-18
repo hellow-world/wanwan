@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-03-30 10:45:50
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-16 18:08:17
+ * @Last Modified time: 2018-04-17 11:21:07
  */
 var _config = require('service/config.js')
 var _utils = require('util/utils.js')
@@ -13,8 +13,7 @@ var pageSize = 10; //单页查询数量
 var publicRoleId; //公用的定义ID
 var repeatKey;
 var telephoneMsg;
-var Excel = require('exceljs');
-var workbook = new Excel.Workbook();
+
 $(function() {
 
     publicRoleId = _utils.getParams('roleId');
@@ -37,8 +36,7 @@ function selUsers() {
             console.log(res);
             if (res.code !== _encode.REQUEST_SUCCESS) {
                 alert(res.msg)
-            }
-            else {
+            } else {
                 var message = res.result;
                 $('#roleTbody').empty();
                 $('#roleTbody').append(setUsersValue(message));
@@ -76,23 +74,19 @@ function handleHtml() {
     return res + '</td>'
 }
 // 用户编辑
-window.userEdit = (obj)=>
-{
+window.userEdit = (obj) => {
     telephoneMsg = $(obj).parent('td').siblings().eq(3).text();
     $('#edit-modal').modal('show');
     $.ajax({
-        url:_config.buildPath + 'api-user/v1.0/role',
-        type:'GET',
-        dataType:'json',
-        headers:{'token':_config.token},
-        success:(res)=>
-        {
+        url: _config.buildPath + 'api-user/v1.0/role',
+        type: 'GET',
+        dataType: 'json',
+        headers: { 'token': _config.token },
+        success: (res) => {
             console.log(res);
-            if(res.code!==_encode.REQUEST_SUCCESS)
-            {
+            if (res.code !== _encode.REQUEST_SUCCESS) {
                 alert(res.msg);
-            }
-            else{
+            } else {
 
                 let message = res.result;
                 $('#role_type').empty();
@@ -103,45 +97,38 @@ window.userEdit = (obj)=>
 
 }
 
-var setRoleValue = (param)=>
-{
+var setRoleValue = (param) => {
     let res = `<option value="0" selected>权限分组</option>`;
     for (var i = 0; i < param.length; i++) {
 
-        res +=`<option data-id=${param[i].roleId}>${param[i].roleName}</option>`
+        res += `<option data-id=${param[i].roleId}>${param[i].roleName}</option>`
     }
     return res;
 }
 //确认编辑用户
-window.editConfirm = ()=>
-{
+window.editConfirm = () => {
     let id = $('#role_type').find('option:selected').attr('data-id')
     $.ajax({
-        url:_config.buildPath + 'api-user/v1.0/role/user/update',
-        type:'POST',
-        dataType:'json',
-        headers:{'token':_config.token},
-        data:
-        {
-            roleId:id,
-            telephone:telephoneMsg
+        url: _config.buildPath + 'api-user/v1.0/role/user/update',
+        type: 'POST',
+        dataType: 'json',
+        headers: { 'token': _config.token },
+        data: {
+            roleId: id,
+            telephone: telephoneMsg
         },
-        success:(res)=>
-        {
-            if(res.code!==_encode.REQUEST_SUCCESS)
-            {
+        success: (res) => {
+            if (res.code !== _encode.REQUEST_SUCCESS) {
                 alert(res.msg);
-            }
-            else
-            {
-                _utils.modalTip('编辑成功',1000);
+            } else {
+                _utils.modalTip('编辑成功', 1000);
                 setTimeout("window.location.reload()", 1000)
             }
         }
     })
 }
 // 用户删除
-window.userDel = (obj)=> {
+window.userDel = (obj) => {
     let telephone = $(obj).parent('td').siblings().eq(3).text();
     console.log(telephone)
     $.ajax({
@@ -167,8 +154,8 @@ window.userDel = (obj)=> {
 }
 // 新增用户
 window.addUsers = function() {
-    cancelExcel();
-
+    document.getElementById("users_file").value = '';
+    $("#telephone").css("background-color", 'transparent');
     $('#telephone').removeAttr("disabled");
 
     $('#addUsersModal').find('.modal-title').html('新增用户')
@@ -183,20 +170,19 @@ window.addUsersSubmit = function() {
         _utils.modalTip('请输入用户手机号');
         return;
     } else if (!_utils.utils_isNull(convertJSON(dataMsg))) {
+
         tel = '';
         for (var i = 0; i < convertJSON(dataMsg).length; i++) {
             let tel_num = convertJSON(dataMsg)[i].telephone;
-            if(i == convertJSON(dataMsg).length-1)
-            {
+            if (i == convertJSON(dataMsg).length - 1) {
                 tel += tel_num;
+            } else {
+                tel += tel_num + ',';
             }
-            else
-            {
-                tel += tel_num+',';
-            }
-            
+
 
         }
+
         console.log(tel);
     }
     $.ajax({
@@ -210,10 +196,9 @@ window.addUsersSubmit = function() {
         },
         success: function(res) {
             if (res.code !== _encode.REQUEST_SUCCESS) {
-                if(res.code == 10)
-                {
+                if (res.code == 10) {
                     let repeattion_message = res.msg;
-                    let key = res.result;
+                    repeatKey = res.result;
                     handleRepeat();
                     $('#selRolebody').empty();
                     $('#selRolebody').append(selRepeatValue(repeattion_message))
@@ -232,56 +217,49 @@ window.addUsersSubmit = function() {
     })
 
 }
-var handleRepeat = ()=>
-{
+var handleRepeat = () => {
     $('#repeat-modal').modal('show');
 }
-window.mergeConfirm = ()=>
-{
+window.mergeConfirm = () => {
     $.ajax({
-        url:_config.buildPath + 'api-user/v1.0/role/user/back',
-        type:'POST',
-        headers:{'token':_config.token},
-        dataType:'json',
-        data:
-        {
-            key:repeatKey
+        url: _config.buildPath + 'api-user/v1.0/role/user/back',
+        type: 'POST',
+        headers: { 'token': _config.token },
+        dataType: 'json',
+        data: {
+            key: repeatKey
         },
-        success:(res)=>
-        {
+        success: (res) => {
             console.log(res)
-            if(res.code!==_encode.REQUEST_SUCCESS)
-            {
+            if (res.code !== _encode.REQUEST_SUCCESS) {
                 alert(res.msg)
-            }
-            else if(res.code == _encode.REQUEST_SUCCESS)
-            {
-                _utils.modalTip('成功修改用户权限分组')
-                window.location.reload();
+            } else if (res.code == _encode.REQUEST_SUCCESS) {
+                _utils.modalTip('成功修改用户权限分组', 1000)
+                setTimeout("window.location.reload()", 1000)
             }
         },
-        error:(a,b,c)=>
-        {
+        error: (a, b, c) => {
             alert(a.status)
         }
     })
 }
-function selRepeatValue(param)
-{
+
+function selRepeatValue(param) {
     let jay = JSON.parse(param);
     let tel = [];
-    for (key in jay)
-    {
-        repeatKey = key;
+    let repeatRole;
+    for (key in jay) {
+        repeatRole = key;
         tel = jay[key]
     }
     let res = ``;
     for (var i = 0; i < tel.length; i++) {
-        res+=`<tr class="text-c"><td>${repeatKey}</td>`
-        res+=`<td>${tel[i]}</td></tr>`;
+        res += `<tr class="text-c"><td>${repeatRole}</td>`
+        res += `<td>${tel[i]}</td></tr>`;
     }
     return res;
 }
+
 function closeModal() {
     $('#telephone').val('');
     $('#addUsersModal').modal('hide');
@@ -379,4 +357,18 @@ function convertJSON() {
         alert("确定是正确的姿势操作？？");
     }
     return jsonA;
+}
+// 导出成excel
+window.importToExcel = () => {
+    // return ExcellentExport.excel(this, 'repeatTable', 'Sheet Name Here');
+    //return ExcellentExport.convert({ anchor: this, filename: 'data_123.array', format: 'xlsx'},[{name: 'Sheet Name Here 1', from: {table: 'repeatTable'}}]);
+    $('.table2excel').table2excel({
+        name: "Excel Document Name",
+        filename: "repeatList",
+        exclude_img: true,
+        exclude_links: true,
+        exclude_inputs: true
+    })
+
+
 }

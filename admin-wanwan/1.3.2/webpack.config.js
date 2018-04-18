@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-01-29 11:05:21
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-12 11:32:34
+ * @Last Modified time: 2018-04-17 09:17:08
  */
 var webpack = require('webpack')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
@@ -77,7 +77,7 @@ var config = {
     },
     //导入外部JS资源
     externals: {
-        'jquery': 'window.jQuery'
+        'jquery'  : 'window.jQuery'
     },
     //加载的外挂
     module: {

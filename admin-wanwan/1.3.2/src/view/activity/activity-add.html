@@ -43,7 +43,7 @@
                         </div>
                         <div class="row cl">
                             <label class="label-seller"><span class="c-red">*</span>发布商家：
-                                <span class="select-box" style="width: 10%;">
+                                <span class="select-box" style="width: 10%;min-width: 147px;">
                                     <select class="select sellerUser" size="1" name="seller">
                                         <option value="1">会员部</option>
                                         <option value="2">食堂</option>
@@ -58,6 +58,7 @@
                                         <label class="powerOn">
                                             <span class="powerName">数据错误时出现</span>
                                             <span class="powerSet">设置</span>
+                                            <span class="powerEdit">重置</span>
                                         </label>
                                     </li>
                                 </ul>
@@ -181,23 +182,6 @@
             </div>
         </div>
     </div>
-    <!-- <div id="modal-reset-confirm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content radius">
-                <div class="modal-header">
-                    <h3 class="modal-title">清空权限设置</h3>
-                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
-                </div>
-                <div class="modal-body">
-                    <p>当前权限已设置，是否决定继续?</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" onclick="PowerResetconfirm(1);">确定</button>
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <%= require('html-loader!../layout/js-huiandfroala.html') %>
         <script type="text/javascript" src="../../lib/picreview.js"></script>
 </body>

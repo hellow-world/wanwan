@@ -148,6 +148,13 @@
         var fileInputs_bannerTitlePic=document.getElementsByClassName("img-btn-bannerTitle");//文件选择按钮
         var imgDivs_bannerTitlePic=document.getElementsByClassName("img-container-bannerTitle");//图片容器
 
+
+        /**
+         *750*400图片限制-首页banner的尺寸
+         */
+        var fileInputs_bannerTitlePic=document.getElementsByClassName("img-btn-bannerTitle");//文件选择按钮
+        var imgDivs_bannerTitlePic=document.getElementsByClassName("img-container-bannerTitle");//图片容器
+
         /**
          *351*189图片限制-首页二级广告位
          */

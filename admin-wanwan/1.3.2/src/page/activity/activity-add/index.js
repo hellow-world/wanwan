@@ -1,8 +1,8 @@
 /*
  * @Author: admin
  * @Date:   2018-02-05 10:02:49
- * @Last Modified by:   John
- * @Last Modified time: 2018-04-13 11:45:46
+ * @Last Modified by:   admin
+ * @Last Modified time: 2018-04-18 15:20:12
  */
 require('./index.css')
 var config = require('service/config.js')
@@ -17,17 +17,17 @@ var roleConfig = new Array(); //单个角色配置
 var roleSingle;
 roleSingle = {
 
-    'roleId'          : 0, //角色ID
-    'enrolStartTime'  : '2018-12-20', //报名开始时间
-    'enrolEndTime'    : '2018-12-20', //报名结束时间
-    'carryNumber'     : 0, //可携带人数
-    'enrolCurrency'   : 1, //支付方式
+    'roleId': 0, //角色ID
+    'enrolStartTime': '2018-12-20', //报名开始时间
+    'enrolEndTime': '2018-12-20', //报名结束时间
+    'carryNumber': 0, //可携带人数
+    'enrolCurrency': 1, //支付方式
     'enrolCurrencyNum': 100,
-    'enrolMaxPeople'  : 10, //报名最大人数
-    'isPush'          : 0, //是否推送
-    'pushContent'     : '推送推送推送他',
-    'pushTime'        : '2018-12-20',
-    'roleName'        : '随国林'
+    'enrolMaxPeople': 10, //报名最大人数
+    'isPush': 0, //是否推送
+    'pushContent': '推送推送推送他',
+    'pushTime': '2018-12-20',
+    'roleName': '随国林'
 }
 $(function() {
     $('#activity_content').froalaEditor({
@@ -90,7 +90,7 @@ function selRoleList() {
 // 为权限分组赋值
 
 function setRoleSelect(param) {
-    let res = `<li class="powerBlock"><label class="powerOn" data-role="-1"><span class="powerName" onclick="selectPowerUser(this)">全部</span><span class="powerSet" onclick="setPowerUser(this)">设置</span></label></li>`;
+    let res = `<li class="powerBlock"><label class="powerOn" data-role="-1"><span class="powerName" onclick="selectPowerUser(this)">全部</span><span class="powerSet" onclick="setPowerUser(this)">设置</span><span class="powerEdit" onclick="editPowerUser">重置</span></label></li>`;
     for (var i = 0; i < param.length; i++) {
 
         res += addSelectToBox(param[i])
@@ -100,7 +100,7 @@ function setRoleSelect(param) {
 }
 
 function addSelectToBox(param) {
-    let res = `<li class="powerBlock"><label data-role="${param.roleId}"><span class="powerName" onclick="selectPowerUser(this)">${param.roleName}</span><span class="powerSet" onclick="setPowerUser(this)">设置</span></label></li>`
+    let res = `<li class="powerBlock"><label data-role="${param.roleId}"><span class="powerName" onclick="selectPowerUser(this)">${param.roleName}</span><span class="powerSet" onclick="setPowerUser(this)">设置</span><span class="powerEdit" onclick="editPowerUser">重置</span></label></li>`
     return res;
 }
 // 为商家分组赋值
@@ -180,18 +180,18 @@ function getNowFormatDate() {
 $('#addSubmit').click(function() { addActivitySubmit(); })
 
 function addActivitySubmit() {
-    var activity_title         = $('#activity_title').val();
-    var activity_introduce     = $('#activity_introduce').val();
-    var activity_place         = $('#activity_place').val();
-    var Issuer                 = $('.sellerUser').find('option:selected').attr('data-seller')
+    var activity_title = $('#activity_title').val();
+    var activity_introduce = $('#activity_introduce').val();
+    var activity_place = $('#activity_place').val();
+    var Issuer = $('.sellerUser').find('option:selected').attr('data-seller')
     var activity_maxnum_people = $('#activity_maxnum_people').val();
-    var activity_start_time    = $('#activity_start_time').val();
-    var activity_end_time      = $('#activity_end_time').val();
-    var isonline               = $('input[name=isOnline]:checked').val();
-    var activity_online_time   = $('#activity_online_time').val();
-    var activity_content       = $('div#activity_content').froalaEditor('html.get');
-    var s                      = activity_content.replace(/style\s*=(['\"\s]?)[^'\"]*?\1/gi, '');
-    var s                      = s.replace(/width\s*:(['\"\s]?)[^'\"]*?\1/gi, '');
+    var activity_start_time = $('#activity_start_time').val();
+    var activity_end_time = $('#activity_end_time').val();
+    var isonline = $('input[name=isOnline]:checked').val();
+    var activity_online_time = $('#activity_online_time').val();
+    var activity_content = $('div#activity_content').froalaEditor('html.get');
+    var s = activity_content.replace(/style\s*=(['\"\s]?)[^'\"]*?\1/gi, '');
+    var s = s.replace(/width\s*:(['\"\s]?)[^'\"]*?\1/gi, '');
 
     var activity_CreateTime = getNowFormatDate();
     if (activity_title == "") {
@@ -208,39 +208,36 @@ function addActivitySubmit() {
         $("#Tip").html("总人数上限必填");
     } else if (activity_start_time == "" || activity_end_time == "") {
         $("#Tip").html("开始时间必填");
-    } else if(Issuer == -1){   
+    } else if (Issuer == -1) {
         $("#Tip").html("发布商家必选");
-    } else if(roleConfig.length < 1){   
+    } else if (roleConfig.length < 1) {
         $("#Tip").html("权限分组未设置");
     } else {
 
         var formData = new FormData();
-        formData.append("activityTitle", activity_title);//活动标题
-        formData.append("activityIntroduce", activity_introduce);//活动简介
-        formData.append("activityPlace", activity_place);//活动地点
-        formData.append("activityContent", s);//活动内容
-        formData.append("activityTitlePhoto", document.getElementById("titlePic").files[0]);//活动标题图片
-        formData.append("activityCover", document.getElementById("coverPic").files[0]);//活动封面图片
+        formData.append("activityTitle", activity_title); //活动标题
+        formData.append("activityIntroduce", activity_introduce); //活动简介
+        formData.append("activityPlace", activity_place); //活动地点
+        formData.append("activityContent", s); //活动内容
+        formData.append("activityTitlePhoto", document.getElementById("titlePic").files[0]); //活动标题图片
+        formData.append("activityCover", document.getElementById("coverPic").files[0]); //活动封面图片
 
-        formData.append("activityMaxPeople", activity_maxnum_people);//活动最大人数限制
-        formData.append("activityStartTime", activity_start_time);//活动开始时间
-        formData.append("activityEndTime", activity_end_time);//活动结束时间
-        
-        if(activity_online_time == "")
-        {
-            formData.append("activityOnlineTime", activity_CreateTime);//活动上架时间
+        formData.append("activityMaxPeople", activity_maxnum_people); //活动最大人数限制
+        formData.append("activityStartTime", activity_start_time); //活动开始时间
+        formData.append("activityEndTime", activity_end_time); //活动结束时间
+
+        if (activity_online_time == "") {
+            formData.append("activityOnlineTime", activity_CreateTime); //活动上架时间
+        } else {
+            formData.append("activityOnlineTime", activity_online_time); //活动上架时间
         }
-        else
-        {
-            formData.append("activityOnlineTime", activity_online_time);//活动上架时间
-        }
-        
-        formData.append("activityIssuer", Issuer)//活动发布者
+
+        formData.append("activityIssuer", Issuer) //活动发布者
 
 
-        formData.append("isOnline", isonline);//活动是否上架
+        formData.append("isOnline", isonline); //活动是否上架
         //角色配置
-        formData.append("roleConfig", JSON.stringify(roleConfig));//活动权限角色配置
+        formData.append("roleConfig", JSON.stringify(roleConfig)); //活动权限角色配置
 
         $.ajax({
             url: config.buildPath + "api-amuse/v1.1/activity",
@@ -282,25 +279,42 @@ function backToList() {
 window.selectPowerUser = (obj) => {
     let roleId = $(obj).parent('label').attr('data-role');
     if ($(obj).parent('label').hasClass('powerOn')) {
-        if(PowerIsSet(roleId))
-        {
-            //清空该权限的设置
+        if (PowerIsSet(roleId)[0]) {
+            // 如果已经在序列就清空该权限的设置
+            layer.open({
+                title: '提醒',
+                shade: 0,
+                content: '当前权限已设置，继续则会清空设置',
+                yes: function(index) {
 
-            _utils.modalalert('该权限设置已清空');
-            $(obj).parent('label').removeClass('powerOn');
-            $(obj).siblings('.powerSet').html('设置')
+                    roleConfig.splice(PowerIsSet(roleId)[1]);
+                    _utils.modalTip('该权限设置已清空', 500);
+                    $(obj).parent('label').removeClass('powerOn');
+                    $(obj).siblings('.powerEdit').hide();
+                    $(obj).siblings('.powerSet').text('设置')
+                    layer.close(index);
+                }
+            })
+
             return;
         }
-        else
-        {
-            $(obj).parent('label').removeClass('powerOn');
-            return;
-        }
-        
+
     }
     if (roleId == -1) {
-        $('.powerBlock').find('label').removeClass('powerOn');
-        $(obj).parent('label').addClass('powerOn');
+        layer.open({
+            title: '提醒',
+            shade: 0,
+            content: '即将清空其余设置，请检查',
+            yes: function(index) {
+                $('.powerBlock').find('label').removeClass('powerOn');
+                $(obj).parent('label').addClass('powerOn');
+                roleConfig = [];
+                $('.powerBlock').find('label .powerEdit').hide();
+                $('.powerBlock').find('label .powerSet').text('设置');
+                layer.close(index);
+            }
+        })
+
     } else {
         $('.powerBlock').find('label').eq(0).removeClass('powerOn');
         $(obj).parent('label').addClass('powerOn');
@@ -308,21 +322,22 @@ window.selectPowerUser = (obj) => {
 
 }
 // 确定要清空
-var PowerResetconfirm = (bool)=>
-{
-    if( bool == 1 )
-    {
+var PowerResetconfirm = (bool) => {
+    if (bool == 1) {
         return true;
     }
 }
 //判断权限设置切换选择时是否已在序列
-var PowerIsSet = (id)=>
-{
+var PowerIsSet = (id) => {
     for (var i = 0; i < roleConfig.length; i++) {
-        if(id == roleConfig[i].roleId)
+        if (id == roleConfig[i].roleId) {
+
+            return [true, i]
+        }
+        else
         {
-            roleConfig.splice(i)
-            return true;
+            console.log('不存在')
+            return [false,i]
         }
     }
 }
@@ -330,7 +345,7 @@ var PowerIsSet = (id)=>
 window.setPowerUser = (obj) => {
 
     if (!$(obj).parent('label').hasClass('powerOn')) {
-        _utils.modalalert('权限未选择无法设置', 1000)
+        _utils.modalTip('权限未选择无法设置', 500)
         return;
     }
     roleSingleInit();
@@ -341,44 +356,34 @@ window.setPowerUser = (obj) => {
     $('#addSetPower').find('#power-input-name').val(powerName);
     $('#addSetPower').find('#power-input-name').attr('data-roleid', powerId);
 
-
 }
 //设置权限存入暂存数列
 window.setPowerSubmit = () => {
-    if($('#addSetPower').find('#enrol_start_time').val() == '')
-    {
+    if ($('#addSetPower').find('#enrol_start_time').val() == '') {
         _utils.modalalert('报名时间未填写')
         return;
-    }
-    else if($('#addSetPower').find('#activity_carrynumber_people').val() == '')
-    {
+    } else if ($('#addSetPower').find('#activity_carrynumber_people').val() == '') {
         _utils.modalalert('携带人数未填写')
         return;
-    }
-    else if($('#addSetPower').find('#enrol_currency').val() == -1)
-    {
+    } else if ($('#addSetPower').find('#enrol_currency').val() == -1) {
         _utils.modalalert('支付方式未选择')
         return;
-    }
-    else if($('#addSetPower').find('#money_number').val() == '')
-    {
+    } else if ($('#addSetPower').find('#money_number').val() == '') {
         _utils.modalalert('货币数量未填写')
         return;
-    }
-    else if($('#addSetPower').find('#activity_number_people').val() == '')
-    {
+    } else if ($('#addSetPower').find('#activity_number_people').val() == '') {
         _utils.modalalert('人数上限未填写')
         return;
     }
-    let roleId                  = $('#addSetPower').find('#power-input-name').attr('data-roleid');
-    roleSingle.roleId           = $('#addSetPower').find('#power-input-name').attr('data-roleid');
-    roleSingle.roleName         = $('#addSetPower').find('#power-input-name').val();
-    roleSingle.enrolStartTime   = $('#addSetPower').find('#enrol_start_time').val();
-    roleSingle.enrolEndTime     = $('#addSetPower').find('#enrol_end_time').val();
-    roleSingle.carryNumber      = $('#addSetPower').find('#activity_carrynumber_people').val();
-    roleSingle.enrolCurrency    = $('#addSetPower').find('#enrol_currency').val();
+    let roleId = $('#addSetPower').find('#power-input-name').attr('data-roleid');
+    roleSingle.roleId = $('#addSetPower').find('#power-input-name').attr('data-roleid');
+    roleSingle.roleName = $('#addSetPower').find('#power-input-name').val();
+    roleSingle.enrolStartTime = $('#addSetPower').find('#enrol_start_time').val();
+    roleSingle.enrolEndTime = $('#addSetPower').find('#enrol_end_time').val();
+    roleSingle.carryNumber = $('#addSetPower').find('#activity_carrynumber_people').val();
+    roleSingle.enrolCurrency = $('#addSetPower').find('#enrol_currency').val();
     roleSingle.enrolCurrencyNum = $('#addSetPower').find('#money_number').val();
-    roleSingle.enrolMaxPeople   = $('#addSetPower').find('#activity_number_people').val();
+    roleSingle.enrolMaxPeople = $('#addSetPower').find('#activity_number_people').val();
     if (isPushed == 1) {
         notifyContent = $('#addSetPower').find("#notify_content").val();
         notifyTime = $('#addSetPower').find("#push_time").val();
@@ -388,9 +393,8 @@ window.setPowerSubmit = () => {
     roleSingle.pushTime = notifyTime;
     // let json = JSON.stringify(roleSingle)
     roleConfig.push(roleSingle);
-    console.log(roleConfig)
-    console.log(typeof roleConfig)
-    _utils.modalalert('设置成功', 500)
+    console.log(roleConfig.length)
+    _utils.modalTip('设置成功', 1000)
     $('#addSetPower').modal('hide');
     tabSetState(roleId);
 
@@ -401,6 +405,7 @@ var tabSetState = (id) => {
     for (var i = 0; i < role.length; i++) {
         if ($(role[i]).find('label').attr('data-role') == id) {
             $(role[i]).find('.powerSet').text('已设置')
+            $(role[i]).find('.powerEdit').show();
         }
 
     }
@@ -409,17 +414,17 @@ var tabSetState = (id) => {
 //初始化权限设置序列
 var roleSingleInit = () => {
     roleSingle = {
-        'roleId'          : 0, //角色ID
-        'enrolStartTime'  : '2018-12-20', //报名开始时间
-        'enrolEndTime'    : '2018-12-20', //报名结束时间
-        'carryNumber'     : 0, //可携带人数
-        'enrolCurrency'   : 1, //支付方式
+        'roleId': 0, //角色ID
+        'enrolStartTime': '2018-12-20', //报名开始时间
+        'enrolEndTime': '2018-12-20', //报名结束时间
+        'carryNumber': 0, //可携带人数
+        'enrolCurrency': 1, //支付方式
         'enrolCurrencyNum': 100,
-        'enrolMaxPeople'  : 10, //报名最大人数
-        'isPush'          : 0, //是否推送
-        'pushContent'     : '推送推送推送他',
-        'pushTime'        : '2018-12-20',
-        'roleName'        : '随国林'
+        'enrolMaxPeople': 10, //报名最大人数
+        'isPush': 0, //是否推送
+        'pushContent': '推送推送推送他',
+        'pushTime': '2018-12-20',
+        'roleName': '随国林'
 
     }
     $('#addSetPower').find('#power-input-name').val('');

@@ -22,7 +22,7 @@
         <a class="btn btn-primary radius" href="javascript:;" onclick="javascript:history.back(1);"><i class="Hui-iconfont">&#xe67d;</i> </a>
         <div class="cl pd-5 bg-1 bk-gray mt-20">
             <span class="l">
-		<a class="btn btn-primary radius" href="javascript:;" onclick="addUsers();"><i class="Hui-iconfont">&#xe600;</i>新增用户</a> </span>
+        <a class="btn btn-primary radius" href="javascript:;" onclick="addUsers();"><i class="Hui-iconfont">&#xe600;</i>新增用户</a> </span>
         </div>
         <table id="activityTable" class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="row cl">
                             <label class="form-label col-xs-4 col-sm-3">Excel上传：</label>
-                                <input type="file" id="users_file" onchange="importf(this)" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">&nbsp;
+                            <input type="file" id="users_file" onchange="importf(this)" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">&nbsp;
                             <a class="btn btn-success radius" style="line-height:1.6em;height: 30px" title="撤销" onclick="cancelExcel()"><i class="Hui-iconfont">&#xe66b;</i></a>
                             <!-- <a style="color: red" onclick="allUsers()"><span id="allSpan">全体</span></a> -->
                         </div>
@@ -103,20 +103,23 @@
                 </div>
                 <div class="modal-body">
                     <p>以下是存在冲突的权限分组及手机号:</p>
-                    <table class="table table-border table-bordered table-bg table-hover table-sort" style="margin-top: 20px;">
-                        <thead>
-                            <tr class="text-c">
-                                <th>已存在分组</th>
-                                <th>手机号</th>
-                            </tr>
-                        </thead>
-                        <tbody id="selRolebody">
-                            <tr class="text-c">
-                                <td class="card_id">黑金会员</td>
-                                <td class="card_name">18896527107</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table2excel" data-tablename="Test Table 1">
+                        <table class="table table-border table-bordered table-bg table-hover table-sort" style="margin-top: 20px;">
+                            <thead>
+                                <tr class="text-c">
+                                    <th>已存在分组</th>
+                                    <th>手机号</th>
+                                </tr>
+                            </thead>
+                            <tbody id="selRolebody">
+                                <tr class="text-c">
+                                    <td class="card_id">黑金会员</td>
+                                    <td class="card_name">18896527107</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a class="btn btn-primary radius fr" href="#" onclick="importToExcel();"><i class="Hui-iconfont">导出成EXCEL</i> </a>
                     <p class="c-red">备注：按下确定的那一刻，默认为将已冲突用户强制编入当前分组！</p>
                 </div>
                 <div class="modal-footer">
@@ -155,6 +158,7 @@
     </div>
     <%= require('html-loader!../layout/js-huiandfroala.html') %>
         <script type="text/javascript" src="../../lib/picreview.js"></script>
+        <script type="text/javascript" src="../../lib/jquery.table2excel.js"></script>
 </body>
 
 </html>
