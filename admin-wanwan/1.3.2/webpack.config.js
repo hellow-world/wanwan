@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-01-29 11:05:21
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-17 09:17:08
+ * @Last Modified time: 2018-04-19 11:38:46
  */
 var webpack = require('webpack')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
@@ -40,6 +40,7 @@ var config = {
         'activity/activity-publisher': ['./src/page/activity/activity-publisher/index.js'],
         // 'activity/activity-edit'   : ['./src/page/activity/activity-edit/index.js'],
         'activity/activity-add': ['./src/page/activity/activity-add/index.js'],
+        'activity/activity-signlist': ['./src/page/activity/activity-signlist/index.js'],
         //奖池设置
         'jackpots/jackpot-sel': ['./src/page/jackpots/jackpot-sel/index.js'],
         'jackpots/jackpot-add': ['./src/page/jackpots/jackpot-add/index.js'],
@@ -137,6 +138,7 @@ var config = {
         new HtmlWebpackPlugin(getHtmlConfig('members/member-select', '单人查询')),
         new HtmlWebpackPlugin(getHtmlConfig('members/admin-role', '会员列表')),
         new HtmlWebpackPlugin(getHtmlConfig('activity/activity-add', '活动添加')),
+        new HtmlWebpackPlugin(getHtmlConfig('activity/activity-signlist', '活动报名情况')),
         // new HtmlWebpackPlugin(getHtmlConfig('activity/activity-edit','活动编辑')),
         new HtmlWebpackPlugin(getHtmlConfig('activity/activity-publish', '活动发布')),
         new HtmlWebpackPlugin(getHtmlConfig('activity/activity-publisher', '活动发布者')),

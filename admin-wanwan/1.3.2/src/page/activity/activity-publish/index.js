@@ -2,7 +2,7 @@
 * @Author: admin
 * @Date:   2018-02-05 10:03:08
 * @Last Modified by:   admin
-* @Last Modified time: 2018-04-18 16:16:40
+* @Last Modified time: 2018-04-19 14:01:38
 */
 'use strict'
 require('./index.css')
@@ -147,7 +147,7 @@ $(window).load(function(){
 		res += "<td>"+param.activityOnlineTime+"</td>";
 		res += "<td>"+onlineState(param.isOnline)+"</td>";
 		res += "<td>"+param.activityIssuerName+"</td>";
-		res += `<td onclick="Details(this)">详情</td>`;
+		res += `<td ><a href="javascript:void(0)" onclick="Details(this)">详情</a></td>`;
 		if(param.isTop ==1){
 			res += getoperaHtmlnoTop();
 		}else{
@@ -555,4 +555,11 @@ $(window).load(function(){
 		$('#scanPower-modal').find('input[type=text]').attr('readonly','readonly')
 		$('#scanPower-modal').find('input[type=radio]').attr('disabled','disabled')
 	}
-
+	// 查看详情
+	window.Details = obj =>
+	{
+		let $td= $(obj).parents('tr').children('td');  
+        let activityId = $td.eq(1).text();
+        window.location.href = './activity-signlist.html'+'?activityId=' + activityId;
+   	}
+   	
