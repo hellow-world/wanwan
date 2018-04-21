@@ -14,6 +14,7 @@
         <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
     </nav>
     <div class="page-container">
+        <a class="btn btn-primary radius" href="javascript:;" onclick="javascript:history.back(1);"><i class="Hui-iconfont">&#xe67d;</i> </a>
         <div class="text-c"> 日期范围：
             <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activitySel_startTime" class="input-text Wdate" style="width:160px;"> -
             <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activitySel_endTime" class="input-text Wdate" style="width:160px;">
@@ -26,6 +27,7 @@
         <table id="activitySignTable" class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
                 <tr class="text-c">
+                    <th >序号</th>
                     <th >用户ID</th>
                     <th >报名时间</th>
                     <th >昵称</th>
@@ -37,6 +39,7 @@
             </thead>
             <tbody id="signTbody">
                 <tr class="text-c">
+                    <td>0</td>
                     <td>12</td>
                     <td>2018-4-19</td>
                     <td>渣渣辉</td>

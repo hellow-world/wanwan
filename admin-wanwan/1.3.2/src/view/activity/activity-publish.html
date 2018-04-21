@@ -103,17 +103,6 @@
                             </div>
                         </div>
                         <div class="row cl">
-                            <label class="label-seller form-label col-xs-4 col-sm-3">发布商家：</label>
-                            <div class="formControls col-xs-8 col-sm-9">
-                                <span class="select-box" style="width: 30%;">
-                                    <select class="select sellerUser" size="1" name="seller">
-                                        <option value="1">会员部</option>
-                                        <option value="2">食堂</option>
-                                    </select>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="row cl">
                             <label class="form-label col-xs-4 col-sm-3">开始时间：</label>
                             <div class="formControls col-xs-8 col-sm-9">
                                 <input type="text" readonly="readonly" id="scan_startTime" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="input-text Wdate" style="width:160px;"> &nbsp;&nbsp;-&nbsp;&nbsp;
@@ -143,7 +132,7 @@
                         <div class="row cl">
                             <label class="form-label col-xs-4 col-sm-3">上架时间：</label>
                             <div class="formControls col-xs-8 col-sm-9">
-                                <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activity_online_time" class="input-text Wdate" style="width:160px;">
+                                <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="scan_onlineTime" class="input-text Wdate" style="width:160px;">
                             </div>
                         </div>
                         <div class="row cl">
@@ -173,7 +162,7 @@
         </div>
     </div>
     <!-- 编辑活动对话框 -->
-    <div id="editActivityDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--     <div id="editActivityDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="margin-left: 20%;">
             <div class="modal-content radius" style="width: 1100px">
                 <div class="modal-header">
@@ -281,7 +270,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     
     <!-- 置顶活动对话框 -->
     <div id="topActivityDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -315,6 +304,7 @@
             </div>
         </div>
     </div>
+    <!-- 查看当前权限 -->
     <div id="scanPower-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content radius">
@@ -327,7 +317,6 @@
                         <thead>
                             <tr class="text-c">
                                 <th>权限名称</th>
-                                <th>支付方式</th>
                                 <th>货币数量</th>
                                 <th>人数上限</th>
                                 <th>携带人数</th>
@@ -337,7 +326,6 @@
                         <tbody id="ScanPowerbody">
                             <tr class="text-c">
                                 <td >全部</td>
-                                <td >人民币</td>
                                 <td>20</td>
                                 <td>30</td>
                                 <td>30</td>

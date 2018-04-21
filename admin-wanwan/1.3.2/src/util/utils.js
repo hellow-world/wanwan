@@ -2,7 +2,7 @@
  * @Author: John
  * @Date:   2018-01-30 14:28:32
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-19 18:24:07
+ * @Last Modified time: 2018-04-20 10:52:51
  */
 var _encode = require('service/errorcode.js')
 var config = require('service/config.js')
@@ -24,11 +24,11 @@ var _utils = {
                 }
                 // 没有登陆状态，需要强制登录
                 // else if(10 === res.status){
-                // 	_this.doLogin()
+                //  _this.doLogin()
                 // }
                 // // 请求数据错误
                 // else if(1 ===res.status){
-                // 	typeof param.error === 'function' && param.error(res.msg)
+                //  typeof param.error === 'function' && param.error(res.msg)
                 // }
 
             },
@@ -48,11 +48,67 @@ var _utils = {
         var result = window.location.search.substr(1).match(reg);
         return result ? decodeURIComponent(result[2]) : null;
     },
-    //统一登录处理
-    doLogin: function() {
-        window.location.href = './login.html?redirect=' + encodeURIComponent(window.location.href);
+    /*格式化当前时间*/
+    getNowFormatDate: () => {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var second = date.getSeconds();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        if (hours >= 0 && hours <= 9) {
+            hours = "0" + hours;
+        }
+        if (minutes >= 0 && minutes <= 9) {
+            minutes = "0" + minutes;
+        }
+        if (second >= 0 && second <= 9) {
+            second = "0" + second;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+            " " + hours + seperator2 + minutes +
+            seperator2 + second;
+        return currentdate;
     },
-
+    //格式化日期时间
+    formatDate:(v)=>{
+        if (/^(-)?\d{1,10}$/.test(v)) {
+            v = v * 1000;
+        } else if (/^(-)?\d{1,13}$/.test(v)) {
+            v = v * 1;
+        }
+        var dateObj = new Date(v);
+        var month = dateObj.getMonth() + 1;
+        var day = dateObj.getDate();
+        var hours = dateObj.getHours();
+        var minutes = dateObj.getMinutes();
+        var seconds = dateObj.getSeconds();
+        if (month < 10) {
+            month = "0" + month;
+        }
+        if (day < 10) {
+            day = "0" + day;
+        }
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        var UnixTimeToDate = dateObj.getFullYear() + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        return UnixTimeToDate;
+    },
     /**
      * 判断参数是否全部为空 
      * @param param
