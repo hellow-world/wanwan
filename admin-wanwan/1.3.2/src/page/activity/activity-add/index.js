@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-05 10:02:49
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-21 21:29:51
+ * @Last Modified time: 2018-04-23 10:04:21
  */
 require('./index.css')
 var config = require('service/config.js')
@@ -116,11 +116,14 @@ var setRoleConfig = (arr) => {
     roleConfig = [];
     roleConfig = arr;
     let label = $('.powerBlock');
+    $(label).find('label').removeClass('powerOn');
     for (var i = 0; i < arr.length; i++) {
         for (var j = 0; j < label.length; j++) {
-            $(label[j]).find('label').removeClass('powerOn')
-            if (arr[i].roleId == $(label[j]).find('label').attr('data-role')) {
-                $(label[j]).find('label').addClass('powerOn')
+            let id = $(label[j]).find('label').attr('data-role');
+            
+            if (arr[i].roleId == id) {
+                console.log($(label[j]).find('label'))
+                $(label[j]).find('label').addClass('powerOn');
                 roleConfig[i].roleName = $(label[j]).find('label .powerName').text();
                 $(label[j]).find('label .powerSet').html('已设置')
                 $(label[j]).find('label .powerSet').removeAttr('onclick')
@@ -137,7 +140,7 @@ var selectSellerValue = (param) => {
     for (var i = 0; i < arr.length; i++) {
         sellerId.push($(arr[i]).attr('data-seller'))
     }
-    var index = sellerId.indexOf(String(param))
+    var index = sellerId.indexOf(String(param))     
     $('.sellerUser').find('option').eq(index).attr('selected', 'selected')
 }
 
@@ -346,7 +349,6 @@ var editActivitySubmit = () => {
     var activity_content = $('div#activity_content').froalaEditor('html.get');
     var s = activity_content.replace(/style\s*=(['\"\s]?)[^'\"]*?\1/gi, '');
     var s = s.replace(/width\s*:(['\"\s]?)[^'\"]*?\1/gi, '');
-
     var activity_CreateTime = _utils.getNowFormatDate();
     if (activity_title == "") {
         $("#Tip").html("活动名称必填");
@@ -430,7 +432,7 @@ function backToList() {
 // 权限选择切换
 window.selectPowerUser = (obj) => {
     if (isEdit) {
-        layer.msg('编辑状态无法切换分组');
+        layer.msg('编辑状态无法切换分组',{time:800});
         return;
     }
     let roleId = $(obj).parent('label').attr('data-role');

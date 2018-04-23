@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-05 10:03:08
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-21 20:47:04
+ * @Last Modified time: 2018-04-23 09:38:31
  */
 'use strict'
 require('./index.css')
@@ -625,5 +625,6 @@ function addValuePowerToList(param, roleBox) {
 window.Details = obj => {
     let $td = $(obj).parents('tr').children('td');
     let activityId = $td.eq(1).text();
-    window.location.href = './activity-signlist.html' + '?activityId=' + activityId;
+    let activityName = $td.eq(4).text();
+    window.location.href = './activity-signlist.html' + '?activityId=' + activityId + '&activityName=' + encodeURI(activityName);
 }
