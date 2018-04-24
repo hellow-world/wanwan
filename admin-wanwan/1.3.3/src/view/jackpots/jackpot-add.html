@@ -1,0 +1,400 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<%= require('html-loader!../layout/lib-h-ui.html') %>
+
+<title>抽奖设置</title>
+</head>
+<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.js"></script> 
+
+<script type="text/javascript" src="../../lib/excelDown.js"></script>
+<script type="text/javascript" src="../../lib/tableutils.js"></script>
+
+<script type="text/javascript" src="../../lib/jackpots/jackpots-awardset.js"></script>
+<script type="text/javascript" src="../../lib/jackpots/jackpots-signuser.js"></script>
+<script type="text/javascript" src="../../lib/jackpots/jackpots-winlist.js"></script>
+
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+	<span class="c-gray en">&gt;</span>
+	活动管理
+	<span class="c-gray en">&gt;</span>
+	<a onclick="javascript:history.back(1);">奖池设置</a>
+	<span class="c-gray en">&gt;</span>
+	编辑奖池
+	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+
+	<!-- <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" onclick="javascript:history.back(1);" title="返回列表" ><i class="Hui-iconfont">&#xe67d;</i></a> -->
+
+</nav>
+
+
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	$("#tab-system").Huitab({
+		index:0
+	});
+});
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+<script type="text/javascript">
+
+</script>
+<div class="page-container">
+	
+	<div class="form form-horizontal" id="form-article-add">
+		<div id="tab-system" class="HuiTab">
+			<div class="tabBar cl" style="height: 30px">
+				<span onclick='tab_user()'>用户管理</span>
+				<span onclick='tab_sign()'>签到人员</span>
+				<span onclick='tab_package()'>奖品设置</span>
+				<span onclick='tab_winuser()'>中奖名单</span>
+				<a id="a_sign" class="btn btn-success radius r" style="line-height:1.6em;" onclick="signSceen()" href="javascript:location.replace(location.href);" title="签到大屏幕" >签到大屏幕</a>
+				<a id="a_lottery" class="btn btn-success radius r" style="line-height:1.6em;" href="javascript:location.replace(location.href);" title="刷新" >抽奖大屏幕</a>
+			</div>
+			
+			<!-- tab1  用户管理 -->
+			<div class="tabCon" ><!-- style="margin-right: 30%;background-color: #eceff4;" -->
+				<div class="user title">
+					<a><img alt="" src="../../resource/manager/tab1.png"></a> 
+				</div>
+				<div class="" align="right">
+					<a class="btn btn-primary radius" href="javascript:;" onclick="add_userGroup()" style="margin-right:1%"><i class="Hui-iconfont">&#xe600;</i> 新增分组</a>  
+				</div>
+				<div class="user_left">
+					<div class="left_1" id="allUserDiv_left">
+					 全部用户
+					</div>
+					<div class="left_2">
+						<label>
+							<input type="checkbox" id="selAllCheck" onclick="selAllClick()"><span>全选</span>
+						</label>
+						<label class="left_2_1" id="addToGroupLabel"><a  id="addTo" href="javascript:return false;" onclick="return false;" style="cursor: default;opacity: 0.2;">添加到</a></label>
+						<label class="left_2_2" style="display: none;" id="moveLabel"><a  id="moveToList" href="javascript:return false;" onclick="return false;" style="cursor: default;opacity: 0.2;">移出分组</a></label>
+						<label class="left_2_2" id="addBlackLabel"><a  id="blackList" href="javascript:return false;" onclick="return false;" style="cursor: default;opacity: 0.2;">加入黑名单</a></label>
+						<label class="left_2_2" style="display: none;" id="moveBlackLabel"><a  id="moveblackList" href="javascript:return false;" onclick="return false;" style="cursor: default;opacity: 0.2;">移出黑名单</a></label>
+					</div>
+					<ul class="left_3" id="userinfo_ul">
+						<!-- li 中的数据动态生成 -->
+						<li class="left_3_li" >
+							<label>
+								<input type="checkbox">	<span>&nbsp;&nbsp;&nbsp;</span>
+								<img style="width: 48px; width: 48px" src="">
+								<span>&nbsp;&nbsp;&nbsp;</span><span class="name">Mark</span>
+							</label>
+						</li>
+					</ul>
+					<div id="page_userlist" align="center" class="page_div"></div>
+					
+				</div>
+				
+				<div class="user_right">
+					<div class="right_1">
+						<dl class="right_1_dl" id="groupDl">
+							<dt class="right_1_dt" id="allUserDt" onclick="dtOnclick(this)" group="0"> 
+								<span class="right_1_1">全部用户</span>
+								<em><span>(</span><span id="allUserSum">3</span><span>)</span></em>
+							</dt>
+							<!-- <dd class="right_1_dd">
+								<span>签到分组</span>
+								<em><span>(</span><span>3</span><span>)</span></em>
+							</dd> -->
+							
+						</dl>
+						<dl class="right_1_dl"  id="blackDl">
+							<dt class="right_1_dt" onclick="blackDtOnclick()">
+								<span class="right_1_1" >黑名单</span>
+								<em><span>(</span><span id="blackNum">3</span><span>)</span></em>
+							</dt>
+						</dl>
+						<button class="small" onclick="aa()">Excel导入用户</button>
+					</div>
+				</div>
+			</div>
+			<!-- tab2签到人员  -->
+			<div class="tabCon" style="margin-right : 5%">
+				<div class="user title">
+					<a><img alt="" src="../../resource/manager/tab2.png"></a> 
+				</div>
+				<div class="text-c" style="margin-bottom: 0px;text-align: right;"> <input type="text" id="merchantName" placeholder="请输入用户昵称" style="width:250px" class="input-text">	 
+				&nbsp;
+				<button name="" id="" class="btn btn-success" onclick="onclickSubmit()" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+				</div>
+				<div class="cl pd-5 bg-1 bk-gray mt-20" style="margin-top: 5px"  >
+					<a class="btn btn-primary radius" style="float :right;"  href="javascript:;" onclick="upload('signTable')"><i class="Hui-iconfont">&#xe640;</i> 导出签到名单</a>  
+				</div>
+				<table id="signTable" class="table table-border table-bordered table-bg table-hover table-sort" >
+					<thead>
+						<tr class="text-c">
+							<th ><input type="checkbox" name="" value=""></th>
+							<th>ID</th>
+							<th >用户昵称</th>
+							<th >用户手机号</th>
+							<th>用户头像</th>
+							<th >签到时间</th>
+						</tr>
+					</thead>
+					<tbody id="signUserTbody">
+						  <tr><td colspan="6" style="text-align: center">暂无数据</td></tr>
+					</tbody>
+				</table>
+				<div id="page_signusers" align="center" class="page_div"></div>
+			</div>
+			<!-- tab3  奖品设置 -->
+			<div class="tabCon" style="margin-right : 5%">
+				<div class="user title">
+					<a><img alt="" src="../../resource/manager/tab3.png"></a> 
+				</div>
+				<div class="cl pd-5 bg-1 bk-gray mt-20" style="margin-top: 5px"  >
+					<span class="l">
+					<a class="btn btn-primary radius" href="javascript:;" onclick="addLotteryAward()"><i class="Hui-iconfont">&#xe600;</i> 新建奖品</a> </span> 
+				</div>
+				<table  class="table table-border table-bordered table-bg table-hover table-sort" >
+					<thead>
+						<tr class="text-c">
+							<th ><input type="checkbox" name="" value=""></th>
+							<th>ID</th>
+							<th >奖品名称</th>
+							<th>图片</th>
+							<th >抽奖人群</th>
+							<th >操作</th>
+						</tr>
+					</thead>
+					<tbody id="awardTbody">
+						  <tr><td colspan="6" style="text-align: center">暂无数据</td></tr>
+					</tbody>
+				</table>
+				<div id="page_awardlist" align="center" class="page_div"></div>
+			</div>
+			<!-- tab4中奖名单 -->
+			<div class="tabCon" style="margin-right : 5%">
+				<div class="user title">
+					<a><img alt="" src="../../resource/manager/tab4.png"></a> 
+				</div>
+				<div class="cl pd-5 bg-1 bk-gray mt-20" style="margin-top: 5px"  >
+					<a class="btn btn-primary radius" style="float :right;" href="javascript:;" onclick="upload('winnerTable')"><i class="Hui-iconfont">&#xe640;</i> 导出中奖名单</a> 
+				</div>
+				<table id="winnerTable" class="table table-border table-bordered table-bg table-hover table-sort" >
+					<thead>
+						<tr class="text-c">
+							<th ><input type="checkbox" name="" value=""></th>
+							<th>ID</th>
+							<th >中奖人</th>
+							<th >中奖人手机号</th>
+							<th>奖品名称</th>
+							<th >奖品图片</th>
+							<th >状态</th>
+							<th >备注</th>
+						</tr>
+					</thead>
+					<tbody id="winnerTbody">
+						  <tr><td colspan="8" style="text-align: center">暂无数据</td></tr>
+					</tbody>
+				</table>
+				<div id="page_winnerlist" align="center" class="page_div"></div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- 新增奖品对话框 -->
+<div id="addLotteryDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="margin-left: 20%;">
+		<div class="modal-content radius" style="width: 700px">
+			<div class="modal-header">
+				<h3 class="modal-title">新建奖品</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<div class="modal-body">
+				<!-- <article class="page-container"> -->
+					<form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 30%">
+						<div class="row cl">
+							<label class="form-label col-xs-4 col-sm-3">奖品名称：</label>
+							<div class="formControls col-xs-8 col-sm-9">
+								<input type="text" class="input-text"  id="award_name" style="width:500px">
+							</div>
+						</div>
+						<div class="row cl">
+							<label class="form-label col-xs-4 col-sm-3">抽奖分组：</label>
+								<div class="formControls col-xs-8 col-sm-9">
+								<select class="select" size="1" id="award_lottery_group" style="height: 31px"> 
+									<option value="" selected>全部用户</option>
+								</select>
+							</div>
+						</div>
+						<div class="row cl">
+							<label class="form-label col-xs-4 col-sm-3">奖品图片：</label>
+								<div class="formControls col-xs-8 col-sm-9">
+									<div class="img-container-teamTitle" id="lotteryPicContainer" ></div>
+	           						 <input class="img-btn-teamTitle" name="awardImg" type="file" id="award_img" >
+	           					</div>
+						</div>
+						<div class="row cl"  >
+							<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+								<span id="awardAddTip"  style="color: red"></span>
+							</div>
+						</div>
+				
+					</form>
+				<!-- </article> -->
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" onclick="addAwardSubmit()">确定</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 编辑奖品对话框 -->
+<div id="editLotteryDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="margin-left: 20%;">
+		<div class="modal-content radius" style="width: 700px">
+			<div class="modal-header">
+				<h3 class="modal-title">编辑奖品</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<div class="modal-body">
+				<!-- <article class="page-container"> -->
+					<form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 30%">
+						<div class="row cl">
+							<label class="form-label col-xs-4 col-sm-3">奖品名称：</label>
+							<div class="formControls col-xs-8 col-sm-9">
+								<input type="text" class="input-text"  id="edit_award_name" style="width:500px">
+							</div>
+						</div>
+						<div class="row cl">
+							<label class="form-label col-xs-4 col-sm-3">抽奖分组：</label>
+								<div class="formControls col-xs-8 col-sm-9">
+								<select class="select" size="1" id="edit_award_lottery_group" style="height: 31px"> 
+									<option value="" selected>全部用户</option>
+								</select>
+							</div>
+						</div>
+						<div class="row cl">
+							<label class="form-label col-xs-4 col-sm-3">奖品图片：</label>
+								<div class="formControls col-xs-8 col-sm-9">
+									<div class="img-container-teamTitle" id="lotteryPicEditContainer" ></div>
+	           						 <input class="img-btn-teamTitle" name="awardImg" type="file" id="edit_award_img" >
+	           					</div>
+						</div>
+						<div class="row cl"  >
+							<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+								<span id="editAwardAddTip"  style="color: red"></span>
+							</div>
+						</div>
+				
+					</form>
+				<!-- </article> -->
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" onclick="editAwardSubmit()">确定</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 新增分组对话框 -->
+<div id="addGroupDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true<!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!--  --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> -->">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">新建分组</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<div class="modal-body">
+				<!-- <article class="page-container"> -->
+					<form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 50px">
+						<div class="row cl">
+							<label class="form-label col-xs-4 col-sm-3">分组名称：</label>
+							<div class="formControls col-xs-8 col-sm-9">
+								<input type="text" class="input-text"  id="groupName">
+							</div>
+						</div>
+						
+						<div class="row cl"  >
+							<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+								<span id="addgroup_tip"  style="color: red"></span>
+							</div>
+						</div>
+					</form>
+				<!-- </article> -->
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" onclick="groupAddSubmit()">确定</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 添加到分组对话框 -->
+<div id="addToGroupDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">选择分组</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<div class="modal-body">
+			<select class="select" size="1" id="guropSelect" style="height: 31px"> 
+				
+				</select>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" onclick="addToGroupSubmit()">确定</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 编辑中奖名单备注对话框 -->
+<div id="editWinnerListRemarkDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true<!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!-- <!--  --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> --> -->">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">编辑备注</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<div class="modal-body">
+				<!-- <article class="page-container"> -->
+					<form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 50px">
+						<div class="row cl">
+							<label class="form-label col-xs-4 col-sm-3">输入备注信息：</label>
+							<div class="formControls col-xs-8 col-sm-9">
+								<input type="text" class="input-text"  id="remark_msg">
+							</div>
+						</div>
+						
+						<div class="row cl"  >
+							<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+								<span id="editremark_tip"  style="color: red"></span>
+							</div>
+						</div>
+					</form>
+				<!-- </article> -->
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" onclick="editWinnerListRemarkSubmit()">确定</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+<%= require('html-loader!../layout/js-hui.html') %>
+<script type="text/javascript" src="../../lib/picreview.js"></script>
+</body>
+</html>

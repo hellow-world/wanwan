@@ -58,3 +58,8 @@ function getParams(key) {
     }
     return null;
 }
+$('.titleImg img').load(function()
+{
+    $('.lds-ellipsis').hide();
+    $(this).fadeIn(300);
+})

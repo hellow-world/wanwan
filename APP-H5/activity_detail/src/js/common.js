@@ -50,7 +50,7 @@ function setValue(param) {
     $('.titleImg img').attr('src', param.activityCover)
     $('#postedNum').text(param.enrolPeople)
     $('.title').text(param.activityTitle)
-    $('.subTitle').text(param.activityIntroduce)
+    // $('.subTitle').text(param.activityIntroduce)
     $('.time').find('#startTime').text(param.activityStartTime)
     $('.time').find('#endTime').text(param.activityEndTime)
     $('.address #place').text(param.activityPlace)
