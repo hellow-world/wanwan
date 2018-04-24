@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-05 10:03:08
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-23 09:38:31
+ * @Last Modified time: 2018-04-23 14:18:57
  */
 'use strict'
 require('./index.css')
@@ -113,7 +113,7 @@ function delteActivity(activityId, obj) {
         data: formData,
         success: function(result) {
             if (result.code == _encode.REQUEST_SUCCESS) {
-                _utils.modalTip("已成功删除活动", 500);
+                _util.modalTip("已成功删除活动", 500);
                 $(obj).parent().parent().remove();
             } else {
                 alert(result.msg);

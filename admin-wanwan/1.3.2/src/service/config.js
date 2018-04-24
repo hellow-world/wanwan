@@ -2,7 +2,7 @@
 * @Author: admin
 * @Date:   2018-01-31 14:34:05
 * @Last Modified by:   admin
-* @Last Modified time: 2018-04-16 12:02:55
+* @Last Modified time: 2018-04-23 22:19:36
 */
 var config = {
 
@@ -10,7 +10,7 @@ var config = {
 	//basePath : 'https://wanwan.citygreen-china.cn:8445/',
 
 	buildPath: 'https://api.wanwantech.cn:18443/',
-	//buildPath : 'https://wanwan.citygreen-china.cn:18443/',
+	//buildPath : 'https://api.wanwantech.com:18443/',//外网
 
 	viewPath : 'http://192.168.1.153:8890/dist/view/',
 

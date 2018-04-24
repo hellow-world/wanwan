@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-05 10:02:49
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-23 10:04:21
+ * @Last Modified time: 2018-04-23 20:37:01
  */
 require('./index.css')
 var config = require('service/config.js')
@@ -30,8 +30,8 @@ roleSingle = {
     'enrolCurrencyNum': 100,
     'enrolMaxPeople': 10, //报名最大人数
     'isPush': 0, //是否推送
-    'pushContent': '推送推送推送他',
-    'pushTime': '2018-12-20',
+    'pushContent': '',
+    'pushTime': '',
     'roleName': '随国林'
 }
 $(function() {
@@ -120,7 +120,7 @@ var setRoleConfig = (arr) => {
     for (var i = 0; i < arr.length; i++) {
         for (var j = 0; j < label.length; j++) {
             let id = $(label[j]).find('label').attr('data-role');
-            
+
             if (arr[i].roleId == id) {
                 console.log($(label[j]).find('label'))
                 $(label[j]).find('label').addClass('powerOn');
@@ -140,7 +140,7 @@ var selectSellerValue = (param) => {
     for (var i = 0; i < arr.length; i++) {
         sellerId.push($(arr[i]).attr('data-seller'))
     }
-    var index = sellerId.indexOf(String(param))     
+    var index = sellerId.indexOf(String(param))
     $('.sellerUser').find('option').eq(index).attr('selected', 'selected')
 }
 
@@ -320,7 +320,6 @@ function addActivitySubmit() {
                 console.log(result);
                 if (result.code == _encode.REQUEST_SUCCESS) {
                     modalalert("已成功添加活动");
-                    //$("#addActivityDia").modal("hide");
                     setTimeout(backToList, 1000);
 
                 } else {
@@ -425,20 +424,31 @@ var editActivitySubmit = () => {
  * 做延迟1s返回列表
  */
 function backToList() {
-    window.history.back();
+    window.history.go(-1);
 }
 
 // 1.3.2
 // 权限选择切换
 window.selectPowerUser = (obj) => {
     if (isEdit) {
-        layer.msg('编辑状态无法切换分组',{time:800});
+        layer.msg('编辑状态无法切换分组', { time: 800 });
         return;
     }
     let roleId = $(obj).parent('label').attr('data-role');
     if ($(obj).parent('label').hasClass('powerOn')) {
+        console.log(roleConfig.length)
+        //当权限配置池为空，直接切换
+        if (roleConfig.length < 1) {
+            console.log('配置池为空')
+            $(obj).parent('label').removeClass('powerOn');
+            $(obj).siblings('.powerEdit').hide();
+            $(obj).siblings('.powerSet').text('设置')
+            $(obj).siblings('.powerSet').attr('onclick', 'setPowerUser(this)')
+            return;
+        }
+        // 如果已经在序列就清空该权限的设置
         if (PowerIsSet(roleId)[0]) {
-            // 如果已经在序列就清空该权限的设置
+            console.log('当前序列已在')
             layer.open({
                 title: '提醒',
                 shade: 0,
@@ -452,11 +462,13 @@ window.selectPowerUser = (obj) => {
                     $(obj).siblings('.powerSet').text('设置')
                     $(obj).siblings('.powerSet').attr('onclick', 'setPowerUser(this)')
                     layer.close(index);
+                    console.log(roleConfig);
                 }
             })
 
             return;
         }
+
 
     }
     if (roleId == -1) {
@@ -474,8 +486,8 @@ window.selectPowerUser = (obj) => {
             }
         })
 
-    } else if(roleId !== -1){
-        console.log('-1')
+    } else if (roleId !== -1) {
+        //权限为全部-1
         let id = $('.powerBlock').find('label').eq(0).attr('data-role')
         //当权限设置为空时，直接让全部设置为
         if (roleConfig.length < 1) {
@@ -502,9 +514,7 @@ window.selectPowerUser = (obj) => {
                     layer.close(index);
                 }
             })
-        }
-        else
-        {
+        } else {
             $('.powerBlock').find('label').eq(0).removeClass('powerOn');
             $('.powerBlock').find('label').eq(0).find('.powerEdit').hide();
             $('.powerBlock').find('label').eq(0).find('.powerSet').text('设置');
@@ -522,9 +532,16 @@ var PowerResetconfirm = (bool) => {
     }
 }
 //判断权限设置切换选择时是否已在序列
-var PowerIsSet = (id) => {
-    for (var i = 0; i < roleConfig.length; i++) {
-        if (id == roleConfig[i].roleId) {
+var PowerIsSet = (powerid) => {
+    'use strict'
+    let idArr = new Array();
+    for(var roleId in roleConfig) {
+        idArr.push(roleConfig[roleId])
+        
+    }
+    console.log(idArr)
+    for (var i = 0; i < idArr.length; i++) {
+        if (powerid == idArr[i].roleId) {
 
             return [true, i]
         } else {
@@ -532,6 +549,7 @@ var PowerIsSet = (id) => {
             return [false, i]
         }
     }
+    
 }
 //设置权限
 window.setPowerUser = (obj) => {
@@ -590,16 +608,13 @@ var setValueToEditPower = (param, name, index) => {
 
         $('#addSetPower').find('#enrol_currency').attr('disabled', true)
     }
-    if(isFirstEdit)
-    {
+    if (isFirstEdit) {
         $('#addSetPower').find('#money_number').val(param.enrolCurrencyNum / 100);
-        isFirstEdit=false;
-    }
-    else
-    {
+        isFirstEdit = false;
+    } else {
         $('#addSetPower').find('#money_number').val(param.enrolCurrencyNum);
     }
-    
+
     $('#addSetPower').find('#activity_number_people').val(param.enrolMaxPeople);
     $('#addSetPower').find('#activity_carrynumber_people').val(param.carryNumber);
     $('#addSetPower').find('#activity_carrynumber_people').val(param.carryNumber);
@@ -633,8 +648,11 @@ window.setPowerSubmit = () => {
         roleSingle.enrolCurrencyNum = $('#addSetPower').find('#money_number').val();
         roleSingle.enrolMaxPeople = $('#addSetPower').find('#activity_number_people').val();
         if (isPushed == 1) {
+
             notifyContent = $('#addSetPower').find("#notify_content").val();
+
             notifyTime = $('#addSetPower').find("#push_time").val();
+            console.log(notifyTime)
         }
         roleSingle.isPush = isPushed;
         roleSingle.pushContent = notifyContent;
@@ -700,8 +718,8 @@ var roleSingleInit = () => {
         'enrolCurrencyNum': 100,
         'enrolMaxPeople': 10, //报名最大人数
         'isPush': 0, //是否推送
-        'pushContent': '推送推送推送他',
-        'pushTime': '2018-12-20',
+        'pushContent': '',
+        'pushTime': '',
         'roleName': '随国林'
 
     }

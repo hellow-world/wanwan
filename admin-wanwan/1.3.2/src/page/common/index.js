@@ -2,7 +2,7 @@
 * @Author: admin
 * @Date:   2018-01-29 16:11:50
 * @Last Modified by:   admin
-* @Last Modified time: 2018-04-19 18:26:05
+* @Last Modified time: 2018-04-23 22:20:17
 */
 require('./index.css')
 require('../lib/jquery.cookie.js')
@@ -36,7 +36,7 @@ var _token=$.cookie('token')
 var _sponsorName = $.cookie('sponsorName')
 if(_token===undefined||_sponsorName===undefined)
 {
-    //top.location.href="../../";
+    //top.location.href="../../index.html";//外网
     top.location.href="../../dist/";
 	
 }
