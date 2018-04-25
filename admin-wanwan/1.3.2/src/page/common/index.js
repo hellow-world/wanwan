@@ -15,30 +15,30 @@ Array.prototype.contains = function(item){
 	  return RegExp("\\b"+item+"\\b").test(this);
 };
 
-/* 
-* 方法:Array.remove(dx) 通过遍历,重构数组 
-* 功能:删除数组元素. 
-* 参数:dx删除元素的下标. 
+/*
+* 方法:Array.remove(dx) 通过遍历,重构数组
+* 功能:删除数组元素.
+* 参数:dx删除元素的下标.
 */
-Array.prototype.remove=function(dx) 
-{ 
-  if(isNaN(dx)||dx>this.length){return false;} 
-  for(var i=0,n=0;i<this.length;i++) 
-  { 
-    if(this[i]!=this[dx]) 
-    { 
-      this[n++]=this[i] 
-    } 
-  } 
-  this.length-=1 
+Array.prototype.remove=function(dx)
+{
+  if(isNaN(dx)||dx>this.length){return false;}
+  for(var i=0,n=0;i<this.length;i++)
+  {
+    if(this[i]!=this[dx])
+    {
+      this[n++]=this[i]
+    }
+  }
+  this.length-=1
 }
 var _token=$.cookie('token')
 var _sponsorName = $.cookie('sponsorName')
 if(_token===undefined||_sponsorName===undefined)
 {
-    //top.location.href="../../index.html";//外网
-    top.location.href="../../dist/";
-	
+    top.location.href="../../index.html";//外网
+    //top.location.href="../../dist/";
+
 }
 else
 {

@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-03-02 10:24:09
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-02 17:25:57
+ * @Last Modified time: 2018-04-25 16:31:41
  */
 require('./index.css')
 var _config = require('service/config.js')
@@ -21,7 +21,7 @@ var isFileAccess = false;//上传文件失败或者成功
 var _url = {
 
     cardUrl: _config.basePath + 'card/selList', //按类型查询
-    activityUrl: _config.basePath + 'activity/list',
+    activityUrl: _config.buildPath + 'api-amuse/v1.1/activity',
     guessUrl: _config.basePath + "guess/selGuesses",
     voteUrl: _config.buildPath + "api-social/v1.0/vote",
     selActivityUrl: _config.basePath + "activity/selByName", //按名称查询
@@ -477,13 +477,12 @@ function selActivityList() {
     isSearch = false;
     $.ajax({
         url: _url.activityUrl,
-        type: "POST",
+        type: "GET",
         dataType: "json",
         headers: { "token": _config.token },
         data: {
             page: pagenum,
-            isFirstSel: isFirstSel,
-            numPerPage: num_perPage
+            pageSize: num_perPage
         },
         success: function(result) {
 
@@ -660,9 +659,9 @@ function addTdToTable(param, behind) {
 function addTdToTable_activity(param, behind) {
     var res = '<tr class="text-c" >' + behind;
     //for(var key in param )
-    res += "<td class='card_id'>" + param.id + "</td>";
+    res += "<td class='card_id'>" + param.activityId + "</td>";
     res += "<td class='card_name'>" + param.activityTitle + "</td>";
-    res += "<td>" + param.activityCreateTime + "</td>";
+    res += "<td>" + param.createTime + "</td>";
     if (param.isTop == 1) {
         res += getoperaHtml_down();
     } else {

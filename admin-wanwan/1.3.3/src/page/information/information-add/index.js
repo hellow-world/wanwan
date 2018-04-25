@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-05 10:02:49
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-25 16:03:35
+ * @Last Modified time: 2018-04-25 11:31:26
  */
 require('./index.css')
 var config = require('service/config.js')
@@ -20,7 +20,7 @@ var editActivityId;
 var roleConfigId; //暂存权限设置ID
 var roleConfigIndex; //暂存权限OF大数据的索引
 var isEdit = false;
-var isFirstEdit = false;//从活动列表来的编辑的话为真
+var isFirstEdit = false;
 roleSingle = {
 
     'roleId': 0, //角色ID
@@ -35,7 +35,7 @@ roleSingle = {
     'roleName': '随国林'
 }
 $(function() {
-    $('#activity_content').froalaEditor({
+    $('#information_content').froalaEditor({
         theme: 'dark',
         imageUploadURL: config.basePath + "uploadImgEditor",
         language: 'zh_cn',
@@ -323,7 +323,6 @@ function addActivitySubmit() {
                     setTimeout(backToList, 1000);
 
                 } else {
-                    alert(res.msg);
                     alert("添加失败，请联系服务器");
 
                 }
@@ -606,12 +605,8 @@ var setValueToEditPower = (param, name, index) => {
     if (isEdit) {
         $('#addSetPower').find('#is_pushed').parent('div.row').hide();
         $('#addSetPower').find('#push_time_div').hide();
+
         $('#addSetPower').find('#enrol_currency').attr('disabled', true)
-    }
-    else
-    {
-        $('#addSetPower').find('#notify_content').val(param.pushContent);
-        $('#addSetPower').find('#push_time').val(_utils.formatDate(param.pushTime));
     }
     if (isFirstEdit) {
         $('#addSetPower').find('#money_number').val(param.enrolCurrencyNum / 100);
@@ -655,6 +650,7 @@ window.setPowerSubmit = () => {
         if (isPushed == 1) {
 
             notifyContent = $('#addSetPower').find("#notify_content").val();
+
             notifyTime = $('#addSetPower').find("#push_time").val();
             console.log(notifyTime)
         }
@@ -738,24 +734,12 @@ var roleSingleInit = () => {
     $('#addSetPower').find("#push_time").val('');
 }
 
+//
+$('select.infoType').change(function(){
 
-Date.prototype.format = function(fmt) {
-    var o = {
-        "M+": this.getMonth() + 1, //月份 
-        "d+": this.getDate(), //日 
-        "h+": this.getHours(), //小时 
-        "m+": this.getMinutes(), //分 
-        "s+": this.getSeconds(), //秒 
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-        "S": this.getMilliseconds() //毫秒 
-    };
-    if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    }
-    for (var k in o) {
-        if (new RegExp("(" + k + ")").test(fmt)) {
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        }
-    }
-    return fmt;
-}
+	let value = $(this).find('option:selected').val();
+	if(value == 2)
+	{
+		$('#powerUserDis').hide();
+	}
+})

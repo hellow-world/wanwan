@@ -12,7 +12,7 @@ var path = require('path');
 
 //环境变量控制
 var WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev'
-// 获取html-webpack-plugin参数的方法 
+// 获取html-webpack-plugin参数的方法
 var getHtmlConfig = function(name, title) {
     return {
         template: './src/view/' + name + '.html',
@@ -72,7 +72,7 @@ var config = {
     },
     //输出文件
     output: {
-        path: __dirname + '/dist', //构建存放目录    
+        path: __dirname + '/dist', //构建存放目录
         publicPath: 'dev' === WEBPACK_ENV ? '/dist/' : '/dist/', //构建最终路径存放目录
         filename: 'js/[name].js' //构建存放路径的文件名（js）
     },
@@ -166,6 +166,6 @@ var config = {
 };
 if ('dev' === WEBPACK_ENV) {
 
-    config.entry.common.push('webpack-dev-server/client?http://localhost:8890/');
+    config.entry.common.push('webpack-dev-server/client?http://localhost:8899/');
 }
 module.exports = config;

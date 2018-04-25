@@ -78,7 +78,7 @@
     .img-container-bannerTitle
     {
         width: 750px;
-        height: 350px;
+        height: 400px;
         background:#F2F2F2;
         margin-bottom:35px;
         overflow: hidden;
@@ -87,7 +87,7 @@
     .img-container-bannerTitle>img
     {
         width: 750px;
-        height: 350px;
+        height: 400px;
     }
     .img-container-secondTitle
     {
@@ -188,5 +188,33 @@
         height: 900px;
     }
 
+    .img-container-infoTitle
+    {
+        width: 670px;
+        height: 300px;
+        background:#F2F2F2;
+        margin-bottom:35px;
+        overflow: hidden;
+        border: 1px solid #000;
+    }
+    .img-container-infoTitle>img
+    {
+        width: 670px;
+        height: 300px;
+    }
+    .img-container-infoCover
+    {
+        width: 750px;
+        height: 400px;
+        background:#F2F2F2;
+        margin-bottom:35px;
+        overflow: hidden;
+        border: 1px solid #000;
+    }
+    .img-container-infoCover>img
+    {
+        width: 750px;
+        height: 400px;
+    }
 
 

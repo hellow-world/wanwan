@@ -7,9 +7,9 @@
 var config = {
 
 	//basePath : 'https://wanwan.citygreen-china.com:8445/',//内网
-	basePath : 'https://api.wanwantech.com:8445/',
+	basePath : 'https://api.wanwantech.com:8445/',//外网
 
-	//buildPath: 'https://api.wanwantech.cn:18443/',
+	//buildPath: 'https://api.wanwantech.cn:18443/',//内网
 	buildPath : 'https://api.wanwantech.com:18443/',//外网
 
 	viewPath : 'http://192.168.1.153:8890/dist/view/',
