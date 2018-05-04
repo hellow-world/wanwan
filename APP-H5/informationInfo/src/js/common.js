@@ -4,11 +4,30 @@ var w_window = $(window).width();
 var h_doc = $(document).height();
 
 var _token;
-var card_id;
+var info_id;
 $(function() {
     $('.titleImg img').hide();
-    card_id = getParams('cardId')
-    _token = getParams('token')
+    $.ajax({
+        type:'HEAD',
+        url:window.location.href,
+        complete:function(xhr,data)
+        {
+            if(xhr.getResponseHeader('informationId')=null||xhr.getResponseHeader('token')=null)
+            {
+                alert('传递HEAD参数错误')
+                return;
+            }
+            else
+            {
+               info_id = xhr.getResponseHeader('informationId')
+               _token = xhr.getResponseHeader('token') 
+            }
+            
+        }
+    })
+    
+    // info_id = getParams('informationId')
+    // _token = getParams('token')
     selCard();
 })
 $('.titleImg img').load(function()
@@ -17,13 +36,14 @@ $('.titleImg img').load(function()
     $(this).show();
 })
 function selCard() {
-    alert(card_id);
+    alert(info_id);
     $.ajax({
 
-        url: 'https://wanwan.citygreen-china.cn:18443/api-user/v1.0/user/card/details/'+card_id,
+        url: 'https://api.wanwantech.cn:18443/api-integral/{version}/information/details',
         type: 'GET',
         dataType: 'json',
         headers: { "token": _token },
+        data:{informationId:info_id},
         success: function(res) {
 
             if (!res.code === 200) {
@@ -42,16 +62,11 @@ function selCard() {
 
 function setValue(param) {
     //标题图片
-    $('.titleImg img').attr('src', param.cardCover)
-    $('#maxNum').text(param.cardSum)
-    $('#curNum').text(param.purchasedSum)
-    $('.title').text(param.cardTitle)
-    $('.subTitle').text(param.cardIntroduce)
-    $('.time').find('#startTime').text(param.cardStartTime)
-    $('.time').find('#endTime').text(param.cardEndTime)
-    $('.address #place').text(param.cardPlace)
+    $('.titleImg img').attr('src', param.contentImg)
+    $('.title').text(param.title)
     $('#Content .input_content').empty();
-    $('#Content .input_content').append(param.cardContent)
+    $('#Content .input_content').append(param.content)
+    $('#Content .foot span').append(param.createTime)
 
 }
 
