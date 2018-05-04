@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-05 10:02:49
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-25 16:03:35
+ * @Last Modified time: 2018-05-04 11:04:26
  */
 require('./index.css')
 var config = require('service/config.js')
@@ -21,6 +21,7 @@ var roleConfigId; //暂存权限设置ID
 var roleConfigIndex; //暂存权限OF大数据的索引
 var isEdit = false;
 var isFirstEdit = false;//从活动列表来的编辑的话为真
+var isDiscussion = 0;//判断活动是否需要创建讨论组 0为不创建 1为创建
 roleSingle = {
 
     'roleId': 0, //角色ID
@@ -243,12 +244,8 @@ window.onClickHander = function(obj) {
     }
 }
 
-//添加活动提交
-$('#addSubmit').click(function() { addActivitySubmit(); })
-// 编辑活动提交
-$('#editSubmit').click(function() { editActivitySubmit(); })
 //添加活动数据传送
-function addActivitySubmit() {
+window.addActivitySubmit=function() {
     var activity_title = $('#activity_title').val();
     var activity_introduce = $('#activity_introduce').val();
     var activity_place = $('#activity_place').val();
@@ -300,7 +297,22 @@ function addActivitySubmit() {
         } else {
             formData.append("activityOnlineTime", activity_online_time); //活动上架时间
         }
+        if(isDiscussion ==1)
+        {
+            var discussionMainUid = $("#activity_discussion_admin").val();
+            var discussionName = $("#activity_discussion_name").val();
+            if(discussionMainUid == ""||discussionName == "")
+            {
+                $('#Tip').html("讨论组群主或者名称未填写")
+                return;
+            }
+            else
+            {
+                formData.append("discussionMainUid",discussionMainUid)
+                formData.append("discussionName",discussionName)
+            }
 
+        }
         formData.append("activityIssuer", Issuer) //活动发布者
 
 
@@ -323,7 +335,7 @@ function addActivitySubmit() {
                     setTimeout(backToList, 1000);
 
                 } else {
-                    alert(res.msg);
+                    alert(result.msg);
                     alert("添加失败，请联系服务器");
 
                 }
@@ -336,7 +348,7 @@ function addActivitySubmit() {
 
 }
 //编辑活动数据传送
-var editActivitySubmit = () => {
+window.editActivitySubmit = function(){
     var activity_title = $('#activity_title').val();
     var activity_introduce = $('#activity_introduce').val();
     var activity_place = $('#activity_place').val();
@@ -410,6 +422,7 @@ var editActivitySubmit = () => {
                     setTimeout(backToList, 1000);
 
                 } else {
+                    alert(result.msg)
                     alert("编辑失败，请联系服务器");
 
                 }
@@ -758,4 +771,23 @@ Date.prototype.format = function(fmt) {
         }
     }
     return fmt;
+}
+
+/**
+ * 是否为本活动创建讨论组
+ */
+window.onClickHander_discussion = function(obj) {
+    if (obj.checked) {
+        $("#activity_discussion_admin").show();
+        $("#activity_discussion_name").show();
+        isDiscussion = 1;
+
+    } else {
+        $("#activity_discussion_admin").hide();
+        $("#activity_discussion_name").hide();
+
+        $("#activity_discussion_admin").val('');
+        $("#activity_discussion_name").val('');
+        isDiscussion = 0;
+    }
 }

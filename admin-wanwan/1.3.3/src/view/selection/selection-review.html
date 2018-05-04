@@ -24,6 +24,11 @@
     </nav>
     <div class="page-container">
         <a class="btn btn-primary radius" href="javascript:;" onclick="javascript:history.back(1);"><i class="Hui-iconfont">&#xe67d;</i> </a>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="r">
+        <a class="btn btn-primary radius" onclick="addOfficialNote();" id="addTip"><i class="Hui-iconfont">&#xe600;</i> 新建帖子</a>
+        </span>
+        </div>
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
                 <tr class="text-c">
@@ -108,6 +113,57 @@
                 <img src="" alt="">
             </div>
         </div>
+    </div>
+    <!-- 新增官方帖子对话框 -->
+    <div id="modal-note" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:60; margin-top:100px">
+        <div class="modal-dialog" style="min-width: 1000px;">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">新增官方帖子</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <!-- <article class="page-container"> -->
+                    <form class="form form-horizontal" id="form-post-review" style="margin-left: 3%">
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>发布者：
+                                <input type="text" name="userNickname" style="width:50%" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>发布者头像：
+                                <div style="margin-left: 77px">
+                                    <div class="img-container" id="titlePicContainer"></div>
+                                    <input class="img-btn" type="file" id="titlePic">
+                                </div>
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class="fl"><span class="c-red">*</span>内容图片：</label>
+                            <div style="margin-left: 77px">
+                                <div class="img-container-noteCover" id="coverPicContainer"></div>
+                                <input class="img-btn-noteCover" type="file" id="coverPic">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>内容描述：
+                                <input type="text" name="des" id="noteDescription" style="width:50%;" class="input-text">
+                            </label>
+                        </div>
+                    </form>
+                    <!-- </article> -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="addNoteSubmit();">确定</button>
+                    <!-- <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button> -->
+                </div>
+            </div>
+        </div>
+        <div id="imgScan">
+            <i href="javascript:void(0);" class="Hui-iconfont">&#xe6a6;</i>
+            <img src="" alt="">
+        </div>
+    </div>
     </div>
     <%= require('html-loader!../layout/js-huiandfroala.html') %>
         <script type="text/javascript" src="../../lib/picreview.js"></script>

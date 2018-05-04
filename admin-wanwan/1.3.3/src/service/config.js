@@ -2,15 +2,15 @@
 * @Author: admin
 * @Date:   2018-01-31 14:34:05
 * @Last Modified by:   admin
-* @Last Modified time: 2018-04-25 16:32:39
+* @Last Modified time: 2018-04-28 17:05:41
 */
 var config = {
 
-	//basePath : 'https://wanwan.citygreen-china.com:8445/',//内网
-	basePath : 'https://api.wanwantech.com:8445/',//外网
+	basePath : 'https://wanwan.citygreen-china.com:8445/',//内网
+	//basePath : 'https://api.wanwantech.com:8445/',//外网
 
-	//buildPath: 'https://api.wanwantech.cn:18443/',//内网
-	buildPath : 'https://api.wanwantech.com:18443/',//外网
+	buildPath: 'https://api.wanwantech.cn:18443/',//内网
+	//buildPath : 'https://api.wanwantech.com:18443/',//外网
 
 	viewPath : 'http://192.168.1.153:8890/dist/view/',
 

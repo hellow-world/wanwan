@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-05 10:02:49
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-25 11:31:26
+ * @Last Modified time: 2018-05-04 15:51:50
  */
 require('./index.css')
 var config = require('service/config.js')
@@ -16,23 +16,18 @@ var roleList_temp
 var roleConfig = new Array(); //单个角色配置
 var roleSingle;
 var roleSingleEdit;
-var editActivityId;
+var editInformationId;
 var roleConfigId; //暂存权限设置ID
 var roleConfigIndex; //暂存权限OF大数据的索引
 var isEdit = false;
-var isFirstEdit = false;
 roleSingle = {
 
     'roleId': 0, //角色ID
-    'enrolStartTime': '2018-12-20', //报名开始时间
-    'enrolEndTime': '2018-12-20', //报名结束时间
-    'carryNumber': 0, //可携带人数
-    'enrolCurrencyNum': 100,
-    'enrolMaxPeople': 10, //报名最大人数
+    'publishStartTime': '', //报名开始时间
     'isPush': 0, //是否推送
     'pushContent': '',
     'pushTime': '',
-    'roleName': '随国林'
+    'roleName': ''
 }
 $(function() {
     $('#information_content').froalaEditor({
@@ -47,15 +42,14 @@ $(function() {
     // 查询权限分组
     selRoleList();
     // 查询商家
-    selSellerList();
-    let actId = _utils.getUrlParam('activityId')
-    editActivityId = actId;
-    if (actId !== null) {
+    //selSellerList();
+    let infoId = _utils.getUrlParam('infoId')
+    editInformationId = infoId;
+    if (infoId !== null) {
         $('#addSubmit').hide();
         $('#editSubmit').show();
-        selActivityDetail(actId);
+        selActivityDetail(infoId);
         isEdit = true;
-        isFirstEdit = true;
     } else {
 
         $('#editSubmit').hide();
@@ -64,7 +58,7 @@ $(function() {
     }
 
 });
-// 查询活动详情
+// 编辑-查询活动详情
 var selActivityDetail = (id) => {
     $.ajax({
         url: config.buildPath + 'api-amuse/v1.1/activity/detail',
@@ -88,17 +82,11 @@ var selActivityDetail = (id) => {
         }
     })
 }
-//给编辑框赋值
+//编辑-给编辑框赋值
 var setValueToInput = (param) => {
     $('#activity_title').val(param.activityTitle);
-    $('#activity_introduce').val(param.activityIntroduce);
-    $('#activity_place').val(param.activityPlace);
-    $('#activity_maxnum_people').val(param.activityMaxPeople);
     selectSellerValue(param.activityIssuer);
     setRoleConfig(param.roleConfig);
-    let StartTime = _utils.formatDate(param.activityStartTime)
-    let EndTime = _utils.formatDate(param.activityEndTime)
-    let onlinTime = _utils.formatDate(param.activityOnlineTime)
     $('#activity_start_time').val(StartTime);
     $('#activity_end_time').val(EndTime);
     $('#activity_online_time').val(onlinTime);
@@ -111,7 +99,7 @@ var setValueToInput = (param) => {
     $('#coverPicContainer').html(`<img src="${param.activityCover}">`)
     $('#activity_content').froalaEditor('html.set', param.activityContent);
 }
-//权限分组赋值
+//编辑-权限分组赋值
 var setRoleConfig = (arr) => {
     roleConfig = [];
     roleConfig = arr;
@@ -243,87 +231,57 @@ window.onClickHander = function(obj) {
     }
 }
 
-//添加活动提交
-$('#addSubmit').click(function() { addActivitySubmit(); })
-// 编辑活动提交
-$('#editSubmit').click(function() { editActivitySubmit(); })
-//添加活动数据传送
-function addActivitySubmit() {
-    var activity_title = $('#activity_title').val();
-    var activity_introduce = $('#activity_introduce').val();
-    var activity_place = $('#activity_place').val();
+//添加资讯提交
+$('#addSubmit').click(function() { addInfoSubmit(); })
+// 编辑资讯提交
+$('#editSubmit').click(function() { editInfoSubmit(); })
+
+//添加资讯数据传送
+function addInfoSubmit() {
+
+    var information_title = $('#information_title').val();
     var Issuer = $('.sellerUser').find('option:selected').attr('data-seller')
-    var activity_maxnum_people = $('#activity_maxnum_people').val();
-    var activity_start_time = $('#activity_start_time').val();
-    var activity_end_time = $('#activity_end_time').val();
-    var isonline = $('input[name=isOnline]:checked').val();
-    var activity_online_time = $('#activity_online_time').val();
-    var activity_content = $('div#activity_content').froalaEditor('html.get');
-    var s = activity_content.replace(/style\s*=(['\"\s]?)[^'\"]*?\1/gi, '');
+    var information_content = $('div#information_content').froalaEditor('html.get');
+    var s = information_content.replace(/style\s*=(['\"\s]?)[^'\"]*?\1/gi, '');
     var s = s.replace(/width\s*:(['\"\s]?)[^'\"]*?\1/gi, '');
 
-    var activity_CreateTime = _utils.getNowFormatDate();
-    if (activity_title == "") {
+    if (information_title == "") {
         $("#Tip").html("活动名称必填");
     } else if (document.getElementById("titlePic").value == "") {
         $("#Tip").html("请上传正确格式的标题图片");
     } else if (document.getElementById("coverPic").value == "") {
         $("#Tip").html("请上传正确格式的封面图片");
-    } else if (activity_introduce == "") {
-        $('#activity_introduce').val('无');
-    } else if (activity_place == "") {
-        $("#Tip").html("活动地点必填");
-    } else if (activity_number_people == "") {
-        $("#Tip").html("总人数上限必填");
-    } else if (activity_start_time == "" || activity_end_time == "") {
-        $("#Tip").html("开始时间必填");
     } else if (Issuer == -1) {
-        $("#Tip").html("发布商家必选");
+        $("#Tip").html("资讯发布者必选");
     } else if (roleConfig.length < 1) {
         $("#Tip").html("权限分组未设置");
     } else {
 
         var formData = new FormData();
-        formData.append("activityTitle", activity_title); //活动标题
-        formData.append("activityIntroduce", activity_introduce); //活动简介
-        formData.append("activityPlace", activity_place); //活动地点
-        formData.append("activityContent", s); //活动内容
-        formData.append("activityTitlePhoto", document.getElementById("titlePic").files[0]); //活动标题图片
-        formData.append("activityCover", document.getElementById("coverPic").files[0]); //活动封面图片
-
-        formData.append("activityMaxPeople", activity_maxnum_people); //活动最大人数限制
-        formData.append("activityStartTime", activity_start_time); //活动开始时间
-        formData.append("activityEndTime", activity_end_time); //活动结束时间
-
-        if (activity_online_time == "") {
-            formData.append("activityOnlineTime", activity_CreateTime); //活动上架时间
-        } else {
-            formData.append("activityOnlineTime", activity_online_time); //活动上架时间
-        }
-
-        formData.append("activityIssuer", Issuer) //活动发布者
-
-
-        formData.append("isOnline", isonline); //活动是否上架
+        formData.append("title", information_title); //资讯标题
+        formData.append("content", s); //资讯内容
+        formData.append("titleImage", document.getElementById("titlePic").files[0]); //资讯标题图片
+        formData.append("contentImage", document.getElementById("coverPic").files[0]); //资讯封面图
+        // formData.append("publisher", config.sponsorName) //资讯发布者
         //角色配置
-        formData.append("roleConfig", JSON.stringify(roleConfig)); //活动权限角色配置
+        formData.append("roleConfig", JSON.stringify(roleConfig)); //资讯权限角色配置
 
         $.ajax({
-            url: config.buildPath + "api-amuse/v1.1/activity",
+            url: config.buildPath + "api-integral/v1.0/information",
             type: "POST",
             dataType: "json",
             processData: false,
             contentType: false,
             headers: { "token": config.token },
             data: formData,
-            success: function(result) {
-                console.log(result);
-                if (result.code == _encode.REQUEST_SUCCESS) {
-                    modalalert("已成功添加活动");
+            success: function(res) {
+                console.log(res);
+                if (res.code == _encode.REQUEST_SUCCESS) {
+                    modalalert("已成功添加资讯");
                     setTimeout(backToList, 1000);
 
                 } else {
-                    alert("添加失败，请联系服务器");
+                    alert(res.msg);
 
                 }
             },
@@ -402,7 +360,6 @@ var editActivitySubmit = () => {
             headers: { "token": config.token },
             data: formData,
             success: function(result) {
-                console.log(result);
                 if (result.code == _encode.REQUEST_SUCCESS) {
                     modalalert("已成功编辑活动");
                     //$("#addActivityDia").modal("hide");
@@ -535,9 +492,9 @@ var PowerResetconfirm = (bool) => {
 var PowerIsSet = (powerid) => {
     'use strict'
     let idArr = new Array();
-    for(var roleId in roleConfig) {
+    for (var roleId in roleConfig) {
         idArr.push(roleConfig[roleId])
-        
+
     }
     console.log(idArr)
     for (var i = 0; i < idArr.length; i++) {
@@ -549,7 +506,7 @@ var PowerIsSet = (powerid) => {
             return [false, i]
         }
     }
-    
+
 }
 //设置权限
 window.setPowerUser = (obj) => {
@@ -585,41 +542,13 @@ var setValueToEditPower = (param, name, index) => {
     roleConfigIndex = index;
     $('#addSetPower').find('#power-input-name').val(name);
     $('#addSetPower').find('#power-input-name').attr('data-roleid', param.roleId);
-    //判断是否推送
-    // if(param.isPush == null)
-    // {
-    //     $('#addSetPower').find('#is_pushed').attr('checked',false);
-    //     $("#notify_content").hide();
-    //     $("#push_time_div").hide();
-    //     notifyContent = "";
-    //     notifyTime = "";
-    //     isPushed = 0;
-    // }
-    // else if(param.isPush == 1)
-    // {
-    //     $('#addSetPower').find('#is_pushed').attr('checked','checked');
-    //     $("#notify_content").show();
-    //     $("#push_time_div").show();
-    //     isPushed = 1;
-    // }
     if (isEdit) {
         $('#addSetPower').find('#is_pushed').parent('div.row').hide();
         $('#addSetPower').find('#push_time_div').hide();
 
         $('#addSetPower').find('#enrol_currency').attr('disabled', true)
     }
-    if (isFirstEdit) {
-        $('#addSetPower').find('#money_number').val(param.enrolCurrencyNum / 100);
-        isFirstEdit = false;
-    } else {
-        $('#addSetPower').find('#money_number').val(param.enrolCurrencyNum);
-    }
-
-    $('#addSetPower').find('#activity_number_people').val(param.enrolMaxPeople);
-    $('#addSetPower').find('#activity_carrynumber_people').val(param.carryNumber);
-    $('#addSetPower').find('#activity_carrynumber_people').val(param.carryNumber);
-    $('#addSetPower').find('#enrol_start_time').val(_utils.formatDate(param.enrolStartTime));
-    $('#addSetPower').find('#enrol_end_time').val(_utils.formatDate(param.enrolEndTime));
+    $('#addSetPower').find('#publish_start_time').val(_utils.formatDate(param.enrolStartTime));
 }
 //设置权限存入暂存数列
 window.setPowerSubmit = () => {
@@ -627,30 +556,15 @@ window.setPowerSubmit = () => {
     if (!isEdit) {
         console.log('添加')
         if ($('#addSetPower').find('#enrol_start_time').val() == '') {
-            _utils.modalalert('报名时间未填写')
-            return;
-        } else if ($('#addSetPower').find('#activity_carrynumber_people').val() == '') {
-            _utils.modalalert('携带人数未填写')
-            return;
-        } else if ($('#addSetPower').find('#money_number').val() == '') {
-            _utils.modalalert('货币数量未填写')
-            return;
-        } else if ($('#addSetPower').find('#activity_number_people').val() == '') {
-            _utils.modalalert('人数上限未填写')
+            _utils.modalalert('发布时间未填写')
             return;
         }
-
         roleSingle.roleId = $('#addSetPower').find('#power-input-name').attr('data-roleid');
         roleSingle.roleName = $('#addSetPower').find('#power-input-name').val();
-        roleSingle.enrolStartTime = $('#addSetPower').find('#enrol_start_time').val();
-        roleSingle.enrolEndTime = $('#addSetPower').find('#enrol_end_time').val();
-        roleSingle.carryNumber = $('#addSetPower').find('#activity_carrynumber_people').val();
-        roleSingle.enrolCurrencyNum = $('#addSetPower').find('#money_number').val();
-        roleSingle.enrolMaxPeople = $('#addSetPower').find('#activity_number_people').val();
+        roleSingle.publishStartTime = $('#addSetPower').find('#publish_start_time').val();
         if (isPushed == 1) {
 
             notifyContent = $('#addSetPower').find("#notify_content").val();
-
             notifyTime = $('#addSetPower').find("#push_time").val();
             console.log(notifyTime)
         }
@@ -663,26 +577,11 @@ window.setPowerSubmit = () => {
     //是编辑的话
     else {
         console.log('编辑')
-        if ($('#addSetPower').find('#enrol_start_time').val() == '') {
-            _utils.modalalert('报名时间未填写')
-            return;
-        } else if ($('#addSetPower').find('#activity_carrynumber_people').val() == '') {
-            _utils.modalalert('携带人数未填写')
-            return;
-        } else if ($('#addSetPower').find('#money_number').val() == '') {
-            _utils.modalalert('货币数量未填写')
-            return;
-        } else if ($('#addSetPower').find('#activity_number_people').val() == '') {
-            _utils.modalalert('人数上限未填写')
+        if ($('#addSetPower').find('#publish_start_time').val() == '') {
+            _utils.modalalert('发布时间未填写')
             return;
         }
-
-
-        roleConfig[roleConfigIndex].enrolStartTime = $('#addSetPower').find('#enrol_start_time').val();
-        roleConfig[roleConfigIndex].enrolEndTime = $('#addSetPower').find('#enrol_end_time').val();
-        roleConfig[roleConfigIndex].carryNumber = $('#addSetPower').find('#activity_carrynumber_people').val();
-        roleConfig[roleConfigIndex].enrolCurrencyNum = $('#addSetPower').find('#money_number').val();
-        roleConfig[roleConfigIndex].enrolMaxPeople = $('#addSetPower').find('#activity_number_people').val();
+        roleConfig[roleConfigIndex].publishStartTime = $('#addSetPower').find('#publish_start_time').val();
 
     }
 
@@ -712,34 +611,34 @@ var tabSetState = (id) => {
 var roleSingleInit = () => {
     roleSingle = {
         'roleId': 0, //角色ID
-        'enrolStartTime': '2018-12-20', //报名开始时间
-        'enrolEndTime': '2018-12-20', //报名结束时间
-        'carryNumber': 0, //可携带人数
-        'enrolCurrencyNum': 100,
-        'enrolMaxPeople': 10, //报名最大人数
+        'publishStartTime': '', //发布开始时间
         'isPush': 0, //是否推送
         'pushContent': '',
         'pushTime': '',
-        'roleName': '随国林'
+        'roleName': ''
 
     }
+    $('#addSetPower').find('#is_pushed').attr('checked', 'checked')
     $('#addSetPower').find('#power-input-name').val('');
-    $('#addSetPower').find('#enrol_start_time').val('');
-    $('#addSetPower').find('#enrol_end_time').val('');
-    $('#addSetPower').find('#activity_carrynumber_people').val('');
-    $('#addSetPower').find('#enrol_currency').val('');
-    $('#addSetPower').find('#money_number').val('');
-    $('#addSetPower').find('#activity_number_people').val('');
+    $('#addSetPower').find('#publish_start_time').val('');
     $('#addSetPower').find("#notify_content").val('');
     $('#addSetPower').find("#push_time").val('');
 }
 
-//
-$('select.infoType').change(function(){
+// 暂定不删
+// 选择资讯类型时判断
+// $('select.infoType').change(function() {
 
-	let value = $(this).find('option:selected').val();
-	if(value == 2)
-	{
-		$('#powerUserDis').hide();
-	}
-})
+//     let value = $(this).find('option:selected').val();
+//     $('#infoContentDis').hide();
+//     $('#powerUserDis').show();
+//     //选择业主通知时权限消失
+//     if (value == 2) {
+//         $('#powerUserDis').hide();
+//     } else if (value == 3) {
+//         $('#infoContentDis').show();
+//     }
+// })
+// window.btnAddContent = () => {
+//     $('#modal-infoContent').modal('show');
+// }

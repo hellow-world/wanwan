@@ -23,12 +23,12 @@
                     <div class="form form-horizontal" id="form-member-add" style="margin-right: 30px;margin-left: 3%">
                         <div class="row cl">
                             <label class=""><span class="c-red">*</span>活动名称：
-                                <input type="text" name="" id="activity_title" placeholder="活动名称" style="width:50%" class="input-text">
+                                <input type="text" name="" id="activity_title" placeholder="活动名称" style="width:50%" class="input-text" maxlength="10">
                             </label>
                         </div>
                         <div class="row cl">
                             <label class="">活动简介：
-                                <input type="text" name="" id="activity_introduce" placeholder="活动简介限制39个字" maxlength='39' style="width:50%;margin-left: 6px;" class="input-text">
+                                <input type="text" name="" id="activity_introduce" placeholder="活动简介限制39个字" maxlength='39' style="width:50%;margin-left: 6px;" class="input-text" maxlength="39">
                             </label>
                         </div>
                         <div class="row cl">
@@ -67,13 +67,19 @@
                             <label for="" class="Hui-iconfont">&#xe600;<a href="../role/role-sel.html">添加权限</a></label>
                         </div>
                         <div class="row cl">
+                            <label class=""><span class="c-red">*</span>是否创建讨论组：</label>
+                            <input type="checkbox" checked="checked" onclick="onClickHander_discussion(this)" id="is_discussion">
+                            <input type="text" name="" id="activity_discussion_admin" placeholder="输入群主uid" class="input-text" style="width: 10%;">
+                            <input type="text" name="" id="activity_discussion_name" placeholder="输入讨论组名称" class="input-text" style="width: 15%;">
+                        </div>
+                        <div class="row cl">
                             <label class=""><span class="c-red">*</span>开始时间：</label>
                             <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activity_start_time" class="input-text Wdate" style="width:200px;"> &nbsp;&nbsp;-&nbsp;&nbsp;
                             <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activity_end_time" class="input-text Wdate" style="width:200px;">
                         </div>
                         <div class="row cl">
                             <label class="">上线/下线(不选默认上线)：</label>
-                            <input type="radio" name="isOnline" id="adOn" value="1"  checked/> 上线
+                            <input type="radio" name="isOnline" id="adOn" value="1" checked/> 上线
                             <input type="radio" name="isOnline" id="adOff" value="0" /> 下线
                         </div>
                         <div class="row cl">
@@ -107,10 +113,10 @@
                         </div>
                         <div class="row cl">
                             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left: 20%">
-                                <input class="btn btn-primary radius" readonly="readonly" value="新增提交" id="addSubmit">
+                                <input class="btn btn-primary radius" readonly="readonly" value="新增提交" id="addSubmit" onclick="addActivitySubmit()">
                             </div>
                             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left: 20%">
-                                <input class="btn btn-primary radius" readonly="readonly" value="编辑提交" id="editSubmit">
+                                <input class="btn btn-primary radius" readonly="readonly" value="编辑提交" id="editSubmit" onclick="editActivitySubmit()">
                             </div>
                         </div>
                     </div>

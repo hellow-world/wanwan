@@ -21,24 +21,25 @@
             <div>
                 <div id="modalbody" class="modal-body">
                     <div class="form form-horizontal" id="form-member-add" style="margin-right: 30px;margin-left: 3%">
-                      <div class="row cl">
-                          <label class="label-seller"><span class="c-red">*</span>公告类型：
-                              <span class="select-box" style="width: 10%;min-width: 147px;">
+                        <div class="row cl">
+                            <label class="label-seller"><span class="c-red">*</span>公告类型：
+                                <span class="select-box" style="width: 10%;min-width: 147px;">
                                   <select class="select infoType" size="1" name="infoType">
                                       <option value="0">请选择类型</option>
                                       <option value="1">资讯</option>
-                                      <option value="2">业主通知</option>
-                                      <option value="3">运营推荐</option>
+                                      <!-- 暂定不删 -->
+<!--                                  <option value="2">业主通知</option>
+                                      <option value="3">运营推荐</option> -->
                                   </select>
                               </span>
-                          </label>
-                      </div>
-                        <div class="row cl">
-                            <label class=""><span class="c-red">*</span>公告名称：
-                                <input type="text" name="" id="information_title" placeholder="公告名称" style="width:50%" class="input-text">
                             </label>
                         </div>
                         <div class="row cl">
+                            <label class=""><span class="c-red">*</span>公告名称：
+                                <input type="text" name="" id="information_title" placeholder="公告名称 限30个字" style="width:50%" class="input-text" maxlength="30">
+                            </label>
+                        </div>
+                        <!-- <div class="row cl">
                             <label class="label-seller"><span class="c-red">*</span>资讯发布：
                                 <span class="select-box" style="width: 10%;min-width: 147px;">
                                     <select class="select sellerUser" size="1" name="seller">
@@ -48,7 +49,7 @@
                                 </span>
                             </label>
                             <label for="" class="Hui-iconfont">&#xe600;<a href="../activity/activity-publisher.html">添加发布者</a></label>
-                        </div>
+                        </div> -->
                         <div class="row cl" style="margin-bottom: 0px;" id="powerUserDis">
                             <label class="label-power"><span class="c-red fl">*</span><span class="fl">公告角色：</span>
                                 <ul class="powerBox">
@@ -79,6 +80,13 @@
                                 <input class="img-btn-infoCover" type="file" id="coverPic">
                             </div>
                         </div>
+                        <!-- 暂定不删 -->
+                        <!-- <div class="row cl" id="infoContentDis">
+                            <label><span class="c-red">*</span>推荐内容:</label>
+                            推荐内容类型：<span class="dis-none adContentType adContent"></span> 推荐内容ID：
+                            <span class="dis-none adContentId adContent"></span>
+                            <input class="btn radius btn-primary" value="选择" type="button" onclick="btnAddContent();">
+                        </div> -->
                         <div class="row cl">
                             <label class=""><span class="c-red">*</span>公告内容：</label>
                             <div id='information_content' style="margin-top: 10px;margin-left: 77px; width:709px;"></div>
@@ -130,21 +138,8 @@
                             <input type="text" placeholder="选择推送时间" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="push_time" class="input-text Wdate" style="width:160px;">
                         </div>
                         <div class="row cl">
-                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>货币数量：</label>
-                            <input type="text" name="" id="money_number" style="width:50%" class="input-text">
-                        </div>
-                        <div class="row cl">
-                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>人数上限：</label>
-                            <input type="text" name="" id="activity_number_people" style="width:50%" class="input-text">
-                        </div>
-                        <div class="row cl">
-                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>携带人数：</label>
-                            <input type="text" name="" id="activity_carrynumber_people" style="width:50%" class="input-text">
-                        </div>
-                        <div class="row cl">
-                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>报名时间：</label>
-                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="enrol_start_time" class="input-text Wdate" style="width:160px;"> &nbsp;&nbsp;-&nbsp;&nbsp;
-                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="enrol_end_time" class="input-text Wdate" style="width:160px;">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>发布时间：</label>
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="publish_start_time" class="input-text Wdate" style="width:160px;">
                         </div>
                         <div class="row cl">
                             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
@@ -161,6 +156,60 @@
             </div>
         </div>
     </div>
+    <!-- 暂定不删 -->
+    <!-- <div id="modal-infoContent" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">选择商品</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
+                </div>
+                <div class="modal-body">
+                    <label class="">
+                        <span class="select-box" style="width: 20%;margin-left: 0px;">
+                            <select class="select" size="1" id="adsense_type" name="adContentType">
+                                <option value="0" selected>类型筛选</option>
+                                <option value="1">活动</option>
+                                <option value="2">卡券</option>
+                                <option value="3">竞猜</option>
+                                <option value="4">评选</option>
+                                <option value="5">资讯</option>
+                            </select>
+                        </span>
+                    </label>
+                    <label class="">
+                        <input type="text" placeholder="商品名称搜索" class="input-text" style="width: 40%;margin-left: 20px;" id="sel_input">
+                    </label>
+                    <button name="" class="btn btn-success" id="btnselSubmit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+                    <table class="table table-border table-bordered table-bg table-hover table-sort" style="margin-top: 20px;">
+                        <thead>
+                            <tr class="text-c">
+                                <th>ID</th>
+                                <th>名称</th>
+                                <th>发布时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="selCardbody">
+                            <tr class="text-c">
+                                <td class="card_id">15686</td>
+                                <td class="card_name">怪兽大国林</td>
+                                <td>2014-6-11 11:11:42</td>
+                                <td>
+                                    <a title="选择" href="javascript:;" class="ml-5 btn_select" style="text-decoration:none"><i class="Hui-iconfont">&#xe6a7;</i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="pageNav" class="pageNav"></div>
+                    <div id="page" align="center" class="page_div"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
     <%= require('html-loader!../layout/js-huiandfroala.html') %>
         <script type="text/javascript" src="../../lib/picreview.js"></script>
 </body>

@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-26 15:25:46
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-09 15:33:37
+ * @Last Modified time: 2018-04-26 10:08:04
  */
 var config = require('service/config.js')
 var errorcode = require('service/errorcode.js')
@@ -339,7 +339,7 @@ function getFileName(o) {
 }
 
 /*提交队伍修改*/
-function editTeamSubmit() {
+window.editTeamSubmit = ()=>{
     var teamName = $("#edit_teamName").val();
 
     var files = document.getElementById("edit_teamPic").files[0];

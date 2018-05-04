@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-03-01 09:46:01
  * @Last Modified by:   admin
- * @Last Modified time: 2018-03-29 15:32:57
+ * @Last Modified time: 2018-05-04 14:57:17
  */
 //上下架操作
 var _config = require('service/config.js')
@@ -44,8 +44,18 @@ window.tab_switch = function(obj) {
 /*审核评选*/
 window.reviewSubmit = function(obj) {
     $vote_id = $(obj).parent('td').siblings('.vote_id').text();
+    let $vote_isofficial = $(obj).parent('td').siblings('.vote_isofficial').text();
+    let $vote_isofficial_id;
+    if($vote_isofficial == '官方')
+    {
+        $vote_isofficial_id = 1;
+    }
+    else
+    {
+        $vote_isofficial_id = 0;
+    }
     console.log($vote_id);
-    window.location.href = './selection-review.html'+'?voteId=' + $vote_id;
+    window.location.href = './selection-review.html'+'?voteId=' + $vote_id+'&isofficial='+$vote_isofficial_id;
 }
 /*发布到广告*/
 window.votePublish = function(obj) {
@@ -125,15 +135,24 @@ function addTdToTable(param, behind) {
     res += "<td>" + param.voteSubject + "</td>";
     res += "<td>" + param.voteStartTime + "</td>";
     res += "<td>" + param.voteEndTime + "</td>";
-    res += "<td>" + "123" + "</td>";
+    res += "<td>" + _config.sponsorName + "</td>";
     
     
-    
+    //判断状态
     if (param.isOnline == 0) {
         res += "<td>" + "<div class='tgl-btn off' data-switch='off' onclick='tab_switch(this);'>" + "</div>" + "</td>";
     }
     if (param.isOnline == 1) {
         res += "<td>" + "<div class='tgl-btn on' data-switch='on' onclick='tab_switch(this);'>" + "</div>" + "</td>";
+    }
+    //判断是否为官方
+    if(param.voteType == 2)
+    {
+        res += `<td class='vote_isofficial'>官方</td>`;
+    }
+    else if(param.voteType == 1)
+    {
+        res += `<td class='vote_isofficial'>普通</td>`;
     }
     if(param.voteState == 0)
     {

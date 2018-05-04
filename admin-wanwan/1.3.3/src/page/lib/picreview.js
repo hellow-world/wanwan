@@ -87,6 +87,9 @@
                         else if(checkImg.test(fileInputs[i].value)&&index==15){
                             previewImg(this,imgDivs[i],750,400);
                         }
+                        else if(checkImg.test(fileInputs[i].value)&&index==16){
+                            previewImg(this,imgDivs[i],750,1054);
+                        }
                         else{
                             alert("只支持上传.jpg .png .bmp .jpeg;你的选择有误");
                             fileInputs[i].value="";
@@ -191,12 +194,16 @@
         var imgDivs_cardPic=document.getElementsByClassName("img-container-card");//图片容器
 
         /*670*300*图片限制-资讯列表图*/
-        var fileInputs_cardPic=document.getElementsByClassName("img-btn-infoTitle");//文件选择按钮
-        var imgDivs_cardPic=document.getElementsByClassName("img-container-infoTitle");//图片容器
+        var fileInputs_infoTitlePic=document.getElementsByClassName("img-btn-infoTitle");//文件选择按钮
+        var imgDivs_infoTitlePic=document.getElementsByClassName("img-container-infoTitle");//图片容器
         /*750*400*图片限制-资讯详情图*/
-        var fileInputs_cardPic=document.getElementsByClassName("img-btn-infoCover");//文件选择按钮
-        var imgDivs_cardPic=document.getElementsByClassName("img-container-infoCover");//图片容器
-        
+        var fileInputs_infoCoverPic=document.getElementsByClassName("img-btn-infoCover");//文件选择按钮
+        var imgDivs_infoCoverPic=document.getElementsByClassName("img-container-infoCover");//图片容器
+
+        /*750*1054-图片限制-自发评选*/
+        var fileInputs_notePic=document.getElementsByClassName("img-btn-noteCover");//文件选择按钮
+        var imgDivs_notePic=document.getElementsByClassName("img-container-noteCover");//图片容器
+
         selectImg(fileInputs,imgDivs,1);
         selectImg(fileInputs_coverPic,imgDivs_coverPic,2);
         selectImg(fileInputs_topPic,imgDivs_topPic,3);
@@ -205,8 +212,9 @@
         selectImg(fileInputs_voteTitlePic,imgDivs_voteTitlePic,11);
         selectImg(fileInputs_activityPic,imgDivs_activityPic,12);
         selectImg(fileInputs_cardPic,imgDivs_cardPic,13);
-        selectImg(fileInputs_cardPic,imgDivs_cardPic,14);
-        selectImg(fileInputs_cardPic,imgDivs_cardPic,15);
+        selectImg(fileInputs_infoTitlePic,imgDivs_infoTitlePic,14);
+        selectImg(fileInputs_infoCoverPic,imgDivs_infoCoverPic,15);
+        selectImg(fileInputs_notePic,imgDivs_notePic,16);
         
         
         

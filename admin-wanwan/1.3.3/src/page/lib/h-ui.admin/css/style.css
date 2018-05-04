@@ -216,5 +216,19 @@
         width: 750px;
         height: 400px;
     }
+    .img-container-noteCover
+    {
+        width: 750px;
+        height: 1054px;
+        background:#F2F2F2;
+        margin-bottom:35px;
+        overflow: hidden;
+        border: 1px solid #000
+    }
+    .img-container-noteCover>img
+    {
+        width: 750px;
+        height: 1054px;
+    }
 
 
