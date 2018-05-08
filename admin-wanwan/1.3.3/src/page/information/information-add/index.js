@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-05 10:02:49
  * @Last Modified by:   admin
- * @Last Modified time: 2018-05-04 15:51:50
+ * @Last Modified time: 2018-05-08 17:25:21
  */
 require('./index.css')
 var config = require('service/config.js')
@@ -251,6 +251,8 @@ function addInfoSubmit() {
         $("#Tip").html("请上传正确格式的标题图片");
     } else if (document.getElementById("coverPic").value == "") {
         $("#Tip").html("请上传正确格式的封面图片");
+    } else if (document.getElementById("sharePic").value == "") {
+        $("#Tip").html("请上传正确格式的分享图片");
     } else if (Issuer == -1) {
         $("#Tip").html("资讯发布者必选");
     } else if (roleConfig.length < 1) {
@@ -262,6 +264,7 @@ function addInfoSubmit() {
         formData.append("content", s); //资讯内容
         formData.append("titleImage", document.getElementById("titlePic").files[0]); //资讯标题图片
         formData.append("contentImage", document.getElementById("coverPic").files[0]); //资讯封面图
+        formData.append("shareImage", document.getElementById("sharePic").files[0]); //资讯分享图
         // formData.append("publisher", config.sponsorName) //资讯发布者
         //角色配置
         formData.append("roleConfig", JSON.stringify(roleConfig)); //资讯权限角色配置
@@ -381,7 +384,7 @@ var editActivitySubmit = () => {
  * 做延迟1s返回列表
  */
 function backToList() {
-    window.history.go(-1);
+    window.location.go(-1);
 }
 
 // 1.3.2

@@ -230,5 +230,19 @@
         width: 750px;
         height: 1054px;
     }
+    .img-container-ShareCover
+    {
+        width: 80px;
+        height: 80px;
+        background:#F2F2F2;
+        margin-bottom:35px;
+        overflow: hidden;
+        border: 1px solid #000
+    }
+    .img-container-ShareCover>img
+    {
+        width: 80px;
+        height: 80px;
+    }
 
 

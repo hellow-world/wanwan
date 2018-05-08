@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-05 10:02:49
  * @Last Modified by:   admin
- * @Last Modified time: 2018-05-04 17:44:08
+ * @Last Modified time: 2018-05-08 16:09:39
  */
 require('./index.css')
 var config = require('service/config.js')
@@ -36,6 +36,7 @@ roleSingle = {
     'roleName': '随国林'
 }
 $(function() {
+    isDiscussion = 1;
     $('#activity_content').froalaEditor({
         theme: 'dark',
         imageUploadURL: config.basePath + "uploadImgEditor",
@@ -255,6 +256,7 @@ window.addActivitySubmit=function() {
     var activity_end_time = $('#activity_end_time').val();
     var isonline = $('input[name=isOnline]:checked').val();
     var activity_online_time = $('#activity_online_time').val();
+    var activity_offline_time = $('#activity_offline_time').val();
     var activity_content = $('div#activity_content').froalaEditor('html.get');
     var s = activity_content.replace(/style\s*=(['\"\s]?)[^'\"]*?\1/gi, '');
     var s = s.replace(/width\s*:(['\"\s]?)[^'\"]*?\1/gi, '');
@@ -262,6 +264,8 @@ window.addActivitySubmit=function() {
     var activity_CreateTime = _utils.getNowFormatDate();
     if (activity_title == "") {
         $("#Tip").html("活动名称必填");
+    } else if (activity_online_time == "" || activity_offline_time == "") {
+        $("#Tip").html("上下架时间必填sahngxia ");
     } else if (document.getElementById("titlePic").value == "") {
         $("#Tip").html("请上传正确格式的标题图片");
     } else if (document.getElementById("coverPic").value == "") {
@@ -292,15 +296,15 @@ window.addActivitySubmit=function() {
         formData.append("activityStartTime", activity_start_time); //活动开始时间
         formData.append("activityEndTime", activity_end_time); //活动结束时间
 
-        if (activity_online_time == "") {
-            formData.append("activityOnlineTime", activity_CreateTime); //活动上架时间
-        } else {
+
             formData.append("activityOnlineTime", activity_online_time); //活动上架时间
-        }
+            formData.append("activityOfflineTime", activity_offline_time); //活动下架时间
         if(isDiscussion ==1)
         {
             var discussionMainUid = $("#activity_discussion_admin").val();
             var discussionName = $("#activity_discussion_name").val();
+            console.log(discussionMainUid)
+            console.log(discussionName)
             if(discussionMainUid == ""||discussionName == "")
             {
                 $('#Tip').html("讨论组群主或者名称未填写")
@@ -358,6 +362,7 @@ window.editActivitySubmit = function(){
     var activity_end_time = $('#activity_end_time').val();
     var isonline = $('input[name=isOnline]:checked').val();
     var activity_online_time = $('#activity_online_time').val();
+    var activity_offline_time = $('#activity_offline_time').val();
     var activity_content = $('div#activity_content').froalaEditor('html.get');
     var s = activity_content.replace(/style\s*=(['\"\s]?)[^'\"]*?\1/gi, '');
     var s = s.replace(/width\s*:(['\"\s]?)[^'\"]*?\1/gi, '');
@@ -393,11 +398,8 @@ window.editActivitySubmit = function(){
         formData.append("activityStartTime", activity_start_time); //活动开始时间
         formData.append("activityEndTime", activity_end_time); //活动结束时间
 
-        if (activity_online_time == "") {
-            formData.append("activityOnlineTime", activity_CreateTime); //活动上架时间
-        } else {
-            formData.append("activityOnlineTime", activity_online_time); //活动上架时间
-        }
+        formData.append("activityOnlineTime", activity_online_time); //活动上架时间
+        formData.append("activityOfflineTime", activity_offline_time); //活动上架时间
 
         formData.append("activityIssuer", Issuer) //活动发布者
 

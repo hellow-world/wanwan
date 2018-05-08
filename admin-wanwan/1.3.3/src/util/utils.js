@@ -2,7 +2,7 @@
  * @Author: John
  * @Date:   2018-01-30 14:28:32
  * @Last Modified by:   admin
- * @Last Modified time: 2018-04-28 09:15:32
+ * @Last Modified time: 2018-05-08 17:39:08
  */
 var _encode = require('service/errorcode.js')
 var config = require('service/config.js')
@@ -85,28 +85,68 @@ var _utils = {
         } else if (/^(-)?\d{1,13}$/.test(v)) {
             v = v * 1;
         }
-        var dateObj = new Date(v);
-        var month = dateObj.getMonth() + 1;
-        var day = dateObj.getDate();
-        var hours = dateObj.getHours();
-        var minutes = dateObj.getMinutes();
-        var seconds = dateObj.getSeconds();
-        if (month < 10) {
-            month = "0" + month;
+        if (navigator.userAgent.indexOf("Safari") > -1) {
+            if (navigator.userAgent.indexOf("Chrome") > -1) {
+                var dateObj = new Date(v);
+                var month = dateObj.getMonth() + 1;
+                var day = dateObj.getDate();
+                var hours = dateObj.getHours();
+                var minutes = dateObj.getMinutes();
+                var seconds = dateObj.getSeconds();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                if (hours < 10) {
+                    hours = "0" + hours;
+                }
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+                var UnixTimeToDate = dateObj.getFullYear() + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+                return UnixTimeToDate;
+            }
+            var year = v.substring(0, 4);
+            var month = v.substring(5, 7);
+            var day = v.substring(8, 10);
+            var hours = v.substring(11, 13);
+            var minutes = v.substring(14, 16);
+            var seconds = v.substring(17, 19);
+            var UnixTimeToDate = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
+
+        } else {
+            var dateObj = new Date(v);
+            var month = dateObj.getMonth() + 1;
+            var day = dateObj.getDate();
+            var hours = dateObj.getHours();
+            var minutes = dateObj.getMinutes();
+            var seconds = dateObj.getSeconds();
+            if (month < 10) {
+                month = "0" + month;
+            }
+            if (day < 10) {
+                day = "0" + day;
+            }
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+            var UnixTimeToDate = dateObj.getFullYear() + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
         }
-        if (day < 10) {
-            day = "0" + day;
-        }
-        if (hours < 10) {
-            hours = "0" + hours;
-        }
-        if (minutes < 10) {
-            minutes = "0" + minutes;
-        }
-        if (seconds < 10) {
-            seconds = "0" + seconds;
-        }
-        var UnixTimeToDate = dateObj.getFullYear() + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        //v = v.replace(/\-/g, "/");
+
+
         return UnixTimeToDate;
     },
     /**
@@ -242,7 +282,12 @@ var _utils = {
     modalTip: function(text, dur) {
         $.Huimodalalert(text, dur || 2000)
     },
+    // Object to Array
+    ObjectToArray: function(object) {
 
+        var arr = Object.keys(object).map(key => object[key]);
+        return arr;
+    },
     //HTML转表格
     export: {
         _fallbacktoCSV: true,
@@ -306,6 +351,7 @@ var _utils = {
             // other browser
             return false;
         },
+
         _isFirefox: function() {
             if (navigator.userAgent.indexOf("Firefox") > 0) {
                 return 1;

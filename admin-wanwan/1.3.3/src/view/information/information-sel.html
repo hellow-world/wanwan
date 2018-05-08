@@ -30,19 +30,13 @@
           <th id="infoId">活动ID</th>
           <th>公告名称</th>
           <th>发布时间</th>
-          <th>上线/下架</th>
           <th>类型</th>
-          <th>发布角色</th>
-          <th>活动发布者</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody id="infoTbody">
         <tr class="text-c">
           <td>1</td>
-          <td>数据错误</td>
-          <td>数据错误</td>
-          <td>数据错误</td>
           <td>数据错误</td>
           <td>数据错误</td>
           <td>数据错误</td>
@@ -57,64 +51,32 @@
     <div id="pageNav" class="pageNav"></div>
     <div id="page" align="center" class="page_div"></div>
   </div>
-  <!-- 查看活动对话框 -->
-  <div id="scanActivityDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <!-- 查看公告对话框 -->
+  <div id="scanInfoDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="margin-left: 20%;">
       <div class="modal-content radius" style="width: 1100px">
         <div class="modal-header">
-          <h3 class="modal-title">查看活动</h3>
+          <h3 class="modal-title">查看公告</h3>
           <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
         </div>
         <div class="modal-body">
           <form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 200px">
             <div class="row cl">
-              <label class="form-label col-xs-4 col-sm-3">活动名称：</label>
+              <label class="form-label col-xs-4 col-sm-3">公告名称：</label>
               <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" readonly="readonly" id="scan_activityName">
+                <input type="text" class="input-text" readonly="readonly" id="scan_infoName">
               </div>
             </div>
             <div class="row cl">
-              <label class="form-label col-xs-4 col-sm-3">活动简介：</label>
+              <label class="form-label col-xs-4 col-sm-3">创建时间：</label>
               <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" readonly="readonly" id="scan_activityIntroduce">
+                <input type="text" readonly="readonly" id="scan_createTime" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="input-text Wdate" style="width:160px;">
               </div>
             </div>
             <div class="row cl">
-              <label class="form-label col-xs-4 col-sm-3">活动地点：</label>
-              <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" readonly="readonly" id="scan_activityAddress">
-              </div>
-            </div>
-            <div class="row cl">
-              <label class="form-label col-xs-4 col-sm-3">总数上限：</label>
-              <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" readonly="readonly" id="scan_maxNum">
-              </div>
-            </div>
-            <div class="row cl">
-              <label class="form-label col-xs-4 col-sm-3">开始时间：</label>
-              <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" readonly="readonly" id="scan_startTime" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="input-text Wdate" style="width:160px;"> &nbsp;&nbsp;-&nbsp;&nbsp;
-                <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" id="scan_endTime" class="input-text Wdate" style="width:160px;">
-              </div>
-            </div>
-            <div class="row cl">
-              <label class="form-label col-xs-4 col-sm-3">权限设置</label>
+              <label class="form-label col-xs-4 col-sm-3">权限设置：</label>
               <div class="formControls col-xs-8 col-sm-9">
                 <a class='btn' onclick="scanPower();">查看</a>
-              </div>
-            </div>
-            <div class="row cl">
-              <label class="form-label col-xs-4 col-sm-3">上线/下线(不选默认上线)：</label>
-              <div class="formControls col-xs-8 col-sm-9">
-                <input type="radio" name="isOnline" id="adOn" value="1" checked/> 上线
-                <input type="radio" name="isOnline" id="adOff" value="0" /> 下线
-              </div>
-            </div>
-            <div class="row cl">
-              <label class="form-label col-xs-4 col-sm-3">上架时间：</label>
-              <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="scan_onlineTime" class="input-text Wdate" style="width:160px;">
               </div>
             </div>
             <div class="row cl">
@@ -126,13 +88,14 @@
             <div class="row cl">
               <label class="form-label col-xs-4 col-sm-3">封面图片：</label>
               <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" readonly="readonly" id="scan_scorePic">
+                <input type="text" class="input-text" readonly="readonly" id="scan_coverPic">
               </div>
             </div>
             <div class="row cl">
-              <label class="form-label col-xs-4 col-sm-3">活动介绍：</label>
+              <label class="form-label col-xs-4 col-sm-3">公告内容：</label>
               <div class="formControls col-xs-8 col-sm-9">
                 <div id='scan_content' style="margin-top: 10px;margin-left: 0px; width:709px;"></div>
+                <textarea name="" cols="30" rows="10" id="scan_infoContent" style="border: 1px solid #ddd;width: 100%"></textarea>
               </div>
             </div>
           </form>
@@ -143,78 +106,39 @@
       </div>
     </div>
   </div>
-  
-  <!-- 置顶活动对话框 -->
-  <div id="topActivityDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="margin-left: 20%;">
-      <div class="modal-content radius" style="width: 1100px">
-        <div class="modal-header">
-          <h3 class="modal-title">置顶活动</h3>
-          <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
-        </div>
-        <div class="modal-body">
-          <form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 40%">
-            <div class="row cl">
-              <label class="form-label col-xs-4 col-sm-3">活动ID：</label>
-              <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" readonly="readonly" id="topId" style="width:750px">
-              </div>
+<!-- 查看当前权限 -->
+    <div id="scanPower-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">权限设置</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-border table-bordered table-bg table-hover table-sort" style="margin-top: 20px;">
+                        <thead>
+                            <tr class="text-c">
+                                <th>权限名称</th>
+                                <th>发布时间</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ScanPowerbody">
+                            <tr class="text-c">
+                                <td >全部</td>
+                                <td>2018-4-18 2018-5-18</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="pageNav" class="pageNav"></div>
+                    <div id="page" align="center" class="page_div"></div>
+                </div>
+                <div class="modal-footer">
+                    
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
             </div>
-            <div class="row cl">
-              <label class="form-label col-xs-4 col-sm-3">置顶图片：</label>
-              <div class="formControls col-xs-8 col-sm-9">
-                <div class="img-container-topPic" id="topPicContainer"></div>
-                <input class="img-btn-topPic" type="file" id="topPic">
-              </div>
-            </div>
-          </form>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" onclick="topActivitySubmit();">确定</button>
-          <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-        </div>
-      </div>
     </div>
-  </div>
-  <!-- 查看当前权限 -->
-  <div id="scanPower-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content radius">
-        <div class="modal-header">
-          <h3 class="modal-title">权限设置</h3>
-          <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
-        </div>
-        <div class="modal-body">
-          <table class="table table-border table-bordered table-bg table-hover table-sort" style="margin-top: 20px;">
-            <thead>
-              <tr class="text-c">
-                <th>权限名称</th>
-                <th>货币数量</th>
-                <th>人数上限</th>
-                <th>携带人数</th>
-                <th>报名时间</th>
-              </tr>
-            </thead>
-            <tbody id="ScanPowerbody">
-              <tr class="text-c">
-                <td>全部</td>
-                <td>20</td>
-                <td>30</td>
-                <td>30</td>
-                <td>2018-4-18 2018-5-18</td>
-              </tr>
-            </tbody>
-          </table>
-          <div id="pageNav" class="pageNav"></div>
-          <div id="page" align="center" class="page_div"></div>
-        </div>
-        <div class="modal-footer">
-
-          <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-        </div>
-      </div>
-    </div>
-  </div>
   <%= require('html-loader!../layout/js-huiandfroala.html') %>
     <script type="text/javascript" src="../../lib/picreview.js"></script>
 </body>

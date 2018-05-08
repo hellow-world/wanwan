@@ -90,6 +90,9 @@
                         else if(checkImg.test(fileInputs[i].value)&&index==16){
                             previewImg(this,imgDivs[i],750,1054);
                         }
+                        else if(checkImg.test(fileInputs[i].value)&&index==17){
+                            previewImg(this,imgDivs[i],80,80);
+                        }
                         else{
                             alert("只支持上传.jpg .png .bmp .jpeg;你的选择有误");
                             fileInputs[i].value="";
@@ -204,6 +207,10 @@
         var fileInputs_notePic=document.getElementsByClassName("img-btn-noteCover");//文件选择按钮
         var imgDivs_notePic=document.getElementsByClassName("img-container-noteCover");//图片容器
 
+        /*80*80-图片限制-分享链接图片*/
+        var fileInputs_sharePic=document.getElementsByClassName("img-btn-ShareCover");//文件选择按钮
+        var imgDivs_sharePic=document.getElementsByClassName("img-container-ShareCover");//图片容器
+
         selectImg(fileInputs,imgDivs,1);
         selectImg(fileInputs_coverPic,imgDivs_coverPic,2);
         selectImg(fileInputs_topPic,imgDivs_topPic,3);
@@ -215,6 +222,7 @@
         selectImg(fileInputs_infoTitlePic,imgDivs_infoTitlePic,14);
         selectImg(fileInputs_infoCoverPic,imgDivs_infoCoverPic,15);
         selectImg(fileInputs_notePic,imgDivs_notePic,16);
+        selectImg(fileInputs_sharePic,imgDivs_sharePic,17);
         
         
         
