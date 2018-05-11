@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-05 10:02:49
  * @Last Modified by:   admin
- * @Last Modified time: 2018-05-08 17:25:21
+ * @Last Modified time: 2018-05-09 14:14:35
  */
 require('./index.css')
 var config = require('service/config.js')
@@ -384,7 +384,7 @@ var editActivitySubmit = () => {
  * 做延迟1s返回列表
  */
 function backToList() {
-    window.location.go(-1);
+    window.history.go(-1);
 }
 
 // 1.3.2
