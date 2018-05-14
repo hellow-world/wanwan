@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <%= require('html-loader!../layout/lib-froala.html') %>
+        <%= require('html-loader!../layout/lib-head.html') %>
+            <title>公告设置</title>
+</head>
+
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> 运营管理
+        <span class="c-gray en">&gt;</span> 公告添加
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <div class="text-c"> 日期范围：
+            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activitySel_startTime" class="input-text Wdate" style="width:160px;"> -
+            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activitySel_endTime" class="input-text Wdate" style="width:160px;">
+            <button name="" id="selSubmit" class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i> 搜公告</button>
+        </div>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+        <a class="btn btn-primary radius" href="./information-add.html"><i class="Hui-iconfont">&#xe600;</i> 新增公告</a> </span>
+        </div>
+        <table id="activityTable" class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+                <tr class="text-c">
+                    <th id="infoId">活动ID</th>
+                    <th>公告名称</th>
+                    <th>发布时间</th>
+                    <th>类型</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="infoTbody">
+                <tr class="text-c">
+                    <td>1</td>
+                    <td>数据错误</td>
+                    <td>数据错误</td>
+                    <td>数据错误</td>
+                    <td>
+                        <a title='查看' href='javascript:;' class='ml-5' onclick="infoScan(this)" style='text-decoration:none'><i class='Hui-iconfont'>&#xe665;</i></a>
+                        <a title='修改' href='javascript:;' class='ml-5' onclick="infoEdit(this)" style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a>
+                        <a title='删除' href='javascript:;' class='ml-5' onclick="infoDel(this)" style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="pageNav" class="pageNav"></div>
+        <div id="page" align="center" class="page_div"></div>
+    </div>
+    <!-- 查看公告对话框 -->
+    <div id="scanInfoDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-left: 20%;">
+            <div class="modal-content radius" style="width: 1100px">
+                <div class="modal-header">
+                    <h3 class="modal-title">查看公告</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 200px">
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">公告名称：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" class="input-text" readonly="readonly" id="scan_infoName">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">创建时间：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" readonly="readonly" id="scan_createTime" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="input-text Wdate" style="width:160px;">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">权限设置：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <a class='btn' onclick="scanPower();">查看</a>
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">标题图片：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" class="input-text " readonly="readonly" id="scan_titlePic">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">封面图片：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" class="input-text" readonly="readonly" id="scan_coverPic">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">分享图片：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" class="input-text" readonly="readonly" id="scan_sharePic">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">公告内容：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <div id='scan_content' style="margin-top: 10px;margin-left: 0px; width:709px;"></div>
+                                <textarea name="" cols="30" rows="10" id="scan_infoContent" style="border: 1px solid #ddd;width: 100%"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 编辑公告对话框 -->
+    <div id="editInfoDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-left: 20%;">
+            <div class="modal-content radius" style="width: 1100px">
+                <div class="modal-header">
+                    <h3 class="modal-title">编辑公告</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 200px">
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">公告类型：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" class="input-text" readonly="readonly" id="edit_infoType" value="资讯">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">公告名称：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" class="input-text" readonly="readonly" id="edit_infoName">
+                            </div>
+                        </div>
+                        <div class="row cl" style="margin-bottom: 0px;" id="powerUserDis">
+                            <label class="label-power form-label col-xs-4 col-sm-3"><span class="fl">公告角色：</span>
+                                <ul class="powerBox">
+                                    <li class="powerBlock">
+                                        <label class="powerOn">
+                                            <span class="powerName">数据错误时出现</span>
+                                            <span class="powerSet">设置</span>
+                                            <span class="powerEdit">重置</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">列表图片：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <div class="img-container-infoTitle" id="titlePicContainer"></div>
+                                <input class="img-btn-infoTitle" type="file" id="titlePic">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">详情图片：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <div class="img-container-infoCover" id="coverPicContainer"></div>
+                                <input class="img-btn-infoCover" type="file" id="coverPic">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">分享图片：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <div class="img-container-ShareCover" id="sharePicContainer"></div>
+                                <input class="img-btn-ShareCover" type="file" id="sharePic">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">公告内容：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <div id='edit_infoContent' style="margin-top: 10px;margin-left: 0px; width:709px;"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 查看当前权限 -->
+    <div id="scanPower-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">权限设置</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-border table-bordered table-bg table-hover table-sort" style="margin-top: 20px;">
+                        <thead>
+                            <tr class="text-c">
+                                <th>权限名称</th>
+                                <th>发布时间</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ScanPowerbody">
+                            <tr class="text-c">
+                                <td>全部</td>
+                                <td>2018-4-18 2018-5-18</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="pageNav" class="pageNav"></div>
+                    <div id="page" align="center" class="page_div"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 权限设置对话框 -->
+    <div id="addSetPower" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-left: 20%;">
+            <div class="modal-content radius" style="width: 800px">
+                <div class="modal-header">
+                    <h3 class="modal-title">权限设置</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <!-- <article class="page-container"> -->
+                    <form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 200px">
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限名称：</label>
+                            <div class="formControls col-xs-8 col-sm-9" style="padding-left: 0px;">
+                                <input type="text" class="input-text" id="power-input-name" readonly="readonly" data-roleId="-1" style="width:50%">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>发布时间：</label>
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="publish_start_time" class="input-text Wdate" style="width:160px;">
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+                                <input class="btn btn-primary radius" readonly="readonly" value="提交" onclick="setPowerSubmit();">
+                            </div>
+                        </div>
+                    </form>
+                    <!-- </article> -->
+                </div>
+                <div class="modal-footer">
+                    <!-- <button class="btn btn-primary">确定</button> -->
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%= require('html-loader!../layout/js-huiandfroala.html') %>
+        <script type="text/javascript" src="../../lib/picreview.js"></script>
+</body>
+
+</html>

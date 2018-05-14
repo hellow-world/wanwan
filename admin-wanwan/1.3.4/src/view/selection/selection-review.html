@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>内容审核</title>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>
+        <%= htmlWebpackPlugin.options.title%>
+    </title>
+    <%= require('html-loader!../layout/lib-h-ui.html') %>
+        <script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> 运营管理
+        <span class="c-gray en">&gt;</span> 内容审核
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px;margin-left: 20px;" href="javascript::void(0)" title="导出"><i class="Hui-iconfont">&#xe640;</i></a>
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <a class="btn btn-primary radius" href="javascript:;" onclick="javascript:history.back(1);"><i class="Hui-iconfont">&#xe67d;</i> </a>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="r">
+        <a class="btn btn-primary radius" onclick="addOfficialNote();" id="addTip"><i class="Hui-iconfont">&#xe600;</i> 新建帖子</a>
+        </span>
+        </div>
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+                <tr class="text-c">
+                    <th>
+                        <input type="checkbox" name="" value="">
+                    </th>
+                    <th>会员号</th>
+                    <th>描述</th>
+                    <th>昵称</th>
+                    <th>手机号</th>
+                    <th>发布时间</th>
+                    <th>审核状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="selectionTbody">
+                <tr class="text-c">
+                    <td>
+                        <input type="checkbox" value="" name="">
+                    </td>
+                    <td>123456</td>
+                    <td>怪兽大战随国林</td>
+                    <td>123</td>
+                    <td>123123123</td>
+                    <td>2014-6-11 11:11:42</td>
+                    <td>未审核</td>
+                    <td>
+                        <a title="查看" href="javascript:;" class="ml-5" style="text-decoration:none" id="btnScan"><i class="Hui-iconfont">&#xe665;</i></a>
+                        <a title="审核" href="javascript:;" class="ml-5" style="text-decoration:none" id="btnReview"><i class="Hui-iconfont">&#xe637;</i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="pageNav" class="pageNav"></div>
+        <div id="page" align="center" class="page_div"></div>
+        <!-- 对帖子审核对话框 -->
+        <div id="selPost" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:60; margin-top:100px">
+            <div class="modal-dialog">
+                <div class="modal-content radius">
+                    <div class="modal-header">
+                        <h3 class="modal-title">发帖审核</h3>
+                        <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <article class="page-container"> -->
+                        <form class="form form-horizontal" id="form-post-review" style="margin-left: 3%">
+                            <div class="row cl">
+                                <label class="">用户昵称：
+                                    <input type="text" name="nickname" style="width:50%" class="input-text" readonly="readonly">
+                                </label>
+                            </div>
+                            <div class="row cl">
+                                <label class="">发布时间：
+                                    <input type="text" name="createTime" style="width:50%" class="input-text" readonly="readonly">
+                                </label>
+                            </div>
+                            <div class="row cl">
+                                <label class="fl">内容图片：</label>
+                                <ul class="imgList"></ul>
+                            </div>
+                            <div class="row cl">
+                                <label class="">内容描述：
+                                    <input type="text" name="des" id="adsense_title" style="width:50%;" class="input-text" readonly="readonly">
+                                </label>
+                            </div>
+                            <div class="row cl">
+                                <label class="label-pass fl">审核：</label>
+                                <input type="radio" name="isPass" value="1" /> 审核通过
+                                <input type="radio" name="isPass" value="0" /> 审核不通过
+                            </div>
+                        </form>
+                        <!-- </article> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" onclick="reviewSubmit();">确定</button>
+                        <!-- <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button> -->
+                    </div>
+                </div>
+            </div>
+            <div id="imgScan">
+                <i href="javascript:void(0);" class="Hui-iconfont">&#xe6a6;</i>
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- 新增官方帖子对话框 -->
+    <div id="modal-note" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:60; margin-top:100px">
+        <div class="modal-dialog" style="min-width: 1000px;">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">新增官方帖子</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <!-- <article class="page-container"> -->
+                    <form class="form form-horizontal" id="form-post-review" style="margin-left: 3%">
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>发布者：
+                                <input type="text" name="userNickname" style="width:50%" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>发布者头像：
+                                <div style="margin-left: 77px">
+                                    <div class="img-container" id="titlePicContainer"></div>
+                                    <input class="img-btn" type="file" id="titlePic">
+                                </div>
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class="fl"><span class="c-red">*</span>内容图片：</label>
+                            <div style="margin-left: 77px">
+                                <div class="img-container-noteCover" id="coverPicContainer"></div>
+                                <input class="img-btn-noteCover" type="file" id="coverPic">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>内容描述：
+                                <input type="text" name="des" id="noteDescription" style="width:50%;" class="input-text">
+                            </label>
+                        </div>
+                    </form>
+                    <!-- </article> -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="addNoteSubmit();">确定</button>
+                    <!-- <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button> -->
+                </div>
+            </div>
+        </div>
+        <div id="imgScan">
+            <i href="javascript:void(0);" class="Hui-iconfont">&#xe6a6;</i>
+            <img src="" alt="">
+        </div>
+    </div>
+    </div>
+    <%= require('html-loader!../layout/js-huiandfroala.html') %>
+        <script type="text/javascript" src="../../lib/picreview.js"></script>
+</body>
+
+</html>

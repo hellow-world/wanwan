@@ -1,0 +1,193 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+    <%= require('html-loader!../layout/lib-froala.html') %>
+        <%= require('html-loader!../layout/lib-head.html') %>
+            <title>活动添加</title>
+</head>
+<script src="https://dn-bts.qbox.me/sdk/bugtags-1.0.3.js"></script>
+<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.js"></script>
+
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> 活动管理
+        <span class="c-gray en">&gt;</span> 活动添加
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <a class="btn btn-primary radius" href="javascript:;" onclick="javascript:history.back(1);"><i class="Hui-iconfont">&#xe67d;</i> </a>
+        <div tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div>
+                <div id="modalbody" class="modal-body">
+                    <div class="form form-horizontal" id="form-member-add" style="margin-right: 30px;margin-left: 3%">
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>活动名称：
+                                <input type="text" name="" id="activity_title" placeholder="活动名称" style="width:50%" class="input-text" maxlength="10">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class="">活动简介：
+                                <input type="text" name="" id="activity_introduce" placeholder="活动简介限制39个字" maxlength='39' style="width:50%;margin-left: 6px;" class="input-text" maxlength="39">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>活动地点：
+                                <input type="text" name="" id="activity_place" style="width:50%" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>总数上限：
+                                <input type="text" name="" id="activity_maxnum_people" style="width:50%" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class="label-seller"><span class="c-red">*</span>发布商家：
+                                <span class="select-box" style="width: 10%;min-width: 147px;">
+                                    <select class="select sellerUser" size="1" name="seller">
+                                        <option value="1">会员部</option>
+                                        <option value="2">食堂</option>
+                                    </select>
+                                </span>
+                            </label>
+                            <label for="" class="Hui-iconfont">&#xe600;<a href="./activity-publisher.html">添加发布者</a></label>
+                        </div>
+                        <div class="row cl" style="margin-bottom: 0px;">
+                            <label class="label-power"><span class="c-red fl">*</span><span class="fl">权限分组：</span>
+                                <ul class="powerBox">
+                                    <li class="powerBlock">
+                                        <label class="powerOn">
+                                            <span class="powerName">数据错误时出现</span>
+                                            <span class="powerSet">设置</span>
+                                            <span class="powerEdit">重置</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </label>
+                            <label for="" class="Hui-iconfont">&#xe600;<a href="../role/role-sel.html">添加权限</a></label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>是否创建讨论组：</label>
+                            <input type="checkbox" checked="checked" onclick="onClickHander_discussion(this)" id="is_discussion">
+                            <input type="text" name="" id="activity_discussion_admin" placeholder="输入群主uid" class="input-text" style="width: 10%;">
+                            <input type="text" name="" id="activity_discussion_member" placeholder="输入成员uid" class="input-text" style="width: 10%;">
+                            <input type="text" name="" id="activity_discussion_name" placeholder="输入讨论组名称" class="input-text" style="width: 15%;">
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>开始时间：</label>
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activity_start_time" class="input-text Wdate" style="width:200px;"> &nbsp;&nbsp;-&nbsp;&nbsp;
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activity_end_time" class="input-text Wdate" style="width:200px;">
+                        </div>
+                        <div class="row cl">
+                            <label class="">上线/下线(不选默认上线)：</label>
+                            <input type="radio" name="isOnline" id="adOn" value="1" checked/> 上线
+                            <input type="radio" name="isOnline" id="adOff" value="0" /> 下线
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>上架时间：</label>
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activity_online_time" class="input-text Wdate" style="width:200px;">-
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activity_offline_time" class="input-text Wdate" style="width:200px;">
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>列表图片(670x824)：</label>
+                            <form enctype="multipart/form-data" method="post" id="titlePicForm">
+                                <div style="margin-left: 77px">
+                                    <div class="img-container-voteTitle" id="titlePicContainer"></div>
+                                    <input class="img-btn-voteTitle" type="file" id="titlePic">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>封面图片(750x900)：</label>
+                            <div style="margin-left: 77px">
+                                <div class="img-container-activity" id="coverPicContainer"></div>
+                                <input class="img-btn-activity" type="file" id="coverPic">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="">活动介绍：</label>
+                            <div id='activity_content' style="margin-top: 10px;margin-left: 77px; width:709px;"></div>
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left: 22%">
+                                <span id="Tip" style="color: red"></span>
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left: 20%">
+                                <input class="btn btn-primary radius" readonly="readonly" value="新增提交" id="addSubmit" onclick="addActivitySubmit()">
+                            </div>
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left: 20%">
+                                <input class="btn btn-primary radius" readonly="readonly" value="编辑提交" id="editSubmit" onclick="editActivitySubmit()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 权限设置对话框 -->
+    <div id="addSetPower" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-left: 20%;">
+            <div class="modal-content radius" style="width: 800px">
+                <div class="modal-header">
+                    <h3 class="modal-title">权限设置</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <!-- <article class="page-container"> -->
+                    <form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 200px">
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限名称：</label>
+                            <div class="formControls col-xs-8 col-sm-9" style="padding-left: 0px;">
+                                <input type="text" class="input-text" id="power-input-name" readonly="readonly" data-roleId="-1" style="width:50%">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否推送：</label>
+                            <input type="checkbox" checked="checked" onclick="onClickHander(this)" id="is_pushed" style="display: inline-block;">
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" name="" id="notify_content" placeholder="输入推送内容" style="width:100%;" class="input-text">
+                            </div>
+                        </div>
+                        <div class="row cl" id="push_time_div">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span><span style="margin-left: 6.2%"></span></label>
+                            <input type="text" placeholder="选择推送时间" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="push_time" class="input-text Wdate" style="width:160px;">
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>货币数量：</label>
+                            <input type="text" name="" id="money_number" style="width:50%" class="input-text">
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>人数上限：</label>
+                            <input type="text" name="" id="activity_number_people" style="width:50%" class="input-text">
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>携带人数：</label>
+                            <input type="text" name="" id="activity_carrynumber_people" style="width:50%" class="input-text">
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>报名时间：</label>
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="enrol_start_time" class="input-text Wdate" style="width:160px;"> &nbsp;&nbsp;-&nbsp;&nbsp;
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="enrol_end_time" class="input-text Wdate" style="width:160px;">
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+                                <input class="btn btn-primary radius" readonly="readonly" value="提交" onclick="setPowerSubmit();">
+                            </div>
+                        </div>
+                    </form>
+                    <!-- </article> -->
+                </div>
+                <div class="modal-footer">
+                    <!-- <button class="btn btn-primary">确定</button> -->
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%= require('html-loader!../layout/js-huiandfroala.html') %>
+        <script type="text/javascript" src="../../lib/picreview.js"></script>
+</body>
+
+</html>

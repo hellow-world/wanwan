@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <%= require('html-loader!../layout/lib-froala.html') %>
+        <title>添加评选活动</title>
+        <!-- <script src="https://dn-bts.qbox.me/sdk/bugtags-1.0.3.js"></script> -->
+        <script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> 运营管理
+        <span class="c-gray en">&gt;</span> 评选活动添加
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <a class="btn btn-primary radius" href="javascript:;" onclick="javascript:history.back(1);"><i class="Hui-iconfont">&#xe67d;</i> </a>
+        <div tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div>
+                <div id="modalbody" class="modal-body">
+                    <form class="form form-horizontal" id="form-vote-add" style="margin-right: 30px;margin-left: 3%">
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>主标题：
+                                <input type="text" name="voteTitle" id="vote_title" placeholder="10个字以内" maxlength="10" style="width:50%" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>副标题：
+                                <input type="text" name="voteSubTitle" id="vote_subtitle" placeholder="6个字以内" maxlength="6" style="width:50%;" class="input-text">
+                            </label>
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>开始时间：</label>
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="vote_start_time" name="startTime" class="input-text Wdate" style="width:160px;">
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>结束时间：</label>
+                            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="enrol_start_time" name="endTime" class="input-text Wdate" style="width:160px;">
+                        </div>
+                        <div class="row cl">
+                            <label class="">上线/下线：</label>
+                            <input type="radio" name="isOnline" id="adOn" value="1" /> 上线
+                            <input type="radio" name="isOnline" id="adOff" value="0" /> 下线
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>评选类型：</label>
+                            <input type="radio" name="isOfficial" id="adOn" value="2" /> 官方
+                            <input type="radio" name="isOfficial" id="adOff" value="1" checked /> 普通
+                        </div>
+                        <div class="row cl">
+                            <label class=""><span class="c-red">*</span>列表大图(670x824)：</label>
+                            <div style="margin-left: 77px" id="inputPic">
+                                <div class="img-container-voteTitle" id="titlePicContainer"></div>
+                                <input class="img-btn-voteTitle" type="file" id="titlePic" name="voteImg">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="fl"><span class="c-red">*</span>玩法描述：</label>
+                            <textarea name="adRemark" id='vote_content' cols="30" rows="10" placeholder="请在这里填写玩法描述" style="width:300px;border: 1px solid #000;padding: 5px 5px;font-size: 14px;"></textarea>
+                        </div>
+                        <div class="row cl" id="addSubmitBtn">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left:24%">
+                                <input class="btn btn-primary radius" readonly="readonly" id='addSubmit' value="提交" onclick="addVoteSubmit()">
+                            </div>
+                        </div>
+                        <div class="row cl" id="editSubmitBtn">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left:24%;">
+                                <input class="btn btn-primary radius" readonly="readonly" id="submitEdit" value="提交" onclick="editVoteSubmit()">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%= require('html-loader!../layout/js-huiandfroala.html') %>
+        <script type="text/javascript" src="../../lib/picreview.js"></script>
+</body>
+
+</html>

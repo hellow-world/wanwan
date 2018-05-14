@@ -1,0 +1,247 @@
+﻿<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<%= require('html-loader!../layout/lib-h-ui.html') %>
+
+<title>添加竞猜</title>
+</head>
+<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.js"></script> 
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+	<span class="c-gray en">&gt;</span>
+	活动管理
+	<span class="c-gray en">&gt;</span>
+	竞猜活动
+	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="page-container">
+	<a class="btn btn-primary radius" href="javascript:;" onclick="javascript:history.back(1);"><i class="Hui-iconfont">&#xe67d;</i> </a>  
+	<div tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+		<div >
+			<div id="modalbody" class="modal-body">
+				<div class="form form-horizontal" id="form-member-add" style="margin-right: 30px;margin-left: 3%">
+					<div class="row cl">
+							<label class="" ><span class="c-red">*</span>竞猜名称：&nbsp;
+							<input type="text" id="guessName" placeholder="竞猜名称" style="width:50%" class="input-text"></label>
+						
+					</div>
+					<div class="row cl">
+							<label class="" ><span class="c-red">*</span>是否推送：<input type="checkbox" checked="checked" onclick="onClickHander(this)" id="is_pushed">&nbsp;
+							<input type="text" name="" id="notify_content" placeholder="输入推送内容" style="width:49.2%;" class="input-text">
+							</label>
+					</div>
+					<div class="row cl"  id="push_time_div">
+							<label class=""><span class="c-red"></span><span style="margin-left: 6.2%"></span></label>
+								<input type="text" placeholder="选择推送时间" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="push_time" class="input-text Wdate" style="width:160px;">
+					</div>
+					<div class="row cl">
+						<label class=""><span class="c-red">*</span>竞猜时间：</label>
+							<input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="guess_start_time" class="input-text Wdate" style="width:160px;">
+							&nbsp;&nbsp;-&nbsp;&nbsp;
+							<input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="guess_end_time" class="input-text Wdate" style="width:160px;">
+					</div>
+					
+					<div class="row cl">
+						<label class=""><span class="c-red">*</span>开奖时间：</label>
+							<input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="drawLottery_time" class="input-text Wdate" style="width:160px;">
+					</div>
+					
+					<div class="row cl">
+						<label class=""><span class="c-red">*</span>比赛时间：</label>
+							<input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="game_time" class="input-text Wdate" style="width:160px;">
+					</div>
+	       			 
+					<div class="row cl"> 
+						<label class=""><span class="c-red">*</span>竞猜队伍：</label>
+							<div style="margin-left:77px; margin-top:0px; width: 50%">   			
+								<div class="cl pd-5 bg-1 bk-gray mt-20" style="margin-top: 0px;">
+									<span class="l">
+									<a class="btn btn-primary radius" href="javascript:;" id='btn_teamAdd'><i class="Hui-iconfont">&#xe600;</i> 新增队伍</a> </span> 
+								</div>
+								<table id="teamTable" class="table table-border table-bordered table-bg table-hover table-sort">
+									<thead>
+										<tr class="text-c">
+											<th id="">id</th>
+											<th >队伍名称</th>
+											<th >队伍图标</th>
+											<th >操作</th>
+										</tr>
+									</thead>
+									<tbody id="teamTbody">
+										<tr class="text-c">
+											<td>1</td>
+											<td>隋国林</td>
+											<td><img width="100px" src="https://gss3.bdstatic.com/84oSdTum2Q5BphGlnYG/timg?wapp&quality=80&size=b150_150&subsize=20480&cut_x=0&cut_w=0&cut_y=0&cut_h=0&sec=1369815402&srctrace&di=59349059174aa8c8c384eee7cc7aa789&wh_rate=null&src=http%3A%2F%2Fimgsrc.baidu.com%2Fforum%2Fpic%2Fitem%2F6f061d950a7b0208cc7f6b1868d9f2d3562cc891.jpg"></td>
+											<td>
+												<a title="查看" href="javascript:;" class="ml-5 btn_teamScan" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>
+												<a title="修改" href="javascript:;" class="ml-5 btn_teamEdit" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+												<a title="删除" href="javascript:;" class="ml-5 btn_teamDel" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div> 
+					</div>	
+					<div class="row cl"  >
+						<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left:26%">
+							<span id="Tip"  style="color: red"></span>
+						</div>
+					</div>
+					<div class="row cl" id="addSubmitBtn" >
+						<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left:24%">
+							<input class="btn btn-primary radius" readonly="readonly"  id='submitAdd' value="提交">
+						</div>
+					</div>
+					<div class="row cl" id="editSubmitBtn" >
+						<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" style="margin-left:24%">
+							<input class="btn btn-primary radius" readonly="readonly"  id="submitEdit" value="提交">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 添加队伍对话框 -->
+<div id="addTeamDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">添加队伍</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<div class="modal-body">
+				<!-- <article class="page-container"> -->
+					<form action="" method="post" class="form form-horizontal" style="margin-right: 30px">
+						<div class="row cl">
+							<label class="form-label col-xs-4 col-sm-3">队伍名称：</label>
+							<div class="formControls col-xs-8 col-sm-9">
+								<input type="text" class="input-text" id="teamName" >
+							</div>
+						</div>
+					
+					<div class="row cl"  >
+							<label class="form-label col-xs-4 col-sm-3">标题图片：</label>
+								<div class="formControls col-xs-8 col-sm-9">
+									<div class="img-container-teamTitle" id="titlePicContainer" ></div>
+	           						 <input class="img-btn-teamTitle" type="file" id="teamPic" >
+	           					</div>
+       					 </div>
+					
+					<div class="row cl"  >
+							<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+								<span id="Tip_team"  style="color: red"></span>
+							</div>
+						</div>
+						<div class="row cl">
+							<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+								<input class="btn btn-primary radius" readonly="readonly"  id="btn_addTeam" value="提交">
+							</div>
+						</div>
+					</form>
+				<!-- </article> -->
+			</div>
+			<div class="modal-footer">
+				<!-- <button class="btn btn-primary">确定</button> -->
+				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 查看队伍对话框 -->
+<div id="scanTeamDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">查看队伍</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<div class="modal-body">
+				<!-- <article class="page-container"> -->
+					<form action="" method="post" class="form form-horizontal" style="margin-right: 30px">
+						<div class="row cl">
+							<label class="form-label col-xs-4 col-sm-3">队伍名称：</label>
+							<div class="formControls col-xs-8 col-sm-9">
+								<input type="text" readonly="readonly" class="input-text" id="scan_teamName" >
+							</div>
+						</div>
+					
+					<div class="row cl"  >
+							<label class="form-label col-xs-4 col-sm-3">标题图片：</label>
+								<div class="formControls col-xs-8 col-sm-9">
+									<div class="img-container-teamTitle" id="scan_teamTitlePicContainer" ></div>
+									<input class="img-btn-teamTitle" type="file" id="teamPic"  style="display:none">
+	           					</div>
+       					 </div>
+					
+					<div class="row cl"  >
+							<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+								<span id="Tip_team"  style="color: red"></span>
+							</div>
+						</div>
+					</form>
+				<!-- </article> -->
+			</div>
+			<div class="modal-footer">
+				<!-- <button class="btn btn-primary">确定</button> -->
+				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 编辑队伍对话框 -->
+<div id="editTeamDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">编辑队伍</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<div class="modal-body">
+				<!-- <article class="page-container"> -->
+					<form action="" method="post" class="form form-horizontal" style="margin-right: 30px">
+						<div class="row cl">
+							<label class="form-label col-xs-4 col-sm-3">队伍名称：</label>
+							<div class="formControls col-xs-8 col-sm-9">
+								<input type="text" class="input-text" id="edit_teamName" >
+							</div>
+						</div>
+					
+					<div class="row cl"  >
+							<label class="form-label col-xs-4 col-sm-3">标题图片：</label>
+								<div class="formControls col-xs-8 col-sm-9">
+									<div class="img-container-teamTitle" id="edit_teamTitlePicContainer" ></div>
+	           						 <input class="img-btn-teamTitle" type="file" id="edit_teamPic" >
+	           					</div>
+       					 </div>
+					
+					<div class="row cl"  >
+						<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+								<span id="Tip_editTeam"  style="color: red"></span>
+							</div>
+						</div>
+						<div class="row cl">
+							<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+								<input class="btn btn-primary radius" readonly="readonly"  onclick="editTeamSubmit()" value="提交">
+							</div>
+						</div>
+					</form>
+				<!-- </article> -->
+			</div>
+			<div class="modal-footer">
+				<!-- <button class="btn btn-primary">确定</button> -->
+				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+<%= require('html-loader!../layout/js-hui.html') %>
+<script type="text/javascript" src="../../lib/picreview.js"></script>
+</body>
+</html>

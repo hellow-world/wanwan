@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <%= require('html-loader!../layout/lib-froala.html') %>
+        <%= require('html-loader!../layout/lib-head.html') %>
+            <title>活动报名情况</title>
+</head>
+
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> 活动管理
+        <span class="c-gray en">&gt;</span> 活动报名情况
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <a class="btn btn-primary radius" href="javascript:;" onclick="javascript:history.back(1);"><i class="Hui-iconfont">&#xe67d;</i> </a>
+        <div class="text-c"> 日期范围：
+            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activitySel_startTime" class="input-text Wdate" style="width:160px;"> -
+            <input type="text" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="activitySel_endTime" class="input-text Wdate" style="width:160px;">
+            <button name="" id="selSubmit" class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i> 搜人员</button>
+        </div>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="r">
+        <a class="btn btn-success radius" href="javascript:void(0);" onclick="ExportExcel();">导出</a> </span>
+        </div>
+        <table id="activitySignTable" class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+                <tr class="text-c">
+                    <th >活动名称</th>
+                    <th >序号</th>
+                    <th >用户ID</th>
+                    <th >报名时间</th>
+                    <th >昵称</th>
+                    <th >手机号</th>
+                    <th >所属组</th>
+                    <th >携带人数</th>
+                    <th >报名费用</th>
+                </tr>
+            </thead>
+            <tbody id="signTbody">
+                <tr class="text-c">
+                    <td>dadad</td>
+                    <td>0</td>
+                    <td>12</td>
+                    <td>2018-4-19</td>
+                    <td>渣渣辉</td>
+                    <td>18896527017</td>
+                    <td>业主</td>
+                    <td>1</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+
+        </table>
+        <div id="pageNav" class="pageNav"></div>
+        <div id="page" align="center" class="page_div"></div>
+    </div>
+    
+    
+    
+    <%= require('html-loader!../layout/js-hui.html') %>
+</body>
+
+</html>
