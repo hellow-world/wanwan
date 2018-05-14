@@ -9,12 +9,16 @@ var isFirstSel = 0; //是否第一次查询 0不是 1是
 
 var infoObject = new Array; //查询资质大体包
 var roleConfig;
+var roleConfigId;//权限组的ID
 var roleSingle = {
 
     'roleId': 0, //角色ID
     'pushTime': '',
-    'roleName': ''
+    'roleName': '',
+    'id':0
 }
+var roleConfigIndex;
+var infoEditId;
 $(function() {
 
     $('#edit_infoContent').froalaEditor({
@@ -72,6 +76,7 @@ var selInformationList = () => {
         }
     })
 }
+
 function selRoleList() {
     $.ajax({
         url: _config.buildPath + 'api-user/v1.0/role',
@@ -157,6 +162,7 @@ window.infoScan = (obj) => {
 }
 window.infoEdit = (obj) => {
     let id = $(obj).parent('td').siblings('.info-id').text();
+    infoEditId = id;
     let infoSingle;
     for (var i = 0; i < infoObject.length; i++) {
         if (id == infoObject[i].id) {
@@ -164,19 +170,18 @@ window.infoEdit = (obj) => {
         }
     }
     $('#editInfoDia').find('#edit_infoName').val(infoSingle.title)
-    $('#editInfoDia').find('#edit_infoContent').froalaEditor('html.set',infoSingle.content)
+    $('#editInfoDia').find('#edit_infoContent').froalaEditor('html.set', infoSingle.content)
     $('#editInfoDia').find('#titlePicContainer').html(`<img src=${infoSingle.titleImg}>`)
     $('#editInfoDia').find('#coverPicContainer').html(`<img src=${infoSingle.contentImg}>`)
-    if(infoSingle.shareImg == null)
-    {
+    if (infoSingle.shareImg == null) {
         $('#editInfoDia').find('#sharePicContainer').html(`<p>当前图片为空</p>`)
-    }
-    else{
+    } else {
         $('#editInfoDia').find('#sharePicContainer').html(`<img src=${infoSingle.shareImg}>`)
     }
-    
-    $('#editInfoDia').find('#edit_infoContent').froalaEditor('html.set',infoSingle.content)
+
+    $('#editInfoDia').find('#edit_infoContent').froalaEditor('html.set', infoSingle.content)
     roleConfig = JSON.parse(infoSingle.roleConfig)
+    console.log(roleConfig)
     setRoleConfig(roleConfig);
     $('#editInfoDia').modal('show')
 
@@ -271,8 +276,11 @@ function addValuePowerToList(param, roleBox) {
 var setRoleConfig = (arr) => {
     roleConfig = [];
     roleConfig = arr;
+    console.log(roleConfig)
     let label = $('.powerBlock');
     $(label).find('label').removeClass('powerOn');
+    roleConfigId = arr[0].id;
+    console.log(roleConfigId)
     for (var i = 0; i < arr.length; i++) {
         for (var j = 0; j < label.length; j++) {
             let id = $(label[j]).find('label').attr('data-role');
@@ -291,7 +299,7 @@ var setRoleConfig = (arr) => {
 window.editPowerUser = (obj) => {
     let powerId = $(obj).parent('label').attr('data-role');
     let powerName = $(obj).siblings('.powerName').text();
-    for (var i = 0; i < roleSingle.length; i++) {
+    for (var i = 0; i < roleConfig.length; i++) {
         if (roleConfig[i].roleId == powerId) {
             $('#addSetPower').modal('show');
             setValueToEditPower(roleConfig[i], powerName, i)
@@ -303,52 +311,16 @@ var setValueToEditPower = (param, name, index) => {
     roleConfigIndex = index;
     $('#addSetPower').find('#power-input-name').val(name);
     $('#addSetPower').find('#power-input-name').attr('data-roleid', param.roleId);
-    //判断是否推送
-    // if(param.isPush == null)
-    // {
-    //     $('#addSetPower').find('#is_pushed').attr('checked',false);
-    //     $("#notify_content").hide();
-    //     $("#push_time_div").hide();
-    //     notifyContent = "";
-    //     notifyTime = "";
-    //     isPushed = 0;
-    // }
-    // else if(param.isPush == 1)
-    // {
-    //     $('#addSetPower').find('#is_pushed').attr('checked','checked');
-    //     $("#notify_content").show();
-    //     $("#push_time_div").show();
-    //     isPushed = 1;
-    // }
-    if (isEdit) {
-        $('#addSetPower').find('#is_pushed').parent('div.row').hide();
-        $('#addSetPower').find('#push_time_div').hide();
-        $('#addSetPower').find('#enrol_currency').attr('disabled', true)
-    }
-    else
-    {
-        $('#addSetPower').find('#notify_content').val(param.pushContent);
-        $('#addSetPower').find('#push_time').val(_utils.formatDate(param.pushTime));
-    }
-    if (isFirstEdit) {
-        $('#addSetPower').find('#money_number').val(param.enrolCurrencyNum / 100);
-        isFirstEdit = false;
-    } else {
-        $('#addSetPower').find('#money_number').val(param.enrolCurrencyNum);
-    }
+    $('#addSetPower').find('#publish_start_time').val(_utils.formatDate(param.publishStartTime));
 
-    $('#addSetPower').find('#activity_number_people').val(param.enrolMaxPeople);
-    $('#addSetPower').find('#activity_carrynumber_people').val(param.carryNumber);
-    $('#addSetPower').find('#activity_carrynumber_people').val(param.carryNumber);
-    $('#addSetPower').find('#enrol_start_time').val(_utils.formatDate(param.enrolStartTime));
-    $('#addSetPower').find('#enrol_end_time').val(_utils.formatDate(param.enrolEndTime));
 }
 //初始化权限设置序列
 var roleSingleInit = () => {
     roleSingle = {
         'roleId': 0, //角色ID
         'publishStartTime': '', //发布开始时间
-        'roleName': ''
+        'roleName': '',
+        'id':0
 
     }
     $('#addSetPower').find('#power-input-name').val('');
@@ -356,98 +328,65 @@ var roleSingleInit = () => {
 }
 // 权限选择切换
 window.selectPowerUser = (obj) => {
-    if (isEdit) {
-        layer.msg('编辑状态无法切换分组', { time: 800 });
+    layer.msg('编辑状态无法切换分组', { time: 800 });
+    return;
+}
+//设置权限存入暂存数列
+window.setPowerSubmit = () => {
+    //是编辑的话
+    console.log('编辑')
+    if ($('#addSetPower').find('#publish_start_time').val() == '') {
+        _utils.modalalert('发布时间未填写')
         return;
     }
-    let roleId = $(obj).parent('label').attr('data-role');
-    if ($(obj).parent('label').hasClass('powerOn')) {
-        console.log(roleConfig.length)
-        //当权限配置池为空，直接切换
-        if (roleConfig.length < 1) {
-            console.log('配置池为空')
-            $(obj).parent('label').removeClass('powerOn');
-            $(obj).siblings('.powerEdit').hide();
-            $(obj).siblings('.powerSet').text('设置')
-            $(obj).siblings('.powerSet').attr('onclick', 'setPowerUser(this)')
-            return;
-        }
-        // 如果已经在序列就清空该权限的设置
-        if (PowerIsSet(roleId)[0]) {
-            console.log('当前序列已在')
-            layer.open({
-                title: '提醒',
-                shade: 0,
-                content: '当前权限已设置，继续则会清空设置',
-                yes: function(index) {
-
-                    roleConfig.splice(PowerIsSet(roleId)[1]);
-                    _utils.modalTip('该权限设置已清空', 500);
-                    $(obj).parent('label').removeClass('powerOn');
-                    $(obj).siblings('.powerEdit').hide();
-                    $(obj).siblings('.powerSet').text('设置')
-                    $(obj).siblings('.powerSet').attr('onclick', 'setPowerUser(this)')
-                    layer.close(index);
-                    console.log(roleConfig);
-                }
-            })
-
-            return;
-        }
+    roleConfig[roleConfigIndex].publishStartTime = $('#addSetPower').find('#publish_start_time').val();
+    roleConfig[roleConfigIndex].id = roleConfigId;
 
 
-    }
-    if (roleId == -1) {
-        layer.open({
-            title: '提醒',
-            shade: 0,
-            content: '即将清空其余设置，请检查',
-            yes: function(index) {
-                $('.powerBlock').find('label').removeClass('powerOn');
-                $(obj).parent('label').addClass('powerOn');
-                roleConfig = [];
-                $('.powerBlock').find('label .powerEdit').hide();
-                $('.powerBlock').find('label .powerSet').text('设置');
-                layer.close(index);
+    let roleId = $('#addSetPower').find('#power-input-name').attr('data-roleid');
+    // let json = JSON.stringify(roleSingle)
+    console.log(roleConfig)
+    _utils.modalTip('设置成功', 1000)
+    $('#addSetPower').modal('hide');
+
+}
+window.editSubmit = () => {
+    console.log(infoEditId)
+    let formdata = new FormData();
+    let information_content = $('div#edit_infoContent').froalaEditor('html.get');
+    let infocontent = information_content.replace(/style\s*=(['\"\s]?)[^'\"]*?\1/gi, '');
+    let s = infocontent.replace(/width\s*:(['\"\s]?)[^'\"]*?\1/gi, '');
+    formdata.append('content', s);
+    formdata.append('id',infoEditId) 
+    formdata.append("titleImage", document.getElementById("titlePic").files[0]); //资讯标题图片
+    formdata.append("contentImage", document.getElementById("coverPic").files[0]); //资讯封面图
+    formdata.append("shareImage", document.getElementById("sharePic").files[0]); //资讯分享图
+    formdata.append("roleConfig", JSON.stringify(roleConfig));
+    $.ajax({
+        type: 'POST',
+        url: _config.buildPath + 'api-integral/{version}/information/edit',
+        dataType: 'json',
+        data: formdata,
+        processData: false,
+        contentType: false,
+        headers: { 'token': _config.token },
+        success: (res) => {
+            console.log(res);
+            if (res.code != _encode.REQUEST_SUCCESS) {
+                console.log(res.msg)
+                layer.msg('编辑失败')
+            } else {
+                layer.msg('编辑成功')
+                $('#editInfoDia').modal('hide');
+                setTimeout(reload,500)
             }
-        })
-
-    } else if (roleId !== -1) {
-        //权限为全部-1
-        let id = $('.powerBlock').find('label').eq(0).attr('data-role')
-        //当权限设置为空时，直接让全部设置为
-        if (roleConfig.length < 1) {
-            $('.powerBlock').find('label').eq(0).removeClass('powerOn');
-            $('.powerBlock').find('label').eq(0).find('.powerEdit').hide();
-            $('.powerBlock').find('label').eq(0).find('.powerSet').text('设置');
-            $('.powerBlock').find('label').eq(0).find('.powerSet').attr('onclick', 'setPowerUser(this)');
-            $(obj).parent('label').addClass('powerOn');
-            return;
+        },
+        error: (a, b, c) => {
+            alert(a.code)
         }
-        if (PowerIsSet(id)[0]) {
-            layer.open({
-                title: '提醒',
-                shade: 0,
-                content: '当前权限已设置，继续则会清空设置',
-                yes: function(index) {
-                    roleConfig.splice(PowerIsSet(id)[1]);
-                    _utils.modalTip('全部权限已清空', 500);
-                    $('.powerBlock').find('label').eq(0).removeClass('powerOn');
-                    $('.powerBlock').find('label').eq(0).find('.powerEdit').hide();
-                    $('.powerBlock').find('label').eq(0).find('.powerSet').text('设置');
-                    $('.powerBlock').find('label').eq(0).find('.powerSet').attr('onclick', 'setPowerUser(this)');
-                    $(obj).parent('label').addClass('powerOn');
-                    layer.close(index);
-                }
-            })
-        } else {
-            $('.powerBlock').find('label').eq(0).removeClass('powerOn');
-            $('.powerBlock').find('label').eq(0).find('.powerEdit').hide();
-            $('.powerBlock').find('label').eq(0).find('.powerSet').text('设置');
-            $('.powerBlock').find('label').eq(0).find('.powerSet').attr('onclick', 'setPowerUser(this)');
-            $(obj).parent('label').addClass('powerOn');
-        }
-
-    }
-
+    })
+}
+function reload()
+{
+    window.location.reload();
 }

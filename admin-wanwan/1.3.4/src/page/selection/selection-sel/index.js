@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-03-01 09:46:01
  * @Last Modified by:   admin
- * @Last Modified time: 2018-05-04 14:57:17
+ * @Last Modified time: 2018-05-11 11:06:47
  */
 //上下架操作
 var _config = require('service/config.js')
@@ -150,7 +150,7 @@ function addTdToTable(param, behind) {
     {
         res += `<td class='vote_isofficial'>官方</td>`;
     }
-    else if(param.voteType == 1)
+    else if(param.voteType !==2||param.voteType ==1)
     {
         res += `<td class='vote_isofficial'>普通</td>`;
     }

@@ -2,7 +2,7 @@
  * @Author: admin
  * @Date:   2018-02-05 10:02:49
  * @Last Modified by:   admin
- * @Last Modified time: 2018-05-09 09:31:05
+ * @Last Modified time: 2018-05-10 17:57:33
  */
 require('./index.css')
 var config = require('service/config.js')
@@ -36,6 +36,7 @@ roleSingle = {
     'roleName': '随国林'
 }
 $(function() {
+    $('#addSubmit').bind('click')
     isDiscussion = 1;
     $('#activity_content').froalaEditor({
         theme: 'dark',
@@ -58,11 +59,13 @@ $(function() {
         selActivityDetail(actId);
         isEdit = true;
         isFirstEdit = true;
+        $('#is_discussion').parent('div.row').hide();
     } else {
 
         $('#editSubmit').hide();
         $('#addSubmit').show();
         isEdit = false;
+        $('#is_discussion').parent('div.row').show();
     }
 
 });
@@ -100,10 +103,12 @@ var setValueToInput = (param) => {
     setRoleConfig(param.roleConfig);
     let StartTime = _utils.formatDate(param.activityStartTime)
     let EndTime = _utils.formatDate(param.activityEndTime)
-    let onlinTime = _utils.formatDate(param.activityOnlineTime)
+    let onlineTime = _utils.formatDate(param.activityOnlineTime)
+    let offlineTime = _utils.formatDate(param.activityOfflineTime)
     $('#activity_start_time').val(StartTime);
     $('#activity_end_time').val(EndTime);
-    $('#activity_online_time').val(onlinTime);
+    $('#activity_online_time').val(onlineTime);
+    $('#activity_offline_time').val(offlineTime);
     if (param.isOnline == 1) {
         $('input[name=isOnline].addOn').attr('checked', true)
     } else {
@@ -337,6 +342,7 @@ window.addActivitySubmit=function() {
                 console.log(result);
                 if (result.code == _encode.REQUEST_SUCCESS) {
                     modalalert("已成功添加活动");
+                    $('#addSubmit').unbind('click,dbclick')
                     setTimeout(backToList, 1000);
 
                 } else {
