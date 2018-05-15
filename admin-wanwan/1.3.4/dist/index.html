@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="./lib/jquery.cookie.js"></script>
+	<title>后台管理-登录</title>
+<link rel="shortcut icon" href="/dist/favicon.ico">
+<link href="/dist/css/common.css?b861c8073c7dc645855d" rel="stylesheet">
+<link href="/dist/css/login.css" rel="stylesheet">
+</head>
+<body>
+	<div class="login-box">
+		<h1>后台登录</h1>
+		<span id="errorMessage">&emsp;</span>
+		<form id="loginForm">
+			<div class="name">
+				<label>账号：</label>
+					<input autofocus type="text" name="adminAccount" id="account"
+					value = ""  tabindex="1" autocomplete="off" />
+			</div>
+			<div class="password">
+				<label>密码：</label>
+					<input type="password" name="adminPassword"
+					value = "" maxlength="16" id="password" tabindex="2" />
+			</div>
+			<div class="remember">
+			</div>
+			<div class="login">
+				<button type="button" tabindex="5" id="login">登录</button>
+			</div>
+		</form>
+	</div>
+<script type="text/javascript" src="/dist/js/login.js"></script></body>
+</html>

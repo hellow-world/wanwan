@@ -1,0 +1,1 @@
+.imgList li{float:left;width:15%;max-height:87px;overflow:hidden;margin-bottom:10px}.imgList li,.imgList li:nth-child(4n){margin-right:10px}#imgScan{width:600px;z-index:9;display:none;left:30%;overflow:hidden}#imgScan,#imgScan i{position:absolute;top:0}#imgScan i{left:0;color:#fff;font-size:20px}#imgScan img{max-width:60%}

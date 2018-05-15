@@ -1,0 +1,32 @@
+.tgl-btn
+{
+	display: block;
+	width: 4em;
+	height: 2em;
+	background: #888;
+	margin: auto;
+	border-radius: 1em;
+	position: relative;
+	cursor: pointer;
+	transition: all .2s;
+}
+.tgl-btn:after
+{
+	content: "";
+	width: 50%;
+	height: 100%;
+	background: #fff;
+	position: absolute;
+	top: 0;
+	
+	border-radius: 50%;
+	transition: all .2s;
+}
+.tgl-btn.off:after
+{
+	left: 0;
+}
+.tgl-btn.on:after
+{
+	left: 50%;
+}

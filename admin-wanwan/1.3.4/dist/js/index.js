@@ -1,0 +1,1 @@
+webpackJsonp([5],{0:function(n,t,o){n.exports=o(29)},9:function(n,t){},29:function(n,t,o){"use strict";o(9);var e=o(1),s=e.sponsorName;$("#adminName").text(s)}});

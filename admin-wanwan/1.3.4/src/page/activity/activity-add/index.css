@@ -1,0 +1,91 @@
+/*
+* @Author: admin
+* @Date:   2018-04-10 09:20:38
+* @Last Modified by:   admin
+* @Last Modified time: 2018-04-18 11:40:27
+*/
+.label-power .powerBox 
+{
+	float: left;
+	margin-left: 5px;
+}
+.label-power .powerBox li
+{
+	float: left;
+	
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	margin-right: 20px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+.label-power .powerBox li label
+{
+	padding: 10px 0px 10px 25px;
+	color: #b3b3b3;
+	background-color: #efefef;
+	position: relative;
+	font-weight: 300;
+}
+.label-power .powerBox li label:before
+{
+	width: 5px;
+	height: 5px;
+	border-radius: 2.5px;
+	background-color: #ccc;
+	content: '';
+	position: absolute;
+	left: 12px;
+	top: 18px;
+	transition: all .3s;
+
+}
+.label-power .powerBox li label span
+{
+	display: inline-block;
+	cursor: pointer;
+
+}
+.label-power .powerBox li label span.powerSet
+{
+	padding: 2px 5px;
+	background-color: #efefef;
+	color: #b3b3b3;
+	border-radius: 5px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	margin-left: 10px;
+	cursor: pointer;
+	border-left: 2px solid #fff;
+}
+.label-power .powerBox li label span.powerEdit
+{
+	
+	padding: 2px 5px;
+	border-left: 2px solid #fff;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	display: none;
+}
+.label-power .powerBox li label.powerOn
+{
+	color: #fff;
+	background-color: #3498db;
+}
+.label-power .powerBox li label.powerOn:before
+{
+	width: 12px;
+	height: 12px;
+	background-color: none;
+	background: url('../../../image/pass.png') center no-repeat;
+	background-size: contain;
+	top: 13px;
+	left: 8px;
+
+}
+.label-power .powerBox li label.powerOn span.powerSet
+{
+	background-color: #3498db;
+	color: #fff;
+}

@@ -1,0 +1,66 @@
+/*
+* @Author: admin
+* @Date:   2018-01-31 10:28:51
+* @Last Modified by:   admin
+* @Last Modified time: 2018-03-09 18:01:36
+*/
+
+body,ul,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd,input{margin:0;padding:0;}
+html,body{width:100%;height:100%;font-family:"微软雅黑","Microsoft Yahei";box-sizing: border-box;-webkit-box-sizing:border-box;-ms-box-sizing:border-box;}
+img{border:none;max-width: 100%;}
+li{list-style:none;}
+input,select,textarea{outline:none;border:none;background:none;}
+input[type=checkbox]{-webkit-appearance:checkbox;}
+textarea{resize:none;}
+button{border:none;}
+a{text-decoration: none; border:none;}
+a:hover{text-decoration: none;}
+
+/*清除浮动*/
+.clearfix:after{content:"";display: block;clear: both;}
+
+.fl{float: left;}
+.fr{float: right;}
+
+.dis-none{display: none;}
+
+/*切换按钮*/
+.tgl-btn
+{
+	display: block;
+	width: 4em;
+	height: 2em;
+	background: #888;
+	margin: auto;
+	border-radius: 1em;
+	position: relative;
+	cursor: pointer;
+	transition: all .2s;
+}
+.tgl-btn.on
+{
+	background: #199ed8;
+}
+.tgl-btn:after
+{
+	content: "";
+	width: 50%;
+	height: 100%;
+	background: #fff;
+	position: absolute;
+	top: 0;
+	
+	border-radius: 50%;
+	transition: all .2s;
+}
+.tgl-btn.off:after
+{
+	left: 0;
+}
+.tgl-btn.on:after
+{
+	left: 50%;
+}
+
+
+/*常规字体颜色*/

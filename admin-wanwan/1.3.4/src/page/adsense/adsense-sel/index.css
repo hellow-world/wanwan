@@ -1,0 +1,14 @@
+/*
+* @Author: admin
+* @Date:   2018-03-08 17:51:20
+* @Last Modified by:   admin
+* @Last Modified time: 2018-03-14 16:12:11
+*/
+#selSortbody input[name=sortNum]
+{
+	width: 20px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	text-align: center;
+	
+}

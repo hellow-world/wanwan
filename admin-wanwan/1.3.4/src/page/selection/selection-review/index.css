@@ -1,0 +1,41 @@
+/*
+* @Author: admin
+* @Date:   2018-03-12 17:43:56
+* @Last Modified by:   admin
+* @Last Modified time: 2018-03-22 18:03:20
+*/
+.imgList li
+{
+	float: left;
+	width: 15%;
+	max-height: 87px;
+	overflow: hidden;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.imgList li:nth-child(4n)
+{
+	margin-right: 10px;
+}
+#imgScan
+{
+	width: 600px;
+	position: absolute;
+	z-index: 9;
+	display: none;
+	top: 0;
+	left: 30%;
+	overflow: hidden;
+}
+#imgScan i
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+	color: #fff;
+	font-size: 20px;
+}
+#imgScan img
+{
+	max-width: 60%;
+}

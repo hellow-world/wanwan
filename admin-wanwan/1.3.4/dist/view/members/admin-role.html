@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset=utf-8> <meta name=renderer content=webkit|ie-comp|ie-stand> <meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"> <meta name=viewport content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/> <meta http-equiv=Cache-Control content=no-siteapp /> <script src=../../lib/jquery/1.9.1/jquery.min.js></script>
+        <link rel=stylesheet type=text/css href=../../lib/h-ui/css/H-ui.min.css /> <link rel=stylesheet type=text/css href=../../lib/h-ui.admin/css/H-ui.admin.css /> <link rel=stylesheet type=text/css href=../../lib/Hui-iconfont/1.0.8/iconfont.css /> <link rel=stylesheet type=text/css href=../../lib/h-ui.admin/skin/default/skin.css /> <link rel=stylesheet type=text/css href=../../lib/h-ui.admin/css/style.css /> <link rel=stylesheet type=text/css href=../../lib/css-manager/paging.css /> <link rel=stylesheet type=text/css href=../../lib/layer/2.4/skin/layer.css /> 
+
+            <title>角色管理</title>
+<link rel="shortcut icon" href="/dist/favicon.ico"><link href="/dist/css/common.css?7521c50dcc47075c19d8" rel="stylesheet"></head>
+
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 角色管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add()"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a> </span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+        <table class="table table-border table-bordered table-hover table-bg">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="6">角色管理</th>
+                </tr>
+                <tr class="text-c">
+                    <th width="25">
+                        <input type="checkbox" value="" name="">
+                    </th>
+                    <th width="40">ID</th>
+                    <th width="200">角色名</th>
+                    <th>用户列表</th>
+                    <th width="300">描述</th>
+                    <th width="70">操作</th>
+                </tr>
+            </thead>
+            <tbody id="userListTbody">
+                <tr class="text-c">
+                    <td>
+                        <input type="checkbox" value="" name="">
+                    </td>
+                    <td>1</td>
+                    <td>超级管理员</td>
+                    <td><a href="#">admin</a></td>
+                    <td>拥有至高无上的权利</td>
+                    <td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','admin-role-add.html','1')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                </tr>
+                <tr class="text-c">
+                    <td>
+                        <input type="checkbox" value="" name="">
+                    </td>
+                    <td>2</td>
+                    <td>总编</td>
+                    <td><a href="#">张三</a></td>
+                    <td>具有添加、审核、发布、删除内容的权限</td>
+                    <td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','admin-role-add.html','2')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                </tr>
+                <tr class="text-c">
+                    <td>
+                        <input type="checkbox" value="" name="">
+                    </td>
+                    <td>3</td>
+                    <td>栏目主辑</td>
+                    <td><a href="#">李四</a>，<a href="#">王五</a></td>
+                    <td>只对所在栏目具有添加、审核、发布、删除内容的权限</td>
+                    <td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','admin-role-add.html','3')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                </tr>
+                <tr class="text-c">
+                    <td>
+                        <input type="checkbox" value="" name="">
+                    </td>
+                    <td>4</td>
+                    <td>栏目编辑</td>
+                    <td><a href="#">赵六</a>，<a href="#">钱七</a></td>
+                    <td>只对所在栏目具有添加、删除草稿等权利。</td>
+                    <td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','admin-role-add.html','4')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 添加用户对话框 -->
+    <div id="adduserDia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">添加会员</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                   
+                    <form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 30px">
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
+                            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                                <div class="radio-box">
+                                    <input name="sex" type="radio" id="sex-1" checked>
+                                    <label for="sex-1">男</label>
+                                </div>
+                                <div class="radio-box">
+                                    <input type="radio" id="sex-2" name="sex">
+                                    <label for="sex-2">女</label>
+                                </div>
+                                <div class="radio-box">
+                                    <input type="radio" id="sex-3" name="sex">
+                                    <label for="sex-3">保密</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+                            <div class="formControls col-xs-8 col-sm-9" style="width:100">
+                                <input type="text" class="input-text" value="" placeholder="" id="mobile" name="mobile">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" class="input-text" placeholder="@" name="email" id="email">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">附件：</label>
+                            <div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">
+								<input class="input-text upload-url" type="text" name="uploadfile" id="uploadfile" readonly nullmsg="请添加附件！" style="width:200px">
+								<a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>
+								<input type="file" multiple name="file-2" class="input-file">
+								</span> </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">所在城市：</label>
+                            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
+								<select class="select" size="1" name="city">
+									<option value="" selected>请选择城市</option>
+									<option value="1">北京</option>
+									<option value="2">上海</option>
+									<option value="3">广州</option>
+								</select>
+								</span> </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">备注：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <textarea name="beizhu" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+                                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+                                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="/dist/js/base.js?7521c50dcc47075c19d8"></script><script type="text/javascript" src="/dist/js/members/admin-role.js?7521c50dcc47075c19d8"></script></body>
+
+</html>

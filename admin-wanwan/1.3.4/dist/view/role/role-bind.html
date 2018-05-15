@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>角色管理</title>
+    <link rel=stylesheet type=text/css href=../../lib/h-ui/css/H-ui.min.css /> <link rel=stylesheet type=text/css href=../../lib/h-ui.admin/css/H-ui.admin.css /> <link rel=stylesheet type=text/css href=../../lib/Hui-iconfont/1.0.8/iconfont.css /> <link rel=stylesheet type=text/css href=../../lib/h-ui.admin/skin/default/skin.css /> <link rel=stylesheet type=text/css href=../../lib/h-ui.admin/css/style.css /> <link rel=stylesheet type=text/css href=../../lib/css-manager/paging.css /> <link rel=stylesheet type=text/css href=../../lib/layer/2.4/skin/layer.css /> 
+<link rel="shortcut icon" href="/dist/favicon.ico"><link href="/dist/css/common.css?7521c50dcc47075c19d8" rel="stylesheet"></head>
+<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="../../lib/xlsx.full.min.js"></script>
+
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> 权限管理
+        <span class="c-gray en">&gt;</span> 用户绑定
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <a class="btn btn-primary radius" href="javascript:;" onclick="javascript:history.back(1);"><i class="Hui-iconfont">&#xe67d;</i> </a>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+        <a class="btn btn-primary radius" href="javascript:;" onclick="addUsers();"><i class="Hui-iconfont">&#xe600;</i>新增用户</a> </span>
+        </div>
+        <table id="activityTable" class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+                <tr class="text-c">
+                    <th>
+                        <input type="checkbox" name="" value="">
+                    </th>
+                    <th id="roleId">用户ID</th>
+                    <th>用户昵称</th>
+                    <th>用户手机</th>
+                    <th>角色名</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="roleTbody">
+                <tr class="text-c">
+                    <td>暂无数据</td>
+                    <td>暂无数据</td>
+                    <td>暂无数据</td>
+                    <td>暂无数据</td>
+                    <td>暂无数据</td>
+                    <td>暂无数据</td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="pageNav" class="pageNav"></div>
+        <div id="page" align="center" class="page_div"></div>
+    </div>
+    <!-- 新增角色对话框 -->
+    <div id="addUsersModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-left: 20%;">
+            <div class="modal-content radius" style="width: 700px">
+                <div class="modal-header">
+                    <h3 class="modal-title">新增用户</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+                </div>
+                <div class="modal-body">
+                    <!-- <article class="page-container"> -->
+                    <form action="" method="post" class="form form-horizontal" id="form-member-add" style="margin-right: 200px">
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">用户：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" class="input-text" id="telephone">
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-3">Excel上传：</label>
+                            <input type="file" id="users_file" onchange="importf(this)" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">&nbsp;
+                            <a class="btn btn-success radius" style="line-height:1.6em;height: 30px" title="撤销" onclick="cancelExcel()"><i class="Hui-iconfont">&#xe66b;</i></a>
+                            <!-- <a style="color: red" onclick="allUsers()"><span id="allSpan">全体</span></a> -->
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+                                <span id="Tip" style="color: red"></span>
+                            </div>
+                        </div>
+                        <div class="row cl">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" align="center">
+                                <input class="btn btn-primary radius btnRole" readonly="readonly" value="提交添加" onclick="addUsersSubmit();">
+                            </div>
+                        </div>
+                    </form>
+                    <!-- </article> -->
+                </div>
+                <div class="modal-footer">
+                    <!-- <button class="btn btn-primary">确定</button> -->
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="repeat-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">选择商品</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
+                </div>
+                <div class="modal-body">
+                    <p>以下是存在冲突的权限分组及手机号:</p>
+                    <div class="table2excel" data-tablename="Test Table 1">
+                        <table class="table table-border table-bordered table-bg table-hover table-sort" style="margin-top: 20px;">
+                            <thead>
+                                <tr class="text-c">
+                                    <th>已存在分组</th>
+                                    <th>手机号</th>
+                                </tr>
+                            </thead>
+                            <tbody id="selRolebody">
+                                <tr class="text-c">
+                                    <td class="card_id">黑金会员</td>
+                                    <td class="card_name">18896527107</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a class="btn btn-primary radius fr" href="#" onclick="importToExcel();"><i class="Hui-iconfont">导出成EXCEL</i> </a>
+                    <p class="c-red">备注：按下确定的那一刻，默认为将已冲突用户强制编入当前分组！</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="mergeConfirm();">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <h3 class="modal-title">编辑用户</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
+                </div>
+                <div class="modal-body">
+                    <label class="">
+                        <span class="select-box" style="width: 20%;margin-left: 0px;">
+                            <select class="select" size="1" id="role_type" name="roleType">
+                                <option value="0" selected>权限分组</option>
+                                <option value="1">活动</option>
+                                <option value="2">卡券</option>
+                                <option value="3">竞猜</option>
+                                <option value="4">评选</option>
+                            </select>
+                        </span>
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="editConfirm();">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css> <script src=../../lib/h-ui/js/H-ui.js></script> <script src=../../lib/My97DatePicker/4.8/WdatePicker.js></script> <script src=../../lib/codemirror.min.js></script> <script src=../../lib/xml.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/froala_editor.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/align.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/code_beautifier.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/code_view.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/colors.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/draggable.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/emoticons.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/font_size.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/image.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/file.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/image_manager.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/line_breaker.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/link.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/lists.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/paragraph_format.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/paragraph_style.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/video.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/table.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/url.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/entities.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/char_counter.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/inline_style.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/quick_insert.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/save.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/fullscreen.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/plugins/quote.min.js></script> <script charset=utf-8 src=../../lib/froala_editor/js/languages/zh_cn.js></script> <script src=../../lib/paging.js></script> <script src=../../lib/layer/2.4/layer.js></script> <script src=https://unpkg.com/qiniu-js@1.0.24/dist/qiniu.min.js></script>
+        <script type="text/javascript" src="../../lib/picreview.js"></script>
+        <script type="text/javascript" src="../../lib/jquery.table2excel.js"></script>
+<script type="text/javascript" src="/dist/js/base.js?7521c50dcc47075c19d8"></script><script type="text/javascript" src="/dist/js/role/role-bind.js?7521c50dcc47075c19d8"></script></body>
+
+</html>
