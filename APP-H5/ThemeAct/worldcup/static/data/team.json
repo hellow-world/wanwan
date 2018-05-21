@@ -1,0 +1,56 @@
+{
+	"code":200,
+	"msg" :"请求成功",
+	"result":[
+		{"group":"A","teams":[
+			{"id":1, "name":"俄罗斯","imgUrl":"./static/images/teams/Russian@2x.png"},
+			{"id":2, "name":"沙特阿拉伯","imgUrl":"./static/images/teams/Arabia@2x.png"},
+			{"id":3, "name":"埃及","imgUrl":"./static/images/teams/Egypt@2x.png"},
+			{"id":4, "name":"乌拉圭","imgUrl":"./static/images/teams/Uruguay@2x.png"}
+		]},
+		{"group":"B","teams":[
+			{"id":5, "name":"葡萄牙","imgUrl":"./static/images/teams/Portugal@2x.png"},
+			{"id":6, "name":"西班牙","imgUrl":"./static/images/teams/Spain@2x.png"},
+			{"id":7, "name":"摩洛哥","imgUrl":"./static/images/teams/Morocco@2x.png"},
+			{"id":8, "name":"伊朗","imgUrl":"./static/images/teams/Iran@2x.png"}
+		]},
+		{"group":"C","teams":[
+			{"id":9, "name":"法国","imgUrl":"./static/images/teams/France@2x.png"},
+			{"id":10, "name":"澳大利亚","imgUrl":"./static/images/teams/Australia@2x.png"},
+			{"id":11,"name":"秘鲁","imgUrl":"./static/images/teams/Peru@2x.png"},
+			{"id":12,"name":"丹麦","imgUrl":"./static/images/teams/Denmark@2x.png"}
+		]},
+		{"group":"D","teams":[
+			{"id":13,"name":"阿根廷","imgUrl":"./static/images/teams/Argentina@2x.png"},
+			{"id":14,"name":"冰岛","imgUrl":"./static/images/teams/Iceland@2x.png"},
+			{"id":15,"name":"克罗地亚","imgUrl":"./static/images/teams/Croatia@2x.png"},
+			{"id":16,"name":"尼日利亚","imgUrl":"./static/images/teams/Nigeria@2x.png"}
+		]},
+		{"group":"E","teams":[
+			{"id":17, "name":"巴西","imgUrl":"./static/images/teams/Brazil@2x.png"},
+			{"id":18, "name":"瑞士","imgUrl":"./static/images/teams/Switzerland@2x.png"},
+			{"id":19, "name":"哥斯达黎加","imgUrl":"./static/images/teams/Costarica@2x.png"},
+			{"id":20, "name":"塞尔维亚","imgUrl":"./static/images/teams/Serbia@2x.png"}
+		]},
+		{"group":"F","teams":[
+			{"id":21, "name":"德国","imgUrl":"./static/images/teams/Germany@2x.png"},
+			{"id":22, "name":"墨西哥","imgUrl":"./static/images/teams/Mexico@2x.png"},
+			{"id":23, "name":"瑞典","imgUrl":"./static/images/teams/Sweden@2x.png"},
+			{"id":24, "name":"韩国","imgUrl":"./static/images/teams/Korea@2x.png"}
+		]},
+		{"group":"G","teams":[
+			{"id":25, "name":"比利时","imgUrl":"./static/images/teams/Belgium@2x.png"},
+			{"id":26, "name":"巴拿马","imgUrl":"./static/images/teams/Panama@2x.png"},
+			{"id":27, "name":"突尼斯","imgUrl":"./static/images/teams/Tunisia@2x.png"},
+			{"id":28, "name":"英格兰","imgUrl":"./static/images/teams/England@2x.png"}
+		]},
+		{"group":"H","teams":[
+			{"id":29, "name":"波兰","imgUrl":"./static/images/teams/Poland@2x.png"},
+			{"id":30, "name":"塞内加尔","imgUrl":"./static/images/teams/Senegal@2x.png"},
+			{"id":31, "name":"哥伦比亚","imgUrl":"./static/images/teams/Columbia@2x.png"},
+			{"id":32, "name":"日本","imgUrl":"./static/images/teams/Japan@2x.png"}
+		]}
+	]
+
+
+}

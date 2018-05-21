@@ -1,26 +1,34 @@
 <template>
   <div id="home">
+  <transition name="fade">
+    <initPage v-show="!isInit"></initPage>
+  </transition>
+  <div class="content" v-show="isInit">
   <header>
     <span>{{title}}</span>
   </header>
     <navbar></navbar>
     <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
 import NavBar from './common/NavBar'
+import initPage from './common/initPage'
 export default {
 
-  name: 'HelloWorld',
+  name: 'Home',
   data () {
     return {
-      title: '世界杯竞猜'
+      title: '世界杯竞猜',
+      isInit:true
     }
   },
   components:
   {
-    'navbar':NavBar
+    'navbar':NavBar,
+    'initPage':initPage
   }
 }
 </script>

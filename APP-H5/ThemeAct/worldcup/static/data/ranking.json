@@ -1,0 +1,18 @@
+{
+  "code":200,
+  "msg" :"请求成功",
+  "result":[
+    {"ranknum":1,"userAvator":"./static/images/avator.jpg","userName":"捕捉小仙女","rankTime":"2018-06-19 10:22:25","ponits":79},
+    {"ranknum":2,"userAvator":"./static/images/avator.jpg","userName":"捕捉小仙女","rankTime":"2018-06-19 10:22:25","ponits":78},
+    {"ranknum":3,"userAvator":"./static/images/avator.jpg","userName":"捕捉小仙女","rankTime":"2018-06-19 10:22:25","ponits":77},
+    {"ranknum":4,"userAvator":"./static/images/avator.jpg","userName":"捕捉小仙女","rankTime":"2018-06-19 10:22:25","ponits":76},
+    {"ranknum":5,"userAvator":"./static/images/avator.jpg","userName":"捕捉小仙女","rankTime":"2018-06-19 10:22:25","ponits":75},
+    {"ranknum":6,"userAvator":"./static/images/avator.jpg","userName":"捕捉小仙女","rankTime":"2018-06-19 10:22:25","ponits":74},
+    {"ranknum":7,"userAvator":"./static/images/avator.jpg","userName":"捕捉小仙女","rankTime":"2018-06-19 10:22:25","ponits":73},
+    {"ranknum":8,"userAvator":"./static/images/avator.jpg","userName":"捕捉小仙女aa","rankTime":"2018-06-19 10:22:25","ponits":72},
+    {"ranknum":9,"userAvator":"./static/images/avator.jpg","userName":"捕捉小仙女aa","rankTime":"2018-06-19 10:22:25","ponits":71},
+    {"ranknum":10,"userAvator":"./static/images/avator.jpg","userName":"捕捉小仙女","rankTime":"2018-06-19 10:22:25","ponits":70}
+  ]
+
+
+}
