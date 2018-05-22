@@ -115,12 +115,12 @@ export default {
   {
     .gameList
     {
-      width: 6.38rem;
+      width: 100%;
       margin: auto;
       margin-bottom: 0.4rem;
       .gameTitle
       {
-        width: 100%;
+        width: 6.38rem;
         margin: auto;
         height: auto;
         overflow: hidden;

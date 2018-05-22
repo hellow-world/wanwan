@@ -1,9 +1,9 @@
 <template>
   <div id="home">
-  <transition name="fade">
-    <initPage v-show="!isInit"></initPage>
+  <transition name="slide">
+    <initPage v-if="!isInit"></initPage>
   </transition>
-  <div class="content" v-show="isInit">
+  <div class="content" v-if="isInit">
   <header>
     <span>{{title}}</span>
   </header>
@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       title: '世界杯竞猜',
-      isInit:true
+      isInit:false
     }
   },
   components:
@@ -49,4 +49,13 @@ header
     color :#fff;
   }
 }
+  .slide-leave-active
+  {
+    transition: all .3s ease;
+  }
+  .slide-leave-to
+  {
+    opacity: 0;
+    transform: translateX(-7.5rem);
+  }
 </style>
