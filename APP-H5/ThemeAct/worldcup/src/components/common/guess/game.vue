@@ -12,6 +12,17 @@
       </div>
       <group :groupInfo="groupTeam" :groupDate="curDay" :groupIndex="gruopDateNum"></group>
     </div>
+    <div id="eight" class="gameList">
+      <div class="gameTitle group" :class="{'off':isTitleOff}">
+        <div class="title" @click="titleClick">1/8决赛 {{curMonth}}月{{curDay}}日<i class="icon-arrow"></i></div>
+        <div class="gameDate">
+          <ul>
+            <li @click="dateClick(day.Date,$index)" v-for="(day,$index) in groupGame" :class="{'dayActive':$index == gruopDateNum}">{{day.gameStartTime|onlyDay}}</li>
+          </ul>
+        </div>
+      </div>
+      <group :groupInfo="groupTeam" :groupDate="curDay" :groupIndex="gruopDateNum"></group>
+    </div>
   </div>
 </div>
 </template>
@@ -27,7 +38,11 @@ export default {
       isDateOn:false,//点击日期
       curMonth:6,//当前月份
       curDay:14,//当前日
-      groupGame:[],//存储赛事
+      groupGame:[],//存储小组赛事
+      eighthGame:[],//存储八分之一决赛赛事
+      forthGame:[],//存储四分之一
+      halfGame:[],//3/4决赛
+      finalGame:[],//决赛
       groupTeam:[],//存储赛事队伍
       gruopDateNum:0,
       sameGroup:true//同一天是否存在同一组赛事
@@ -41,26 +56,16 @@ export default {
     {
       this.getNowDate(),
       this.getGroupGame()
-      //this.getGames()
     },
   filters:
     {
       onlyDay:function(val)
       {
-        return val.substring(3,5)
+        return val.substring(9,11)
       }
     },
   methods:
     {
-      getGames:function()
-      {
-        console.log(this.usertoken)
-        let _this = this;
-        this.$http.get(basePath+'api-theme/v1.0/worldcup/game/list/all',{headers:{token:usertoken}})
-          .then((res)=>{console.log(res)})
-          .catch((error)=>{console.log(error)})
-
-      },
       titleClick:function () {
         this.isTitleOff = !this.isTitleOff;
       },
@@ -90,14 +95,18 @@ export default {
       },
       getGroupGame:function () {
         let _this = this;
-        this.$http.get('./static/data/gameGroup.json')
+        this.$http.get('./static/data/allGame.json')
           .then((res)=>{
             let list = res.data.result;
-            _this.groupGame = res.data.result;
             for(var i = 0;i<list.length;i++)
             {
-              _this.groupTeam.push(list[i].teams)
+              if(list[i].gameType == 10001)
+              {
+                _this.groupGame.push(list[i])
+              }
+
             }
+            console.log(_this.groupGame)
           })
           .catch((error)=>{console.log(error)})
       }

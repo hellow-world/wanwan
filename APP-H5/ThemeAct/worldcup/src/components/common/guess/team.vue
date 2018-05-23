@@ -110,7 +110,7 @@ export default {
 				width:100%;
 				text-align:center;
 				font-size:0.36rem;
-				font-weight:bold;
+				font-weight:normal;
         margin-bottom: 0.17rem;
 
 			}

@@ -1,5 +1,11 @@
 <template>
-<div id="initPage">
+<div id="initPage" :class="{dis:!isshow}">
+  <!--<div class="light"></div>-->
+  <div class="Title">
+    <div class="text"></div>
+    <div class="colorBar"></div>
+    <div class="flags"></div>
+  </div>
   <div class="football">
     <div class="ball" @click="removePage"></div>
     <div class="shadow"></div>
@@ -20,13 +26,13 @@ export default {
   name: 'initPage',
   data () {
     return {
-
     }
   },
+  props:['isshow'],
   methods:
     {
       removePage:function () {
-        this.$parent.isInit = true;
+        this.$parent.isInitExit = true;
       }
     }
 }
@@ -38,9 +44,66 @@ export default {
   height: 100%;
   overflow: hidden;
   background:url("../../assets/images/initPage/bg.jpg") no-repeat;
+
   background-size: cover;
-position: absolute;
+  position: absolute;
   z-index: 999;
+  opacity: 1;
+  .light
+  {
+    width: 100%;
+    height: 100%;
+    background: url("../../assets/images/initPage/Lights.png") no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+  &.dis
+  {
+    opacity: 0;
+  }
+  .Title
+  {
+    width: 100%;
+    position: relative;
+    height: auto;
+    .flags
+    {
+      width: 7.25rem;
+      height: 2.89rem;
+      background: url("../../assets/images/initPage/flags.png");
+      background-size: cover;
+      position: absolute;
+      top: 2.21rem;
+      left: 0.21rem;
+      z-index: 4;
+    }
+    .text
+    {
+      width: 5.81rem;
+      height: 2.46rem;
+      margin: auto;
+      background: url("../../assets/images/initPage/title.png");
+      background-size: cover;
+      position: absolute;
+      left: .9rem;
+      top: 3.4rem;
+      z-index: 5;
+    }
+    .colorBar
+    {
+      width: 5.29rem;
+      height: 1.26rem;
+      background: url("../../assets/images/initPage/colorBar.png") no-repeat;
+      background-size: cover;
+      position: absolute;
+      top: 4.89rem;
+      left: 1.02rem;
+      z-index: 4;
+    }
+  }
   .btn
   {
     width: 100%;
@@ -101,7 +164,7 @@ position: absolute;
   {
     position: absolute;
     width: 100%;
-    bottom: 2.85rem;
+    bottom: 2.5rem;
     .ball
     {
       width: 3.25rem;
@@ -131,14 +194,12 @@ position: absolute;
 ;}
 }
 @keyframes ballscale {
-  0%{transform:scale(0.1,0.1)};
+  0%{transform:scale(0.1,0.1) rotate(-360deg);}
 100%{
-  transform:scale(1,1)
-;}
+  transform:scale(1,1) rotate(0deg);}
 }
 @keyframes shadowScale {
-  0%{transform: scaleX(1)};
-50%{
+  0%{transform: scaleX(1);}50%{
   transform: scaleX(.8)
 ;}
 100%{transform: scaleX(1)}

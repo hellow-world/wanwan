@@ -1,35 +1,4 @@
 <template>
-  <!--<div id="gameContent">-->
-    <!--<div class="leftGoupMode mode fl" v-show="isShow"></div>-->
-    <!--<v-touch tag="div" v-on:swipeleft="onLeft" class="gameGroupList fl mode">-->
-      <!--<ul>-->
-        <!--<li class="gameContentList" v-for="game in gameList">-->
-          <!--<div class="contentTitle">-->
-            <!--<span class="time fl">{{game.gameTime}}</span>-->
-            <!--<span class="groupName fl">{{game.group}}组</span>-->
-            <!--<span class="gameResult fr">结果:俄罗斯 胜</span>-->
-          <!--</div>-->
-          <!--<div class="contentTeam">-->
-            <!--<ul>-->
-              <!--<li class="leftTeam success">-->
-                <!--<div class="teamFlag"><img src="../../../../assets/images/teams/Russian@2x.png" alt=""></div>-->
-                <!--<span class="teamName">{{game.leftName}} 胜</span>-->
-              <!--</li>-->
-              <!--<li class="middle">-->
-                <!--<span>VS</span>-->
-                <!--<span class="teamName">平</span>-->
-              <!--</li>-->
-              <!--<li class="rightTeam guessed">-->
-                <!--<div class="teamFlag"><img src="../../../../assets/images/teams/Russian@2x.png" alt=""></div>-->
-                <!--<span class="teamName">{{game.rightName}} 胜</span>-->
-              <!--</li>-->
-            <!--</ul>-->
-          <!--</div>-->
-        <!--</li>-->
-      <!--</ul>-->
-    <!--</v-touch>-->
-    <!--<div class="rightGoupMode mode fl" :class="{active:isActive}" v-show="isShow"></div>-->
-  <!--</div>-->
   <div id="gameContent">
     <swiper :options="swiperOption" ref="mySwiper">
       <swiper-slide><div class="slideBox">{{groupIndex}}</div></swiper-slide>
@@ -48,7 +17,9 @@
       return {
         swiperOption:{
           debugger: true,
-          centeredSlides:true
+          centeredSlides:true,
+          slidesPerView:'auto',
+          spaceBetween : '4.26666%',
         }
       }
     },
@@ -90,9 +61,11 @@
       overflow: visible;
       .swiper-slide
       {
+        width: 6.38rem;
+        height: 6.3rem;
         .slideBox
         {
-          width: 6.32rem;
+          width: 6.38rem;
           margin: auto;
           height: 6.3rem;
           background-color: #fff;
@@ -109,7 +82,7 @@
       {
         .slideBox
         {
-          width: 6.32rem;
+          width: 6.38rem;
           margin: auto;
           height: 7.08rem;
           background-color: #fff;

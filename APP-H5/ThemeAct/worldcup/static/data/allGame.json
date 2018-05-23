@@ -1,0 +1,43 @@
+{
+	"code":200,
+	"msg" :"1",
+	"result":[
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":1,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-15 17:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":2,"isDraw":0,"leftTeam":"埃及","leftTeamId":3,"rightTeam":"乌拉圭","rightTeamId":4,"wonTeam":null,"wonTeamId":-1},
+
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"B组","gameStartTime":"2018-06-15 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":7,"isDraw":0,"leftTeam":"葡萄牙","leftTeamId":5,"rightTeam":"西班牙","rightTeamId":6,"wonTeam":null,"wonTeamId":-1},
+
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"B组","gameStartTime":"2018-06-15 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":4,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":5,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":6,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":7,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":8,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":9,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":10,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":11,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":12,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":13,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":14,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":15,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":16,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":17,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":18,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":19,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":20,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":21,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":22,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":23,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":24,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":25,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":26,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":27,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":28,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1},
+    {"createTime":"2018-05-21 14:40:14.0","gameName":"A组","gameStartTime":"2018-06-14 18:00:00","gameType":10001,"guessTeam":null,"guessTeamId":0,"id":29,"isDraw":0,"leftTeam":"俄罗斯","leftTeamId":1,"rightTeam":"沙特阿拉伯","rightTeamId":2,"wonTeam":null,"wonTeamId":-1}
+
+  ]
+
+
+}

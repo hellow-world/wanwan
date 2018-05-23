@@ -28,7 +28,7 @@ Vue.filter('dateFormat',function(val)
   return month + '.' + day + ' ' + hour + ':' + min + ":" + sec;
 })
 //全局变量
-global.usertoken='xgKdSzzSrMLz5wyYzqyRiEPjh4n0whFXAHxI0RRBfEzuEeeHYxN3EzQ3fLyoCBAKOWD+FZFySs+v67lWkRSqQVNOHe1H8xadEExDcO2Lwc3S4x5zPCvvDJfhGmE7IB8C4q+l8MWwEQeJr80KesYFKreQBQWJ9NKZG778A2ld6lY=';
+global.usertoken='HwhfXEE/XB0q9xiywQYeCsvA0hAl4ITiwveWHDkTaMv42fjfW2Tbe8k0F8UMC2GJ210v4SyvMQd5Gmd1LP1dwacSNeBerGU58/5ACmfF3Xhnedjk5XC8dp0IB0jr3VJJGiRrKqwc39DwA1ihq39MuVNg6E1VOKKoy/tozqdBzzk=';
 global.basePath = 'https://api.wanwantech.cn:18443/';
 new Vue({
   el: '#app',
