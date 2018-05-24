@@ -6,22 +6,22 @@
         <div class="title" @click="titleClick">小组赛 {{curMonth}}月{{curDay}}日<i class="icon-arrow"></i></div>
         <div class="gameDate">
           <ul>
-            <li @click="dateClick(day.Date,$index)" v-for="(day,$index) in groupGame" :class="{'dayActive':$index == gruopDateNum}">{{day.Date|onlyDay}}</li>
+            <li @click="dateClick(day,$index)" v-for="(day,$index) in groupDate" :class="{'dayActive':$index == groupDateNum}">{{day}}</li>
           </ul>
         </div>
       </div>
-      <group :groupInfo="groupTeam" :groupDate="curDay" :groupIndex="gruopDateNum"></group>
+      <group :groupInfo="groupGameMock" :groupDate="curDay" :groupIndex="groupDateNum"></group>
     </div>
     <div id="eight" class="gameList">
       <div class="gameTitle group" :class="{'off':isTitleOff}">
         <div class="title" @click="titleClick">1/8决赛 {{curMonth}}月{{curDay}}日<i class="icon-arrow"></i></div>
         <div class="gameDate">
           <ul>
-            <li @click="dateClick(day.Date,$index)" v-for="(day,$index) in groupGame" :class="{'dayActive':$index == gruopDateNum}">{{day.gameStartTime|onlyDay}}</li>
+            <li @click="dateClick(day,$index)" v-for="(day,$index) in groupDate" :class="{'dayActive':$index == groupDateNum}">{{day}}</li>
           </ul>
         </div>
       </div>
-      <group :groupInfo="groupTeam" :groupDate="curDay" :groupIndex="gruopDateNum"></group>
+      <group :groupInfo="groupGame" :groupDate="curDay" :groupIndex="groupDateNum"></group>
     </div>
   </div>
 </div>
@@ -38,14 +38,33 @@ export default {
       isDateOn:false,//点击日期
       curMonth:6,//当前月份
       curDay:14,//当前日
-      groupGame:[],//存储小组赛事
+      groupGame:[
+        {date:14,games:[]},
+        {date:15,games:[]},
+        {date:16,games:[]},
+        {date:17,games:[]},
+        {date:18,games:[]},
+        {date:19,games:[]},
+        {date:20,games:[]},
+        {date:21,games:[]},
+        {date:22,games:[]},
+        {date:23,games:[]},
+        {date:24,games:[]},
+        {date:25,games:[]},
+        {date:26,games:[]},
+        {date:27,games:[]},
+        {date:28,games:[]},
+        {date:29,games:[]}
+      ],//存储小组赛事
       eighthGame:[],//存储八分之一决赛赛事
       forthGame:[],//存储四分之一
       halfGame:[],//3/4决赛
       finalGame:[],//决赛
       groupTeam:[],//存储赛事队伍
-      gruopDateNum:0,
-      sameGroup:true//同一天是否存在同一组赛事
+      groupDateNum:0,
+      sameGroup:true,//同一天是否存在同一组赛事
+      groupDate:[14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29],//小组赛赛程日期
+      groupGameMock:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
     }
   },
   components:
@@ -56,57 +75,89 @@ export default {
     {
       this.getNowDate(),
       this.getGroupGame()
+
     },
+  mounted:function()
+  {
+    this.dateSet()
+  },
   filters:
     {
       onlyDay:function(val)
       {
-        return val.substring(9,11)
+        return val.substring(8,11)
       }
     },
   methods:
     {
+      //默认时间激活
+      dateSet:function()
+      {
+        this.groupDateNum = this.groupDate.indexOf(this.curDay)
+      },
+      //时间框的收缩
       titleClick:function () {
         this.isTitleOff = !this.isTitleOff;
       },
+      //时间选择点击
       dateClick:function(day,index)
       {
-        this.curNum = index;
-        let curday = day.substring(3,5)
-        this.curDay = curday;
-        this.gruopDateNum = index;
+        this.curDay = day;
+        this.groupDateNum = index;
+        console.log(this.groupDateNum)
       },
+      //获取当前时间并处理未到开赛时间
       getNowDate:function()
       {
         let _this = this;
         var date = new Date()
         let month= date.getMonth();
         let day  = date.getDate();
+        console.log(day)
         if(month+1<6)
         {
           _this.curMonth = 6;
-          _this.curDay   = 14;
+            _this.curDay   = 14;
         }
         else
           {
             _this.curMonth = month+1;
-            _this.curDay   = day;
+            if(day<14)
+            {
+              _this.curDay   = 14;
+            }
+            else
+              {
+                _this.curDay   = day;
+              }
+
           }
       },
+      //只保留 日
+      onlyDay:val=>
+      {
+        return parseInt(val.substring(8,11))
+      },
+      //获取小组赛信息
       getGroupGame:function () {
         let _this = this;
         this.$http.get('./static/data/allGame.json')
           .then((res)=>{
             let list = res.data.result;
-            for(var i = 0;i<list.length;i++)
+            let groupTemp = this.groupGame;
+            for(var i = 0;i < groupTemp.length;i++)
             {
-              if(list[i].gameType == 10001)
+              for(var j = 0;j < list.length;j++)
               {
-                _this.groupGame.push(list[i])
+                let g = groupTemp[i].date;
+                let l = _this.onlyDay(list[j].gameStartTime)
+                if(g == l)
+                {
+                  this.groupGame[i].games.push(list[j])
+                }
               }
-
             }
-            console.log(_this.groupGame)
+            console.log(this.groupGame)
           })
           .catch((error)=>{console.log(error)})
       }

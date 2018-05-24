@@ -38,6 +38,9 @@ body {
   -ms-user-select: none;
   user-select: none;
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+  -moz-text-size-adjust: 100% !important;
 }
 
 img {

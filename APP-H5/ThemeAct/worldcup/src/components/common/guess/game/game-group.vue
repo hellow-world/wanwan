@@ -1,10 +1,14 @@
 <template>
   <div id="gameContent">
     <swiper :options="swiperOption" ref="mySwiper">
-      <swiper-slide><div class="slideBox">{{groupIndex}}</div></swiper-slide>
-      <swiper-slide><div class="slideBox">{{groupIndex+1}}</div></swiper-slide>
-      <swiper-slide><div class="slideBox">{{groupIndex+2}}</div></swiper-slide>
-      <swiper-slide><div class="slideBox">{{groupIndex+3}}</div></swiper-slide>
+      <swiper-slide v-for="(game,index) in groupInfo" :key="index">
+        <div class="slideBox">
+          {{game}}
+          <ul>
+            <li v-for="(teamGame,$index) in game.games">{{$index}}</li>
+          </ul>
+        </div>
+      </swiper-slide>
     </swiper>
   </div>
 </template>
@@ -16,11 +20,20 @@
     data() {
       return {
         swiperOption:{
-          debugger: true,
+          initialSlide:this.groupIndex,
+          notNextTick: true,
           centeredSlides:true,
           slidesPerView:'auto',
-          spaceBetween : '4.26666%',
+          spaceBetween : '4%',
+          on:
+            {
+              slideChange:()=>
+              {
+                this.$parent.groupDateNum = this.swiper.activeIndex;
+              }
+            }
         }
+
       }
     },
     components:
@@ -29,14 +42,26 @@
         swiperSlide
       },
     props:['groupInfo','groupDate','groupIndex'],
+    computed:
+      {
+        swiper() {
+          return this.$refs.mySwiper.swiper
+        }
+      },
+    created:function()
+    {
+      console.log(this.groupInfo)
+    },
     mounted:function(){
-
+      console.log(this.groupInfo)
     },
     watch:
       {
         groupIndex(val)
         {
           this.groupIndex = val;
+          this.swiper.slideTo(this.groupIndex);
+
         }
       },
     methods:
@@ -82,6 +107,7 @@
       {
         .slideBox
         {
+          box-sizing: border-box;
           width: 6.38rem;
           margin: auto;
           height: 7.08rem;
@@ -90,7 +116,7 @@
           border-radius: .2rem;
           position: relative;
           top: 0;
-
+          padding: .24rem .16rem .24rem .16rem;
         }
       }
     }
