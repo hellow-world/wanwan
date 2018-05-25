@@ -30,6 +30,7 @@ Vue.filter('dateFormat',function(val)
 //全局变量
 global.usertoken='HwhfXEE/XB0q9xiywQYeCsvA0hAl4ITiwveWHDkTaMv42fjfW2Tbe8k0F8UMC2GJ210v4SyvMQd5Gmd1LP1dwacSNeBerGU58/5ACmfF3Xhnedjk5XC8dp0IB0jr3VJJGiRrKqwc39DwA1ihq39MuVNg6E1VOKKoy/tozqdBzzk=';
 global.basePath = 'https://api.wanwantech.cn:18443/';
+axios.defaults.headers.post['token'] = usertoken;
 new Vue({
   el: '#app',
   router,

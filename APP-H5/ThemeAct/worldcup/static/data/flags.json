@@ -6,7 +6,7 @@
       {"id":1, "name":"俄罗斯","imgUrl":"./static/images/teams/Russian@2x.png"},
       {"id":2, "name":"沙特阿拉伯","imgUrl":"./static/images/teams/Arabia@2x.png"},
       {"id":3, "name":"埃及","imgUrl":"./static/images/teams/Egypt@2x.png"},
-      {"id":4, "name":"乌拉圭","imgUrl":"./static/images/teams/Uruguay@2x.png"}
+      {"id":4, "name":"乌拉圭","imgUrl":"./static/images/teams/Uruguay@2x.png"},
 
       {"id":5, "name":"葡萄牙","imgUrl":"./static/images/teams/Portugal@2x.png"},
       {"id":6, "name":"西班牙","imgUrl":"./static/images/teams/Spain@2x.png"},

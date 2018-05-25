@@ -10,7 +10,7 @@
           </ul>
         </div>
       </div>
-      <group :groupInfo="groupGameMock" :groupDate="curDay" :groupIndex="groupDateNum"></group>
+      <group :groupInfo="groupGame" :groupDate="curDay" :groupIndex="groupDateNum"></group>
     </div>
     <div id="eight" class="gameList">
       <div class="gameTitle group" :class="{'off':isTitleOff}">
